@@ -1,0 +1,87 @@
+<?
+session_start();
+if(isset($_SESSION["userinfo"])){
+	$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);	
+	$mod = explode("_",$nscript);
+	$modulo = $mod[0]."_".$mod[1];
+	$modfrm = $mod[2];
+	$form = $modulo."/".$modfrm.".php";
+	//echo "nscript: ".$nscript." module: ".$modulo." form: ".$form;
+	date_default_timezone_set("America/Mexico_City");
+	include "cnx.php";			
+	include "util_list.php";
+	$conn = getConnection();
+	$usr = $_SESSION["userinfo"]["username"];
+	//$cia = $_SESSION["compania"]["idCompania"];
+	$aut=ValPerPag($usr,$modulo);
+	//$aut=1;
+if ($aut == 1) {
+	include "util_frame.php";
+	$idprs = $_GET["id"];
+	/*
+	$person 	= isset($_SESSION[$modulo]["personalizacion"])?unserialize($_SESSION[$modulo]["personalizacion"]):null;
+	$idper 	= !is_null($person)?$person["cve_pers"]:"";	
+	*/
+	$sql="select * from sis_prs_trj where cve_prs='$idprs'";
+	$arrPer=getDataFromTable($conn,$sql);
+	foreach($arrPer as $per){
+		$trj = $per["cve_trj"];
+		$nom = $per["nom_cli"];
+		$fcn = $per["fec_nac"];
+		$ema = $per["mail_cli"];
+		$tel = $per["tel_cli"];
+		$fis = $per["fiscal_id"];
+		$pic = $per["photo"];
+		//eliminamos data:image/png; y base64, de la cadena que tenemos		               
+		list(, $pic) = explode(';', $pic);
+		list(, $pic) = explode(',', $pic);
+		//Decodificamos $pic codificada en base64.
+		$pic = base64_decode($pic);
+		//escribimos la información obtenida en un archivo
+		$file = "pic_tmp/".$trj.".png";
+		file_put_contents($file, $pic);		
+	}
+	
+$allJS="";	
+getHeaderFrm("Personalizacion", $allJS); 
+?>
+<form action = "<? echo $form; ?>" method="POST" >
+<input type="hidden" name="idPers" value="<?php echo $id; ?>" />
+	<div class="modal-body">
+	<? if ($pic == "") {?>
+	<div class="row"><div class="col" align="center"><img class="rounded-circle img-fluid shadow" src="http://cnf.prepay.com.mx/assets/img/1234566.jpg" loading="auto"></div></div>
+	<? } else {?>
+	<div class="row"><div class="col" align="center"><img class="rounded-circle img-fluid shadow" src="<? echo $file; ?>" loading="auto"></div></div>
+	<? } ?>
+	<div class="row"><div class="col"><strong>Nombre:</strong><input type="text" style="width: 100%;" id="pernom" name="pernom" value="<? echo $nom; ?>" readonly></div></div>
+	<div class="row"><div class="col"><strong>Fecha Nacimiento: </strong><input type="date" style="width: 100%;" id="perfn" name="perfn" value="<? echo $fcn; ?>" readonly></div></div>	
+	<div class="row"><div class="col"><strong>Correo:</strong><input type="text" style="width: 100%;" id="permail" name="permail" value="<? echo $ema; ?>" readonly></div></div>
+	<div class="row"><div class="col"><strong>Telefono:</strong><input type="text" style="width: 100%;" id="pertel" name="pertel" value="<? echo $tel; ?>" readonly></div></div>
+	<div class="row"><div class="col"><strong>RFC:</strong><input type="text" style="width: 100%;" id="perfis" name="perfis" value="<? echo $fis; ?>" readonly></div></div>
+	</div>
+	<!--<p class="text-center" style="background-color: #ff6b00;color: rgb(255,255,255);" id="mensajeaccioncosto" ><? //echo $_SESSION["personalizacion"]["message"];?></p>
+	<div class="modal-footer" style="height: 65px;">!-->
+		<?php/*
+		if(empty($idCosto)){
+			$transaction = "Agregar";
+		}else{
+			$transaction = "Actualizar";
+		}*/						
+		?>
+		<!--<p class="text-right"><input class="btn btn-success" style="margin: 9px;margin-left: 5px;width: 100%;" name="btn<?php echo $transaction; ?>" type="submit" value="<?php echo $transaction; ?>"></p>
+		</div>
+	</div>!-->
+</form>
+
+<?
+if(isset($_SESSION[$modfrm])){
+	unset($_SESSION[$modfrm]);
+}
+getFooterFrm(); 
+} else {
+	header("Location: ./main.phtml");
+}
+}else{
+	header("Location: .");
+}
+?>

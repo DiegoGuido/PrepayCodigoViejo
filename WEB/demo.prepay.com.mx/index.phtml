@@ -1,0 +1,73 @@
+<?php
+session_start();
+if(isset($_SESSION["loginreply"]) && $_SESSION["loginreply"]["error"]== 1){
+	$msgColor = "yellow";
+	$msgText = $_SESSION["loginreply"]["message"];
+	$formAnim = "class='shake animated'";
+	unset($_SESSION["loginreply"]);	
+}else{
+	$msgText = "";
+	$msgColor = "white";
+	$arrAnim=array();
+	array_push($arrAnim,"data-aos='fade' data-aos-duration='500' data-aos-delay='100'");
+	array_push($arrAnim,"class='fadeInLeftBig animated'");
+	array_push($arrAnim,"class='flipInY animated'");
+	array_push($arrAnim,"class='bounceInLeft animated'");
+	array_push($arrAnim,"class='tada animated'");
+	array_push($arrAnim,"class='rubberBand animated'");
+	array_push($arrAnim,"class='pulse animated'");
+	array_push($arrAnim,"class='jello animated'");
+	array_push($arrAnim,"class='bounceIn animated'");
+	array_push($arrAnim,"class='rollIn animated'");
+	array_push($arrAnim,"class='rotateInDownLeft animated'");
+	$idx = rand(0,count($arrAnim)-1);
+	$formAnim = $arrAnim[$idx];
+}
+$path = $_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+//echo "path: ".$path;
+$url = explode("/",$path);
+if($url[0] == "prepay.com.mx") {
+    $sitio = strtoupper($url[1]);
+} else { 
+	$url = explode(".",$path);
+	$sitio = strtoupper($url[0]);
+}
+
+?>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Prepay - <? echo $sitio; ?></title>
+    <link rel="stylesheet" href="http://cnf.prepay.com.mx/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cnf.prepay.com.mx/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+    <link rel="stylesheet" href="http://cnf.prepay.com.mx/assets/css/styles.min.css">
+	<link rel="shortcut icon" type="image/x-icon" href="http://cnf.prepay.com.mx/assets/img/prepay-icon.png" />
+</head>
+
+<body style="background-image: url(http://cnf.prepay.com.mx/assets/img/star-sky.jpg);background-position: center center;background-repeat: no-repeat; background-attachment: fixed;background-size: cover; background-color: #464646;">
+    <div class="login-clean" style="background-color: rgba(241,247,252,0);">
+        <form <?php echo $formAnim; ?> method="post" action="login.php" style="background-color: rgba(47,47,47,0.58);">
+            
+            <div class="form-group">
+                <p class="text-center"><img src="http://cnf.prepay.com.mx/assets/img/prepay-vertical.png " width="180" height="100"></p><input class="form-control" type="text" name="lgnusername" id="lgnusername"  maxlength="10" placeholder="Usuario">
+			</div>
+            <div class="form-group">
+				<input class="form-control" type="password" name="lgnpassword" id="lgnpassword"  maxlength="10" placeholder="Contraseña">
+			</div>
+			
+			<div id="loginMessage" style="text-align:center;color:<?php echo $msgColor; ?>"><?php echo $msgText; ?></div>
+            <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="background-color: rgb(24,165,88);">Ingresar</button></div><a class="text-center forgot" href="#" style="color: rgb(255,255,255);font-size: 14px;">Problemas al ingresar?</a></form>
+    </div>
+    <script src="http://cnf.prepay.com.mx/assets/js/jquery.min.js"></script>
+    <script src="http://cnf.prepay.com.mx/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+    <script src="http://cnf.prepay.com.mx/assets/js/script.min.js"></script>
+</body>
+
+</html>

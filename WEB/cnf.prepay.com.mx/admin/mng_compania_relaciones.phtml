@@ -1,0 +1,135 @@
+<?
+session_start();
+if(isset($_SESSION["userinfo"])){
+	$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);	
+	$mod = explode("_",$nscript);
+	$modulo = $mod[0]."_".$mod[1];
+	$modfrm = $mod[2];
+	$form = $modulo."/".$modfrm.".php";
+	//echo "nscript: ".$nscript." module: ".$modulo." form: ".$form;
+	date_default_timezone_set("America/Mexico_City");
+	include "cnx.php";			
+	include "util_list.php";
+	$conn = getConnection();
+	$usr = $_SESSION["userinfo"]["username"];
+	$cia = $_SESSION["compania"]["idCompania"];
+	$aut=ValPerPag($usr,$modulo);
+	//$aut=1;
+if ($aut == 1) {
+	include "util_frame.php";
+	
+	$relacion 		= isset($_SESSION[$modulo]["relaciones"])?unserialize($_SESSION[$modulo]["relaciones"]):null;
+	$idRelacion 	= !is_null($relacion)?$relacion["cve_reg"]:"";
+	$ciarel		= !empty($relacion)?$relacion["cve_cia_rel"]:"";
+	$descia		= !empty($relacion)?$relacion["des_cia"]:"- Seleccione Relacion -";	
+	$status 	= !is_null($relacion)?$relacion["stt_rel"]:"";		
+	//echo "relaciones: ".print_r($relacion)." pct: ".$porcentaje;
+
+	
+
+$jsActivo = "
+<script type='text/javascript'>function setActivo(o){
+	if(document.getElementById('status').value=='A'){
+		document.getElementById('status').value='I';
+		document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/off.png';
+	}else{
+		document.getElementById('status').value='A';
+		document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/on.png';
+	}
+}</script>";
+
+$allJS="";
+$allJS .= $jsActivo;
+	
+getHeaderFrm("Relacion Compania", $allJS); 
+$sqlrel="select cve_cia, des_cia from cat_cia where cve_cia != '$cia' and cve_cia not in (select cve_cia_rel from cat_cia_rel where cve_cia='$cia' and stt_rel='A')";
+//echo $sqlrel;
+?>
+<form action = "<? echo $form; ?>" method="POST" >
+<input type="hidden" id="idRelacion" name="idRelacion" value="<?php echo $idRelacion; ?>" />
+	<div class="modal-body">
+	<div class="row">
+		<div class="col"><strong>Relacion</strong>							
+		<select style="width: 100%;" id="relacion" name="relacion" required >
+		<option value="<? echo $ciarel; ?>"><? echo $descia; ?></option>		
+		<?
+		if (empty($relacion)){
+		$arrDat = getDataFromTable($conn,$sqlrel);
+		foreach($arrDat as $dat){
+		?>
+		<option value="<? echo $dat["cve_cia"]; ?>"><? echo $dat["des_cia"]; ?></option>
+		<? }} ?>
+		</select>					
+		</div>		
+		<div class="col"><strong>Activa</strong>
+		<p><img id = "onoff" src='http://cnf.prepay.com.mx/assets/img/<?php echo empty($status)?"inter":($status=="I"?"off":"on"); ?>.png' onclick = "setActivo(this)" height='40' /></p>
+		<input id= "status" name= "status" type="hidden" value="<?php echo $status; ?>" />
+		</div>
+	</div>
+	<hr>
+	</div>
+	<p class="text-center" style="background-color: #ff6b00;color: rgb(255,255,255);" id="mensajeaccionrelacion" ><? echo $_SESSION["relaciones"]["message"];?></p>
+	<div class="modal-footer" style="height: 65px;">
+		<?php
+		if(empty($idRelacion)){
+			$transaction = "Agregar";
+		}else{
+			$transaction = "Actualizar";
+		}						
+		?>
+		<p class="text-right"><input class="btn btn-success" style="margin: 9px;margin-left: 5px;width: 100%;" name="btn<?php echo $transaction; ?>" type="submit" value="<?php echo $transaction; ?>"></p>
+		</div>
+	</div>
+</form>
+<div class="col-md-12 search-table-col" style="margin: 10px 0px 0px;">
+     <div class="table-responsive table-bordered table table-hover table-bordered results">
+         <table class="table table-bordered table-hover">
+             <thead class="bill-header cs" style="color: rgb(29,42,159);">
+                 <tr style="color: rgb(229,230,242);background-color: rgb(24,165,88);">                     
+                     <th id="trs-hd" class="col-lg-2">Id. Relacion</th>
+					 <th id="trs-hd" class="col-lg-2">Relacion</th>
+					 <th id="trs-hd" class="col-lg-2">Fecha Captura</th>
+                     <th id="trs-hd" class="col-lg-2">Acciones</th>					 
+                 </tr>
+             </thead>
+             <tbody>
+                 <tr class="warning no-result">
+                     <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No hay Resultados !!!</td>
+                 </tr>
+			<?
+			$sql="select a.cve_reg,a.cve_cia_rel,b.des_cia,a.stt_rel,a.fec_cap from cat_cia_rel a, cat_cia b where a.cve_cia_rel=b.cve_cia and a.cve_cia='$cia'";
+			$arrDat = getDataFromTable($conn,$sql);
+			foreach($arrDat as $dat){
+			?>
+                <tr>
+				  <td><? echo $dat["cve_reg"] ?></td>
+                  <td><? echo $dat["des_cia"] ?></td>
+				  <td><? echo $dat["fec_cap"] ?></td>
+				  <td data-label="...">				    
+					<? 					
+					echo "<img src='http://cnf.prepay.com.mx/assets/img/".($dat["stt_rel"]=="I"?"off":"on").".png' height='40' />";
+					if ($cia != $dat["cve_cia_rel"]) {
+						if ($dat["stt_rel"] == "A") {
+							echo "<button class='btn btn-success' style='margin-left: 5px;' type='submit' onclick = \"location.href = '$modulo/$modfrm.php?u=".$dat["cve_reg"]."';\"'><i class='fa fa-edit' style='font-size: 15px;' ></i></button>";
+						}
+					}
+					?>
+				  </td>				  
+                </tr>
+			<? } ?>
+             </tbody>
+         </table>
+     </div>
+ </div>
+<?
+if(isset($_SESSION[$modfrm])){
+	unset($_SESSION[$modfrm]);
+}
+getFooterFrm(); 
+} else {
+	header("Location: ./main.phtml");
+}
+}else{
+	header("Location: .");
+}
+?>

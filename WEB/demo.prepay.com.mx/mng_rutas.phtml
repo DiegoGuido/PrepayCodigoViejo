@@ -1,0 +1,640 @@
+<?php
+session_start();
+if(isset($_SESSION["userinfo"])){
+	$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+	date_default_timezone_set("America/Mexico_City");
+	include "/home/envdtsme/cnf.prepay.com.mx/credentials/google/GLOBAL_API_KEY.php";
+	include "cnx.php";			
+	include "util_list.php";
+	require "$nscript/ruta.php";
+	$conn = getConnection();
+	$usr = $_SESSION["userinfo"]["username"];
+	$cia = $_SESSION["userinfo"]["usercia"];
+	$aut=ValPerPag($usr,$nscript);
+	$googleKeys = new GoogleConstantsKeys();
+	$apiKey = $googleKeys::GEOLOCATION_API_KEY;
+	//echo "apikey: ".$apikey;
+	//echo $nscript;
+
+if ($aut == 1) {
+	include "util_header.php";
+	
+	
+	$ruta = isset($_SESSION[$nscript]["ruta"])?unserialize($_SESSION[$nscript]["ruta"]):null;
+	$idRuta 	= !is_null($ruta)?$ruta->idRuta:"";
+	$idLinea 	= !is_null($ruta)?$ruta->idLinea:"";
+	$nomruta	= !is_null($ruta)?$ruta->ruta:"";
+	$origen 	= !is_null($ruta)?$ruta->origen:"";
+	$destino 	= !is_null($ruta)?$ruta->destino:"";
+	$tiempohrs	= !is_null($ruta)?explode(":",$ruta->tiempo)[0]:"";
+	$tiempomin	= !is_null($ruta)?explode(":",$ruta->tiempo)[1]:"";
+	$kms 		= !is_null($ruta)?$ruta->kms:"";
+	$status 	= !is_null($ruta)?$ruta->status:"";	
+	$_SESSION["mngrutas"]["idRuta"] = $idRuta;
+	//echo "modulo: ".$nscript." ruta: ".$_SESSION["mngrutas"]["idRuta"];
+//}
+$jsModal1 = "
+		<script type='text/javascript'>
+    $(window).on('load',function(){
+        $('#myModal').modal('show');
+    });
+</script>";
+$jsActivo = "
+<script type='text/javascript'>function setActivo(o){
+			if(document.getElementById('status').value=='A'){
+				document.getElementById('status').value='I';
+				document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/off.png';
+			}else{
+				document.getElementById('status').value='A';
+				document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/on.png';
+			}
+		}</script>";
+$jsTarifasModal="<script type='text/javascript'> 
+		$.ajaxSetup({'beforeSend' : function(xhr) {try{xhr.overrideMimeType('text/html; charset=iso-8859-1');}catch(e){}	}});
+		function showTarifas(idr){
+			$('#tarifasModal').modal('show');
+			$.post('async_tarifas.php',{param_idruta:idr}).done(
+				function(data){ 
+					$('#listaTarifas').html(data.split('|')[1]);
+				});
+		}
+</script>";
+$jsCoordenadasModal="<script type='text/javascript'> 
+		$.ajaxSetup({'beforeSend' : function(xhr) {try{xhr.overrideMimeType('text/html; charset=iso-8859-1');}catch(e){}	}});
+		function showCoordenadas(idr){
+			$('#coordenadasModal').modal('show');
+			var coordenada = new Object();
+			
+			coordenada.idruta = idr;
+			$.post('async_coordenadas.php',{param_coordenada:btoa(JSON.stringify(coordenada))}).done(
+				function(data){ 
+					$('#listaCoordenadas').html(data.split('|')[1]);
+				});
+		}
+</script>";
+
+$jsModosModal="<script type='text/javascript'> 
+		$.ajaxSetup({'beforeSend' : function(xhr) {try{xhr.overrideMimeType('text/html; charset=iso-8859-1');}catch(e){}	}});
+		function showModos(idr){
+			$('#modosModal').modal('show');
+			$.post('async_modos.php',{param_idruta:idr}).done(
+				function(data){ 
+					$('#listaModos').html(data.split('|')[1]);
+				});
+		}
+</script>";		
+
+$allJS="";
+$allJS .= isset($_SESSION[$nscript]["message"])?$jsModal1:"";
+$allJS .= $jsActivo;
+$allJS .= $jsTarifasModal;
+$allJS .= $jsCoordenadasModal;
+$allJS .= $jsModosModal;
+if(!is_null($idRuta)){
+	$allJS .="<script type='text/javascript'>";
+	$allJS .= "$.ajaxSetup({'beforeSend' : function(xhr) {try{xhr.overrideMimeType('text/html; charset=iso-8859-1');}catch(e){}	}}); ";
+	$allJS .= "  function mng_tarifas(){
+				var idtarifa 	= $('#modaltarifa').val();
+				var ruta 	= '$idRuta';
+				var km_ini 	= $('#km_ini').val();
+				var km_fin 	= $('#km_fin').val();
+				var monto 	= $('#monto').val();
+				var stt 	= $('#statustarifa').is(':checked')?'A':'I';
+				var pred 	= $('#tarpred').is(':checked')?'Y':'N';
+				var trx 	= $('#transaccionTarifas').val();
+				var validate = true;
+				if(km_ini==''){
+					$('#mensajeacciontarifa').html('Ingresa un KM inicial');
+					validate = false;
+				}else{
+					if(km_fin==''){
+						$('#mensajeacciontarifa').html('Ingresa un KM final');
+						validate = false;
+					}else{
+						if(monto=='' || isNaN(monto) || monto < 0){
+							$('#mensajeacciontarifa').html('Ingresa un monto válido');
+							validate = false;
+						}
+					}
+				}
+				if(validate){
+					$.post('async_tarifas.php',{param_idtarifa:idtarifa,param_idruta:ruta,param_km_ini:km_ini,param_km_fin:km_fin,param_monto:monto,param_stt:stt,param_pred:pred,param_trx:trx }).done(
+					function(data){ 
+						if(data.split('|')[0] > 0){
+							$('#modaltarifa').val(data.split('|')[0]);
+							$('#mensajeacciontarifa').html('Ruta agregada correctamente con folio '+data.split('|')[0]);
+						}else{
+							$('#mensajeacciontarifa').html(data.split('|')[0]);
+						}
+						
+						$('#listaTarifas').html(data.split('|')[1]);
+						$('#btnAccionTarifa').html('Actualizar');
+						$('#transaccionTarifas').val('update');
+					});
+				}
+			}
+			function mng_coordinates(){
+				var idcoordenada 	= $('#modalcoordenada').val();
+				var idruta 	= '$idRuta';
+				var desccoordinates 	= $('#desccoordinates').val();
+				var latitude 		= $('#latitude').val();
+				var longitude 		= $('#longitude').val();
+				var geofence 		= $('#geofence').val();
+				var coordinatetype 	= $('#coordinatetype').val();
+				var tar1			= $('#tar1').val();
+				var tar2			= $('#tar2').val();
+			
+				var statuscoordenada 	= $('#statuscoordenada').is(':checked')?'A':'I';
+				var trx 	= $('#transaccionCoordenadas').val();
+				var validate = true;
+				if(desccoordinates==''){
+					$('#mensajeaccioncoordenada').html('Error: Ingresa una descripción de coordenada');
+					validate = false;
+				}else{
+					if(latitude==''){
+						$('#mensajeaccioncoordenada').html('Error: Latitud no puede ser vacía');
+						validate = false;
+					}else{
+						if(longitude==''){
+							$('#mensajeaccioncoordenada').html('Error: Longitud no puede ser vacía');
+							validate = false;
+						}else{
+							if(geofence==''){
+								$('#mensajeaccioncoordenada').html('Error: Selecciona un radio para la geocerca.');
+								validate = false;
+							}else{
+								if(coordinatetype==''){
+									$('#mensajeaccioncoordenada').html('Error: Selecciona tipo de coordenada.');
+									validate = false;
+								}else{
+									if(tar1==''){
+										$('#mensajeacciontar1').html('Error: Selecciona tarifa.');
+										validate = false;
+									}
+								}
+							}
+						}
+					}
+				}
+				if(validate){
+					var coordenada = new Object();
+					coordenada.idcoordenada = idcoordenada;
+					coordenada.idruta = idruta;
+					coordenada.desccoordinates = desccoordinates;
+					coordenada.latitude = latitude;
+					coordenada.longitude = longitude;
+					coordenada.geofence = geofence;
+					coordenada.coordinatetype = coordinatetype;
+					coordenada.tar1 = tar1;
+					coordenada.statuscoordenada = statuscoordenada;
+					$.post('async_coordenadas.php',{param_coordenada:btoa(JSON.stringify(coordenada)),param_trx:trx }).done(
+					function(data){ 
+						if(data.split('|')[0] >= 0){
+							$('#modalcoordenada').val(data.split('|')[0]);
+							fillCoordinates('');
+							if(statuscoordenada=='add'){
+								$('#mensajeaccioncoordenada').html('Coordenada agregada correctamente con folio '+data.split('|')[0]+'.');
+								$('#mensajeaccioncoordenada').css('background-color', 'green');
+							}else{
+								if(data.split('|')[0] == 0){
+									$('#mensajeaccioncoordenada').html('Coordenada permanece sin cambios.');
+									$('#mensajeaccioncoordenada').css('background-color', 'yellow');
+								}else{
+									$('#mensajeaccioncoordenada').html('Coordenada actualizada correctamente.');
+									$('#mensajeaccioncoordenada').css('background-color', 'green');
+								}
+							}
+							
+						}else{
+							$('#mensajeaccioncoordenada').html('Error: '+data.split('|')[0]);
+							$('#mensajeaccioncoordenada').css('background-color', 'red');
+						}
+						
+						$('#listaCoordenadas').html(data.split('|')[1]);
+					
+					});
+				}else{
+					
+					$('#mensajeaccioncoordenada').css('background-color', 'red');
+				}
+			}
+			$('#coordenadasModal').animate({ scrollTop: 0 }, 'slow');
+			";
+	$allJS .= "</script>";
+}
+$jsFillRoute="<script type='text/javascript'>
+function fillFields(idt){
+	if(idt != ''){
+		var data = $('#datarate'+idt).val();		
+		go2Top('tarifasModal');
+	}else{
+		var data = idt+'------';
+	}
+	var aData=data.split('-');
+	$('#modaltarifa').val(aData[0]);
+	$('#rutatarifa').val(aData[1]);
+	$('#km_ini').val(aData[2]);
+	$('#km_fin').val(aData[3]);
+	$('#monto').val(aData[4]);
+	$('#statustarifa').prop('checked', (aData[5]=='A'));
+	$('#tarpred').prop('checked', (aData[6]=='Y'));
+	$('#btnAccionTarifa').html(aData[0]==''?'Agregar':'Actualizar');
+	$('#transaccionTarifas').val(aData[0]==''?'add':'update');
+	$('#mensajeacciontarifa').html('');
+	var targetElem = document.getElementById('enterpaneltarifas');
+	targetElem.scrollIntoView();
+
+}
+function fillCoordinates(idc){
+	if(idc != ''){
+		var data = $('#datacoordinate'+idc).val();		
+		go2Top('coordenadasModal');
+	}else{
+		var data = idc+'-------';
+	}
+	var aData=data.split('-');
+	
+	$('#modalcoordenada').val(aData[0]);
+	$('#rutacoordenada').val(aData[1]);
+	$('#desccoordinates').val(aData[2]);
+	$('#latitude').val(atob(aData[3]));
+	$('#longitude').val(atob(aData[4]));
+	$('#geofence').val(aData[5]);
+	$('#coordinatetype').val(aData[6]);
+	$('#tar1').val(aData[8]);
+	$('#statuscoordenada').prop('checked', (aData[7]=='A'));
+	$('#transaccionCoordenadas').val(aData[0]==''?'add':'update');
+	$('#btnAccionCoordenada').html(aData[0]==''?'Agregar':'Actualizar');
+	$('#mensajeaccioncoordenada').html('');
+	var targetElem = document.getElementById('map');
+	targetElem.scrollIntoView();
+	latitude = aData[3]==''?19.4313795:parseFloat(atob(aData[3]));
+	longitude = aData[4]==''?-99.1338424:parseFloat(atob(aData[4]));
+	initMap();
+
+}
+function go2Top(m){
+	$('#m').animate({ scrollTop: 0 }, 'slow');
+}
+</script>";
+$allJS .=$jsFillRoute;
+$allCSS = "<style>          
+          #map { 
+            height: 300px;    
+            width: 100%;            
+          }          
+        </style>";
+getHeader("Rutas", $allJS.$allCSS, $conn); 
+
+?>
+    <hr>
+	<form action = "<?php echo $nscript; ?>/" method="POST" autocomplete="off" >
+		<input type="hidden" name="idRuta" value="<?php echo $idRuta; ?>" />
+        <div class="container">
+            <div class="row">                                                    
+				<div class="col-md-3"><strong style="width: 100%;">Nombre Ruta</strong><input type="text" style="width: 100%;" name="ruta" value="<?php echo $nomruta; ?>" required ></div>
+                <div class="col-md-3"><strong style="width: 100%;">Origen</strong><input type="text" style="width: 100%;" name="origen" value="<?php echo $origen; ?>" required ></div>
+				<div class="col-md-3"><strong style="width: 100%;">Destino</strong><input type="text" style="width: 100%;"  name="destino" value="<?php echo $destino; ?>" required ></div>					
+				<div class="col-md-3"><strong style="width: 100%;">KMS</strong><input type="number" style="width: 100%;"  name="kms" value="<?php echo $kms; ?>" required></div>
+			</div>
+            <div class="row">			                 
+					<div class="col-md-3"><strong style="width: 50%;">Horas</strong>
+					<select style="width: 100%;" name="hrs" required >
+						<option value="" selected="">- Hrs -</option>
+						<?php
+						for($i=0;$i<=23;$i++)
+						echo "<option value='".(($i<10?"0":"").$i)."' ".($tiempohrs===(($i<10?"0":"").$i)?"selected":"").">".(($i<10?"0":"").$i)."</option>";
+						?>
+					</select></div>
+                    <div class="col-md-3"><strong style="width: 50%;">Minutos</strong>
+					<select style="width: 100%;" name="min" required>
+						<option value="" selected="">- Min <?php echo $tiempomin; ?>-</option>
+						<?php
+						for($i=0;$i<60;$i++)
+						echo "<option value='".(($i<10?"0":"").$i)."' ".($tiempomin===(($i<10?"0":"").$i)?"selected":"").">".(($i<10?"0":"").$i)."</option>";
+						?>
+					</select></div>				
+				<div class="col-md-3"><strong style="width: 100%;">Linea</strong>
+					<select style="width: 100%;" name="idLinea" required>
+						<option value="" >- Linea -</option>	
+						<?php
+						$arrLines = listActiveLines($usr,$cia);
+						foreach($arrLines as $line)
+						echo "<option value='".$line["cve_lin"]."' ".($idLinea==$line["cve_lin"]?"selected":"").">".$line["des_lin"]."</option>";
+						?>
+					</select></div>
+				<div class="col-md-3"><strong style="width: 100%;">Activo</strong> <p><img id = "onoff" src='http://cnf.prepay.com.mx/assets/img/<?php echo empty($status)?"inter":($status=="I"?"off":"on"); ?>.png' onclick = "setActivo(this)" height='40' />
+					<input id= "status" name= "status" type="hidden" value="<?php echo $status; ?>" /></p>
+				</div>
+             </div>                    
+		</div>       
+
+    <div class="container">
+       <div class="row">
+			<?php
+				if(empty($idRuta)){
+					$transaction = "Agregar";
+				}else{
+					$transaction = "Actualizar";
+				}						
+			?>
+				<div class="col-md-3"><input class="btn btn-success" style="margin: 9px;margin-left: 5px;width: 100%;" type="submit" name="btn<?php echo $transaction; ?>" type="submit" value="<?php echo $transaction; ?>" ></div>
+				<div class="col-md-3"><button class="btn btn-success" type="button" id="btntarifas" style="margin: 9px;margin-left: 5px;width: 100%;background-color: <?php echo empty($idRuta)?"rgb(173,173,173)":"rgb(255, 102, 0)"; ?>" onclick="showTarifas(<?php echo $idRuta; ?>)" <?php echo empty($idRuta)?"disabled":""; ?> >Tarifas</button></div>
+                <div class="col-md-3"><button class="btn btn-success" type="button" id="btncoordenadas" style="margin: 9px;margin-left: 5px;width: 100%;background-color: <?php echo empty($idRuta)?"rgb(173,173,173)":"rgb(255, 102, 0)"; ?>" onclick="showCoordenadas(<?php echo $idRuta; ?>)" <?php echo empty($idRuta)?"disabled":""; ?> >Puntos de interés</button></div>
+				<div class="col-md-3"><button class="btn btn-success" type="button" id="btnmodos" style="margin: 5px;background-color: <?php echo empty($idRuta)?"rgb(173,173,173)":"rgb(255, 102, 0)"; ?>;width: 100%;" onclick="showModos(<?php echo $idRuta; ?>)" <?php echo empty($idRuta)?"disabled":""; ?>>Modos Ruta</button></div>
+		</div>
+    </div>
+		<div class="modal fade" role="dialog" tabindex="-1" id="tarifasModal">
+            <div class="modal-dialog" role="document" style="max-width:700px;">
+                <div class="modal-content">
+                    <div class="modal-header" style="height: 49px;background-color: #ededed;">
+                        <h4>Administrar tarifas</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+						<input type="hidden" id="modaltarifa"  />
+						<input type="hidden" id="tarifaruta" value="<?php echo $idRuta; ?>" />
+					</div>
+                    <div class="modal-body">
+                        <div class="row" id="enterpaneltarifas">
+                            <div class="col"><strong>Km. Inicial</strong><input type="text" style="width: 100%;" id="km_ini"></div>
+                            <div class="col"><strong>Km. Final</strong><input type="text" style="width: 100%;" id="km_fin"></div>
+                            <div class="col"><strong>Monto</strong><input type="text" style="width: 100%;"  id="monto"></div>
+                            <div class="col"><strong>Activa</strong>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" id="statustarifa"></div>
+                            </div>
+							<div class="col"><strong>Predeterminada</strong>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" id="tarpred"></div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+					<p class="text-center" style="background-color: #ff6b00;color: rgb(255,255,255);" id="mensajeacciontarifa" ></p>
+                    <div class="modal-footer" style="height: 65px;">
+						<button class="btn btn-light" data-dismiss="modal" type="button">Cerrar</button>
+						<button class="btn btn-primary" id="btnAccionTarifa" type="button" onclick="mng_tarifas()">Agregar</button>
+						<button class="btn btn-warning" type="button" onclick="fillFields('')">Limpiar</button>
+						<input type="hidden" id="transaccionTarifas" value="add" />
+					</div>
+					<div id="listaTarifas">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" role="dialog" tabindex="-1" id="coordenadasModal">
+            <div class="modal-dialog" role="document" style="max-width:1000px;">
+                <div class="modal-content">
+                    <div class="modal-header" style="height: 49px;background-color: #ededed;">
+                        <h4>Administrar coordenadas</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+						<input type="hidden" id="modalcoordenada"  />
+						<input type="hidden" id="rutacoordenada" value="<?php echo $idRuta; ?>" />
+					</div>
+                    <div class="modal-body">
+        
+        
+        
+        
+        <div style="padding:10px">
+            <div id="map"></div>
+			<span id="latmoved"></span>
+        <span id="longmoved"></span>
+        </div>
+        
+        <script type="text/javascript">
+        var map;
+        var latitude = 19.4313795; // YOUR LATITUDE VALUE
+		var longitude = -99.1338424; // YOUR LONGITUDE VALUE
+        function initMap() {                            
+            
+            
+            var myLatLng = {lat: latitude, lng: longitude};
+            
+            map = new google.maps.Map(document.getElementById('map'), {
+              center: myLatLng,
+              zoom: 14,
+              disableDoubleClickZoom: false, // disable the default map zoom on double click
+            });
+            
+            // Update lat/long value of div when anywhere in the map is clicked    
+            google.maps.event.addListener(map,'click',function(event) {                
+                
+				document.getElementById('latitude').value = event.latLng.lat();
+                document.getElementById('longitude').value = event.latLng.lng();
+                document.getElementById('statuscoordenada').checked = true;
+            });
+            
+            // Update lat/long value of div when you move the mouse over the map
+            google.maps.event.addListener(map,'mousemove',function(event) {
+                document.getElementById('latmoved').innerHTML = "<b>Lat:</b> "+event.latLng.lat();
+                document.getElementById('longmoved').innerHTML = "<b>Lon:</b> "+event.latLng.lng();
+            });
+                    
+            var marker = new google.maps.Marker({
+              position: myLatLng,
+              map: map,
+              //title: 'Hello World'
+              
+              // setting latitude & longitude as title of the marker
+              // title is shown when you hover over the marker
+              title: latitude + ', ' + longitude 
+            });    
+            
+            // Update lat/long value of div when the marker is clicked
+			/*
+            marker.addListener('click', function(event) {              
+              document.getElementById('latclicked').innerHTML = event.latLng.lat();
+              document.getElementById('longclicked').innerHTML =  event.latLng.lng();
+			  
+            });
+            */
+            // Create new marker on double click event on the map
+			/*
+            google.maps.event.addListener(map,'dblclick',function(event) {
+                var marker = new google.maps.Marker({
+                  position: event.latLng, 
+                  map: map, 
+                  title: event.latLng.lat()+', '+event.latLng.lng()
+                });
+                
+                // Update lat/long value of div when the marker is clicked
+                marker.addListener('click', function() {
+                  document.getElementById('latclicked').innerHTML = event.latLng.lat();
+                  document.getElementById('longclicked').innerHTML =  event.latLng.lng();
+                });            
+            });
+            */
+            // Create new marker on single click event on the map
+            /*google.maps.event.addListener(map,'click',function(event) {
+                var marker = new google.maps.Marker({
+                  position: event.latLng, 
+                  map: map, 
+                  title: event.latLng.lat()+', '+event.latLng.lng()
+                });                
+            });*/
+        }
+        </script>		
+        <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo $apiKey; ?>&callback=initMap" async defer></script>
+                    </div><div class="modal-body">
+                        <div class="row" id="enterpanelcoordenadas">
+                            <div class="col"><strong>Descripción</strong><input type="text" style="width: 100%;" id="desccoordinates"></div>
+                            <div class="col"><strong>Latitud</strong><input type="text" style="width: 100%;" id="latitude"></div>
+                            <div class="col"><strong>Longitud</strong><input type="text" style="width: 100%;" id="longitude"></div>
+                            <div class="col"><strong>Geocerca</strong>
+								<select style="width: 100%;" id="geofence">
+								<?php
+									$begin = 0.1;
+									$top = 1;
+									$step = 0.1;
+									echo "<option value =''>- selecciona -</option>";
+									for($i=$begin;$i<= $top;$i+=$step){
+										echo "<option value ='".number_format($i,2)."'>".($i*1000)."</option>";
+									}
+								?>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+                            <div class="col-md-3"><strong>Tipo punto</strong>
+							<select style="width: 100%;" id="coordinatetype">
+								<?php
+									$arrTypes = listAllCoordTypes();
+									echo "<option value =''>- selecciona -</option>";
+									foreach($arrTypes as $ctype){
+										echo "<option value ='".$ctype["cve_tip_crd"]."'>".$ctype["des_tip_crd"]."</option>";
+									}
+								?>
+								</select></div>
+							<?
+							$sqlmod = "select cve_mod from cat_rut_mod where cve_rut='$idRuta' and stt_rut_mod='A' and cve_mod='A'";
+							$resmod = $conn->query($sqlmod);
+							$rowmod = $resmod->fetch_row();
+							$mod = $rowmod[0];
+							if ($mod=='A'){
+							?>
+							<div class="col-md-3"><strong>Tarifa Automatica</strong>
+							<select style="width: 100%;" id="tar1">
+								<?php
+									$sqlt1="select monto from cat_tar where cve_rut='$idRuta' and stt_tar='A' order by monto";
+									$arrT1 = getDataFromTable($conn,$sqlt1);
+									echo "<option value =''>- selecciona -</option>";
+									foreach($arrT1 as $t1){
+										echo "<option value ='".$t1["monto"]."'>".$t1["monto"]."</option>";
+									}
+								?>
+								</select></div>
+							<!--<div class="col-md-3"><strong>Tarifa Regreso</strong>
+							<select style="width: 100%;" id="tar2">
+								<?php
+									/*$sqlt2="select monto from cat_tar where cve_rut='$idRuta' and stt_tar='A' order by monto";
+									$arrT2 = getDataFromTable($conn,$sqlt2);
+									echo "<option value =''>- selecciona -</option>";
+									foreach($arrT2 as $t2){
+										echo "<option value ='".$t2["monto"]."'>".$t2["monto"]."</option>";
+									}*/
+								?>
+								</select></div>!-->
+							<? } ?>                            
+                            <div class="col"><strong>Activa</strong>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" id="statuscoordenada"></div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+					<p class="text-center" style="color: rgb(255,255,255);" id="mensajeaccioncoordenada" ></p>
+                    <div class="modal-footer" style="height: 65px;">
+						<button class="btn btn-light" data-dismiss="modal" type="button">Cerrar</button>
+						<button class="btn btn-primary" id="btnAccionCoordenada" type="button" onclick="mng_coordinates()">Agregar</button>
+						<button class="btn btn-warning" type="button" onclick="fillCoordinates('')">Limpiar</button>
+						<input type="hidden" id="transaccionCoordenadas" value="add" />
+					</div>
+					<div id="listaCoordenadas">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+    <div></div>
+    <div></div>
+    <div class="container">
+        <div class="col-md-12 search-table-col" style="margin: 10px 0px 0px;">
+            <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Buscar ruta..."></div><span class="counter pull-right"></span>
+            <div class="table-responsive table-bordered table table-hover table-bordered results">
+                <table class="table table-bordered table-hover">
+                    <thead class="bill-header cs" style="color: rgb(29,42,159);">
+                        <tr style="color: rgb(229,230,242);background-color: rgb(24,165,88);">
+                            <th id="trs-hd" class="col-lg-1">Id Ruta</th>							                           
+							<th id="trs-hd" class="col-lg-3">Ruta</th>
+                            <th id="trs-hd" class="col-lg-3">Origen</th>
+                            <th id="trs-hd" class="col-lg-2">Destino</th>
+                            <th id="trs-hd" class="col-lg-2">KMS</th>
+							<th id="trs-hd" class="col-lg-3">Linea</th>
+							<th id="trs-hd" class="col-lg-3">...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="warning no-result">
+                            <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No hay resultados !!</td>
+                        </tr>
+                       <?php
+							$arrRut = listAllRoutes($usr,$cia);
+						foreach($arrRut as $rut){
+							echo "<tr>";
+							echo "<td>".$rut["cve_rut"]."</td>"; 
+							echo "<td>".$rut["nombre_ruta"]."</td>"; 							
+							echo "<td>".$rut["origen"]."</td>";
+							echo "<td>".$rut["destino"]."</td>";
+							echo "<td>".$rut["kms"]."Kms.</td>";
+							echo "<td>".$rut["des_lin"]."</td>"; 
+							echo "<td><img src='http://cnf.prepay.com.mx/assets/img/".($rut["stt_rut"]=="I"?"off":"on").".png' height='40' /><button class='btn btn-success' style='margin-left: 5px;' onclick = \"location.href = '$nscript/?u=".$rut["cve_rut"]."'; return false;\"><i class='fa fa-edit' style='font-size: 15px;' ></i></button></td>";
+							echo "</tr>";
+							}
+						
+						?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+	<div>
+		<div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4>Gestión de Rutas</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+					<div class="modal-body">
+						<p class="text-center text-muted"><?php echo $_SESSION[$nscript]["message"]; ?> </p>
+					</div>
+					<div class="modal-footer"><button class="btn btn-primary" type="button" data-dismiss="modal">Entendido</button></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- MODAL MODOS  !-->
+	<div class="modal fade" role="dialog" tabindex="-1" id="modosModal">
+		<div class="modal-dialog" role="document" style="max-width:700px;">
+			<div class="modal-content">
+				<div class="modal-header" style="height: 49px;background-color: #ededed;">
+					<h4>Administrar Modos Ruta <? //echo "cia:".$idCompania; ?></h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+					<input type="hidden" id="modalmodos"  />						
+				</div>
+				<div>
+					<iframe src="mng_rutas_modos.phtml" width="100%" height="400"  style="border:1px gray;"></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+<?php 
+if(isset($_SESSION[$nscript])){
+	unset($_SESSION[$nscript]);
+}
+getFooter();
+} else {
+	header("Location: ./main.phtml");
+}	
+}else{
+	header("Location: .");
+}
+?>

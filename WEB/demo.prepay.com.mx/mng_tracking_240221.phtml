@@ -1,0 +1,117 @@
+<?php
+session_start();
+if(isset($_SESSION["userinfo"])){
+	$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+	date_default_timezone_set("America/Mexico_City");
+	include "cnx.php";			
+	include "util_list.php";
+	require "$nscript/tracking.php";
+	$conn = getConnection();
+	$fecact = date("Y-m-d");
+	$usr = $_SESSION["userinfo"]["username"];
+	$cia = $_SESSION["userinfo"]["usercia"];
+	$aut=ValPerPag($usr,$nscript);
+	//echo "nscript: ".$nscript." usr: ".$usr." aut: ".$aut;
+
+if ($aut == 1) {	
+	include "util_header.php";
+	
+	$compania		= isset($_SESSION[$nscript]["compania"])?unserialize($_SESSION[$nscript]["compania"]):null;
+	//echo "nscript: ".$nscript." compania: ".$compania; 
+	//$idCompania		= !is_null($compania)?$compania->idCompania:"";
+	$_SESSION['userinfo']['ssnuni'] = $unidad = $_POST['unidad'];
+	$_SESSION['userinfo']['ssnfi'] = $fecini = $_POST['fecini'];
+	$_SESSION['userinfo']['ssnff'] = $fecfin = $_POST['fecfin'];
+	//echo "ptovta: ".$puntoventa. " fi: ".$fecini." ff: ".$fecfin;
+
+
+
+getHeader("Tracking", $allJS, $conn); 
+
+?>
+	<div>
+        <div class="container">
+		<form action = "mng_tracking.phtml" method="POST" >
+            <div class="row">
+                <div class="col-md-3"><strong>Unidad</strong>
+				<select style="width: 100%;" name="unidad">
+				<option value="" selected="">- Unidad -</option>
+				<?
+				$arrBus = listBusTrack($usr,$cia);
+				foreach($arrBus as $bus)
+				echo "<option value='".$bus["cve_uni"]."' ".($unidad==$bus["cve_uni"]?"selected":"").">".$bus["num_eco"]."</option>";				
+				?>								
+				</select>
+				</div>
+                <div class="col-md-3"><strong>Fecha Inicio</strong><input type="date" id="fecini" name="fecini" style="width: 100%;" value="<? echo $fecini==""?$fecact:$fecini?>"></div>
+				<div class="col-md-3"><strong>Fecha Fin</strong><input type="date" id="fecfin" name="fecfin" style="width: 100%;" value="<? echo $fecfin==""?$fecact:$fecfin?>"></div>
+				<div class="col-md-3"></div>
+			</div>		
+            <div class="row">
+                <div class="col-md-3">
+				<button class="btn btn-primary" type="submit" style="background-color: rgb(24,165,88);width: 100%;margin: 5px;">Buscar</button>
+				</div>
+                <div class="col-md-3">				
+				<a href="recexcel.phtml" target="_blank" class="btn btn-primary" style="margin: 5px;background-color: rgb(173,173,173);width: 100%;">Exportar Excel</a>
+				</div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3"></div>
+            </div>
+		</form>
+        </div>
+    </div>	
+    <div class="container">	
+        <div class="col-md-16 search-table-col" style="margin: 10px 0px 0px;">
+            <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Buscar Unidad"></div><span class="counter pull-right"></span>
+            <div class="table-responsive table-bordered table table-hover table-bordered results" style="font-size: 10px;">
+                <table class="table table-bordered table-hover">
+                    <thead class="bill-header cs" style="color: rgb(29,42,159);">
+                        <tr style="color: rgb(229,230,242);background-color: rgb(24,165,88);">
+                            <th id="trs-hd" class="col-lg-1">UNIDAD</th>
+                            <th id="trs-hd" class="col-lg-2">TIPO</th>
+							<th id="trs-hd" class="col-lg-2">DESCRIPCION</th> 
+							<th id="trs-hd" class="col-lg-2">FECHA RASTREO</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="warning no-result">
+                            <td colspan="16"><i class="fa fa-warning"></i>&nbsp; No hay Resultados !!!</td>
+                        </tr>
+						<?											
+						//$_SESSION['userinfo']['sqlRec'] = $sqlRec;						
+						$arrRec = listOrgDes($usr,$cia,$unidad,$fecini,$fecfin);
+						$acv = count($arrRec);
+						//echo "acv".$acv;
+						foreach($arrRec as $rec){
+						?>
+                        <tr>
+                            <td><? echo $rec["num_eco"] ?></td>
+                            <td><? echo $rec["des_tip_crd"] ?></td> 
+							<td><? echo $rec["des_crd"] ?></td>
+							<td><? echo $rec["fec_trk"] ?></td>							
+						</tr>
+						<? } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+	<? 
+	//echo "acv".$acv; //Delimita la carga del mapa cuando no es necesario
+	if ($acv > 0){
+	?>
+	<div class="container">		
+		<iframe allowfullscreen="" frameborder="0" src="mng_map2.phtml" width="100%" height="400"></iframe>
+	</div>
+	<? } ?>	
+
+<?php
+
+getFooter(); 
+} else {
+	header("Location: ./main.phtml");
+}
+}else{
+	header("Location: .");
+}
+?>

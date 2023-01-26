@@ -1,0 +1,8 @@
+### ENVIRONMENT VARIABLES
+SetEnv TZ America/Mexico_City
+php_value date.timezone 'America/Mexico_City'
+<FilesMatch "\.(ttf|ttc|otf|eot|woff)$">
+<IfModule mod_headers.c>
+Header set Access-Control-Allow-Origin "*"
+</IfModule>
+</FilesMatch>

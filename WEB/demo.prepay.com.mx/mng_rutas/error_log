@@ -1,0 +1,51 @@
+[04-Feb-2021 21:46:52 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php:81) in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php on line 41
+[04-Feb-2021 21:54:53 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php:81) in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php on line 41
+[04-Feb-2021 22:14:50 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php:74) in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php on line 41
+[04-Feb-2021 22:17:02 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php:74) in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php on line 41
+[04-Feb-2021 22:17:21 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php:74) in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php on line 41
+[04-Feb-2021 22:18:36 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php:74) in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php on line 41
+[04-Feb-2021 22:27:34 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php:59) in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php on line 41
+[04-Feb-2021 23:10:41 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`envdtsme_dbppy_dev`.`cat_rut_mod`, CONSTRAINT `cat_rut_mod_ibfk_2` FOREIGN KEY (`cve_rut`) REFERENCES `cat_rut` (`cve_rut`)) in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php:48
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php(48): mysqli_stmt->execute()
+#1 /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php(17): InsertData(NULL, 'D', 'A', 'admin', '2021-02-04 23:1...')
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php on line 48
+[05-Feb-2021 15:44:24 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`envdtsme_dbppy_dev`.`cat_rut_mod`, CONSTRAINT `cat_rut_mod_ibfk_2` FOREIGN KEY (`cve_rut`) REFERENCES `cat_rut` (`cve_rut`)) in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php:48
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php(48): mysqli_stmt->execute()
+#1 /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php(17): InsertData(NULL, 'D', 'A', 'admin', '2021-02-05 15:4...')
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php on line 48
+[05-Feb-2021 15:51:24 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`envdtsme_dbppy_dev`.`cat_rut_mod`, CONSTRAINT `cat_rut_mod_ibfk_2` FOREIGN KEY (`cve_rut`) REFERENCES `cat_rut` (`cve_rut`)) in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php:48
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php(48): mysqli_stmt->execute()
+#1 /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php(17): InsertData(NULL, 'A', 'A', 'admin', '2021-02-05 15:5...')
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php on line 48
+[05-Feb-2021 15:56:16 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`envdtsme_dbppy_dev`.`cat_rut_mod`, CONSTRAINT `cat_rut_mod_ibfk_2` FOREIGN KEY (`cve_rut`) REFERENCES `cat_rut` (`cve_rut`)) in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php:49
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php(49): mysqli_stmt->execute()
+#1 /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php(18): InsertData('', 'A', 'A', 'admin', '2021-02-05 15:5...')
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php on line 49
+[05-Feb-2021 15:56:49 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`envdtsme_dbppy_dev`.`cat_rut_mod`, CONSTRAINT `cat_rut_mod_ibfk_2` FOREIGN KEY (`cve_rut`) REFERENCES `cat_rut` (`cve_rut`)) in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php:49
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php(49): mysqli_stmt->execute()
+#1 /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php(18): InsertData('', 'A', 'A', 'admin', '2021-02-05 15:5...')
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php on line 49
+[05-Feb-2021 15:59:36 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`envdtsme_dbppy_dev`.`cat_rut_mod`, CONSTRAINT `cat_rut_mod_ibfk_2` FOREIGN KEY (`cve_rut`) REFERENCES `cat_rut` (`cve_rut`)) in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php:49
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php(49): mysqli_stmt->execute()
+#1 /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php(18): InsertData('', 'D', 'A', 'admin', '2021-02-05 15:5...')
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php on line 49
+[05-Feb-2021 16:01:57 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php:14) in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php on line 43
+[05-Feb-2021 16:02:15 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php:14) in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php on line 43
+[05-Feb-2021 16:14:48 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '3-D' for key 'PRIMARY' in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php:50
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php(50): mysqli_stmt->execute()
+#1 /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php(19): InsertData(3, 'D', 'A', 'admin', '2021-02-05 16:1...')
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_rutas/modos.php on line 50

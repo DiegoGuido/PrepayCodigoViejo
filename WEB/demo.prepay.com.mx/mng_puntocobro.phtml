@@ -1,0 +1,200 @@
+<?php
+session_start();
+if(isset($_SESSION["userinfo"])){
+	$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+	date_default_timezone_set("America/Mexico_City");
+	include "cnx.php";			
+	include "util_list.php";
+	require "$nscript/puntocobro.php";
+	$conn = getConnection();
+	$usr = $_SESSION["userinfo"]["username"];
+	$cia = $_SESSION["userinfo"]["usercia"];
+	$aut=ValPerPag($usr,$nscript);
+	//echo "nscript: ".$nscript." usr: ".$usr." aut: ".$aut;
+
+if ($aut == 1) {
+	include "util_header.php";
+	
+	$puntocobro		= isset($_SESSION[$nscript]["puntocobro"])?unserialize($_SESSION[$nscript]["puntocobro"]):null;	
+	$idPuntoCobro	= !is_null($puntocobro)?$puntocobro->idPuntoCobro:"";
+	$desPuntoCobro	= !is_null($puntocobro)?$puntocobro->desPuntoCobro:"- Unidades Disponibles -";	
+	$linea			= !is_null($puntocobro)?$puntocobro->linea:"";
+	$imei			= !is_null($puntocobro)?$puntocobro->imei:"";
+	$status			= !is_null($puntocobro)?$puntocobro->status:"";
+	$desDispositivo = !is_null($puntocobro)?$puntocobro->DesDispositivo:"- Dispositivos Disponibles -";
+	$modo			= !is_null($puntocobro)?$puntocobro->modo:"";
+	$desmodo		= !is_null($puntocobro)?$puntocobro->desmodo:"- Modo -";
+	
+	//echo "id ptocob: ".$idPuntoCobro." des: ".$desPuntoCobro." imei: ".$imei." desdisp: ".$desDispositivo;
+		
+	
+$jsModal1 = "
+		<script type='text/javascript'>
+    $(window).on('load',function(){
+        $('#myModal').modal('show');
+    });
+</script>";
+$jsActivo = "
+<script type='text/javascript'>function setActivo(o){
+			if(document.getElementById('status').value=='A'){
+				document.getElementById('status').value='I';
+				document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/off.png';
+			}else{
+				document.getElementById('status').value='A';
+				document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/on.png';
+			}
+		}</script>";
+$jsDev="<script type='text/javascript'>
+	$.ajaxSetup({'beforeSend' : function(xhr) {
+	try{xhr.overrideMimeType('text/html; charset=iso-8859-1');}catch(e){}	}}); 
+				function sync_devices(o){
+					var idpc = $('#desPuntoCobro').val();
+					$.post('async_devices.php',{param_idpc:idpc}).done(function(data){ $('#imei').html(data);})
+				}
+		</script>		
+				";
+
+$allJS="";
+$allJS .= isset($_SESSION[$nscript]["message"])?$jsModal1:"";
+$allJS .= $jsActivo;
+$allJS .= $jsDev;
+
+
+getHeader("Puntos de Cobro", $allJS, $conn); 
+
+?>
+
+<div>
+        <div class="container">
+		<form action = "<?php echo $nscript; ?>/" method="POST" >
+		<input type="hidden" name="idPuntoCobro" value="<?php echo $idPuntoCobro; ?>" />
+            <div class="row">                                
+                <div class="col"><strong>Unidad</strong>				
+				<select style="width: 100%;" id="desPuntoCobro" name="desPuntoCobro" onchange="sync_devices(this)" required>
+				<option value="<? echo $idPuntoCobro; ?>" ><? echo $desPuntoCobro; ?></option>
+				<?
+				$arrDat = listActiveBuses($usr,$cia);
+				foreach($arrDat as $dat){
+				//echo "<option value='".$dat["cve_uni"]."' ".($linea==$dat["cve_uni"]?"selected":"").">".$dat["num_eco"]."</option>";								
+				?>								
+				<option value="<? echo $dat['cve_uni']; ?>"><? echo $dat['num_eco']; ?></option>
+				<? } ?>
+				</select>
+				</div>
+				<div class="col"><strong>Dispositivo</strong>
+				<select style="width: 100%;" id="imei" name="imei" required>
+				<option value="<? echo $imei; ?>"><? echo $desDispositivo; ?></option>
+				<?/* Viene del JS
+				$arrDat = listActiveDevices($usr);
+				foreach($arrDat as $dat)
+				echo "<option value='".$dat["imei"]."' ".($imei==$dat["imei"]?"selected":"").">".$dat["des_dis"]."</option>";*/
+				?>								
+				</select>
+				</div>
+				<div class="col"><strong>Modo</strong>
+				<select style="width: 100%;" id="modo" name="modo" required>
+				<option value="<? echo $modo; ?>" selected=""><? echo $desmodo; ?></option>
+				<?
+				$arrDat = listModoDisp();
+				foreach($arrDat as $dat)
+				echo "<option value='".$dat["cve_mod_dis"]."' ".($tipo==$dat["cve_mod_dis"]?"selected":"").">".$dat["des_mod_dis"]."</option>";
+				?>								
+				</select>
+				</div>
+                <div class="col-md-3"><strong style="width: 100%;">Activo</strong>
+				<p><img id = "onoff" src='http://cnf.prepay.com.mx/assets/img/<?php echo empty($status)?"inter":($status=="I"?"off":"on"); ?>.png' onclick = "setActivo(this)" height='40' /></p>
+				<input id= "status" name= "status" type="hidden" value="<?php echo $status; ?>" />		
+				</div>
+			</div>
+		</div>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+				<?php
+				if(empty($idPuntoCobro)){
+					$transaction = "Agregar";
+				}else{
+					$transaction = "Actualizar";
+				}						
+				?>
+				<p class="text-right"><input class="btn btn-success" style="margin: 9px;margin-left: 5px;width: 100%;" name="btn<?php echo $transaction; ?>" type="submit" value="<?php echo $transaction; ?>"></p></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    </div>
+	</form>
+</div>
+    <div class="container">
+        <div class="col-md-12 search-table-col" style="margin: 10px 0px 0px;">
+            <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Buscar Puntos de Cobro"></div><span class="counter pull-right"></span>
+            <div class="table-responsive table-bordered table table-hover table-bordered results">
+                <table class="table table-bordered table-hover">
+                    <thead class="bill-header cs" style="color: rgb(29,42,159);">
+                        <tr style="color: rgb(229,230,242);background-color: rgb(24,165,88);">
+                            <th id="trs-hd" class="col-lg-1">Folio</th>
+                            <th id="trs-hd" class="col-lg-2">Unidad</th>
+                            <th id="trs-hd" class="col-lg-3">Linea</th>
+							<th id="trs-hd" class="col-lg-3">Dispositivo</th>                            
+							<th id="trs-hd" class="col-lg-3">IMEI</th>
+							<th id="trs-hd" class="col-lg-3">Modo</th>
+                            <th id="trs-hd" class="col-lg-2"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="warning no-result">
+                            <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No hay Resultados !!!</td>
+                        </tr>
+						<?						
+						$arrDat = listAllPayPoints($usr,$cia);
+						foreach($arrDat as $dat){
+						?>
+                        <tr>
+                            <td><? echo $dat["cve_rel"] ?></td>
+							<td><? echo $dat["dato"] ?></td>
+							<td><? echo $dat["des_lin"] ?></td>
+							<td><? echo $dat["des_dis"] ?></td>
+							<td><? echo $dat["imei"] ?></td>
+							<td><? echo $dat["des_mod_dis"] ?></td>
+                            <? echo "<td data-label='...' ><img src='http://cnf.prepay.com.mx/assets/img/".($dat["stt_rel"]=="I"?"off":"on").".png' height='40' />
+							<button class='btn btn-success' style='margin-left: 5px;' type='submit' onclick = \"location.href = '$nscript/?u=".$dat["dato"]."';\"'><i class='fa fa-edit' style='font-size: 15px;' ></i></button>							
+							</td>";?>                            
+                        </tr>
+						<? } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+	
+	<div>
+		<div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4>Gestión de Puntos de Cobro</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+					<div class="modal-body">
+						<p class="text-center text-muted"><?php echo $_SESSION[$nscript]["message"]; ?> </p>
+					</div>
+					<div class="modal-footer"><button class="btn btn-primary" type="button" data-dismiss="modal">Entendido</button></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+<?
+if(isset($_SESSION[$nscript])){
+	unset($_SESSION[$nscript]);
+} 
+getFooter(); 
+} else {
+	header("Location: ./main.phtml");
+}
+}else{
+	header("Location: .");
+}
+?>

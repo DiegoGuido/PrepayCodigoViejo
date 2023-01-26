@@ -1,0 +1,166 @@
+<?php
+session_start();
+if(isset($_SESSION["userinfo"])){
+	$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+	date_default_timezone_set("America/Mexico_City");
+	include "cnx.php";			
+	include "util_list.php";
+	require "$nscript/conductor.php";
+	$conn = getConnection();
+	$usr = $_SESSION["userinfo"]["username"];
+	$cia = $_SESSION["userinfo"]["usercia"];
+	$aut=ValPerPag($usr,$nscript);
+	//echo "nscript: ".$nscript." usr: ".$usr." aut: ".$aut;
+
+if ($aut == 1) {
+	include "util_header.php";
+	
+	$conductor		= isset($_SESSION[$nscript]["conductor"])?unserialize($_SESSION[$nscript]["conductor"]):null;
+	$nombre			= !is_null($conductor)?$conductor->nombre:"";
+	$idConductor	= !is_null($conductor)?$conductor->idConductor:"";
+	$fechaEntrada	= !is_null($conductor)?$conductor->fechaEntrada:"";
+	$fechaSalida 	= !is_null($conductor)?$conductor->fechaSalida:"";
+	$idLinea		= !is_null($conductor)?$conductor->idLinea:"";
+	$status			= !is_null($conductor)?$conductor->status:"";
+
+
+$jsModal1 = "
+		<script type='text/javascript'>
+    $(window).on('load',function(){
+        $('#myModal').modal('show');
+    });
+</script>";
+$jsActivo = "
+<script type='text/javascript'>function setActivo(o){
+			if(document.getElementById('status').value=='A'){
+				document.getElementById('status').value='I';
+				document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/off.png';
+			}else{
+				document.getElementById('status').value='A';
+				document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/on.png';
+			}
+		}</script>";
+$allJS="";
+$allJS .= isset($_SESSION[$nscript]["message"])?$jsModal1:"";
+$allJS .= $jsActivo;
+
+getHeader("Conductores", $allJS, $conn); 
+
+?>
+    <hr>
+	<form action = "<?php echo $nscript; ?>/" method="POST" >
+		<input type="hidden" name="idConductor" value="<?php echo $idConductor; ?>" />
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4"><strong style="width: 100%;">Nombre</strong><input type="text" name="nombre" value="<?php echo $nombre; ?>" style="width: 100%;" required></div>
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col-md-6"><strong>Fecha ingreso</strong><input type="date" style="width: 100%;" name="fechaEntrada" value="<?php echo $fechaEntrada; ?>" required ></div>
+						<div class="col-md-6"><strong>Fecha salida</strong><input type="date" style="width: 100%;" name="fechaSalida" value="<?php echo $fechaSalida; ?>" ></div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col-md-6"><strong>Línea</strong>
+							<select style="width: 100%;" name="idLinea" required>
+								<option value="" selected="">- Línea -</option>
+								<?php
+									$arrLines = listActiveLines($usr,$cia);
+									foreach($arrLines as $line)
+										echo "<option value='".$line["cve_lin"]."' ".($idLinea==$line["cve_lin"]?"selected":"").">".$line["des_lin"]."</option>";
+								?>
+							</select>
+						</div>
+						<div class="col-md-6">
+							<strong style="width: 100%;">Activo</strong>
+							<p><img id = "onoff" src='http://cnf.prepay.com.mx/assets/img/<?php echo empty($status)?"inter":($status=="I"?"off":"on"); ?>.png' onclick = "setActivo(this)" height='40' />
+							<input id= "status" name= "status" type="hidden" value="<?php echo $status; ?>" /></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-6">
+						<?php
+							if(empty($idConductor)){
+								$transaction = "Agregar";
+							}else{
+								$transaction = "Actualizar";
+							}						
+						?>
+							<p class="text-right"><input class="btn btn-success" style="margin: 9px;margin-left: 5px;width: 100%;" name="btn<?php echo $transaction; ?>" type="submit" value="<?php echo $transaction; ?>"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+    <div class="container">
+        <div class="col-md-12 search-table-col" style="margin: 10px 0px 0px;">
+            <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Buscar Conductor..."></div><span class="counter pull-right"></span>
+            <div class="table-responsive table-bordered table table-hover table-bordered results">
+                <table class="table table-bordered table-hover">
+                    <thead class="bill-header cs" style="color: rgb(29,42,159);">
+                        <tr style="color: rgb(229,230,242);background-color: rgb(24,165,88);">
+                            <th id="trs-hd" class="col-lg-1">Folio</th>
+                            <th id="trs-hd" class="col-lg-2">Nombre</th>                            
+                            <th id="trs-hd" class="col-lg-2"><strong>Fecha Iingreso</strong></th>
+                            <th id="trs-hd" class="col-lg-2">Fecha salida</th>
+							<th id="trs-hd" class="col-lg-3"><strong>Línea</strong></th>
+                            <th id="trs-hd" class="col-lg-2"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="warning no-result">
+                            <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No hay resultados !!!</td>
+                        </tr>
+						<?php
+							$arrDrv= listAllDrivers($usr,$cia);
+							foreach($arrDrv as $drv ){
+								echo "<tr>";
+								echo "<td data-label='Conductor' >"	.$drv["cve_cnd"]."</td>";
+								echo "<td data-label='Nombre' >"	.$drv["nombre"]."</td>";
+								echo "<td data-label='Fec Ing' >"	.$drv["fec_ing"]."</td>";
+								echo "<td data-label='Fec Sal' >"	.$drv["fec_sal"]."</td>";
+								echo "<td data-label='Línea' >"		.$drv["des_lin"]."</td>";
+								echo "<td data-label='...' ><img src='http://cnf.prepay.com.mx/assets/img/".($drv["stt_cnd"]=="I"?"off":"on").".png' height='40' /><button class='btn btn-success' style='margin-left: 5px;' type='button' onclick = \"location.href = '$nscript/?u=".$drv["cve_cnd"]."';\"'><i class='fa fa-edit' style='font-size: 15px;' ></i></button></td>";
+								echo "</tr>";
+							}
+						
+						?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+	<div>
+		<div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4>Gestión de conductores</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+					<div class="modal-body">
+						<p class="text-center text-muted"><?php echo $_SESSION[$nscript]["message"]; ?> </p>
+					</div>
+					<div class="modal-footer"><button class="btn btn-primary" type="button" data-dismiss="modal">Entendido</button></div>
+				</div>
+			</div>
+		</div>
+	</div>
+<?php
+if(isset($_SESSION[$nscript])){
+	unset($_SESSION[$nscript]);
+} 
+getFooter(); 
+} else {
+	header("Location: ./main.phtml");
+}
+
+}else{
+	header("Location: .");
+}
+?>

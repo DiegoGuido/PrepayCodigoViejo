@@ -1,0 +1,352 @@
+<?php
+session_start();
+if(isset($_SESSION["userinfo"])){
+	$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+	date_default_timezone_set("America/Mexico_City");
+	include "cnx.php";			
+	include "util_list.php";	
+	$conn = getConnection();
+	$usr = $_SESSION["userinfo"]["username"];
+	$cia = $_SESSION["userinfo"]["usercia"];
+	$aut=ValPerPag($usr,$nscript);	
+	$lim = 100;
+	$min = 0;
+
+if ($aut == 1) {
+	include "util_header.php";
+	
+	$tarjetas	= isset($_SESSION[$nscript]["tarjetas"])?unserialize($_SESSION[$nscript]["tarjetas"]):null;	
+	$trjid		= !is_null($tarjetas)?$tarjetas["cve_trj"]:"";
+	$trjvig		= !is_null($tarjetas["vigencia"])?date("Y-m-d",strtotime($tarjetas["vigencia"])):"";
+	$trjstt		= !is_null($tarjetas)?$tarjetas["stt_trj"]:"";
+	//echo "nsc: ".$nscript."</br>arr: ".print_r($tarjetas);
+	
+	if (empty($tarjetas)){
+		$form = $nscript.".phtml";
+		$trjid	= $_POST["trjid"];
+		$trjstt	= $_POST["trjstt"];
+		$trjvig	= $_POST["trjvig"];
+	}else{
+		$form = $nscript."/";
+	}	
+		
+	
+    if ($_GET){		
+	$p = $_GET["p"];	
+	$p1 = $p-1;	
+	$min = $p1*$lim;
+	}
+		
+	$arrcnt = listTrjReg($usr,$cia,$status,$trjid,"","");
+	$cntrec = count($arrcnt);
+	//echo "cnt: ".$cntrec;
+	$status = $_POST["status"];
+	
+	//echo " sttsrc: ".$status." idtrj: ".$trjid." vigtrj: ".$trjvig." stttrj: ".$trjstt." form: ".$form."<br>";
+	
+	/*if(isset($_POST["btnActualizar"])){
+		$updcrdstt = updateCard($conn,$trjid,$status);
+		//$_SESSION[$nscript]["message"]="Tarjeta Actualizada Correctamente";
+	}*/
+		
+$jsModal1 = "
+		<script type='text/javascript'>
+    $(window).on('load',function(){
+        $('#myModal').modal('show');
+    });
+</script>";
+
+$jsPersonModal="<script type='text/javascript'> 
+				function showPerson(id){
+				$('#PersonModal').modal('show');					
+				personiframe(id)
+				}				
+									
+				function personiframe(id){
+				console.log(id);	
+				var perfrm='<iframe id=\"idperfrm\" allowfullscreen=\"\" frameborder=\"0\" src=\"mng_tarjetas_personalizacion.phtml?id='+id+'\" width=\"100%\" height=\"400\"></iframe>';
+				console.log(perfrm);
+				document.getElementById('idperfrm').innerHTML=perfrm; 
+				} 
+			</script>";
+
+$jsActivo = "
+<script type='text/javascript'>function setActivo(o){
+			if(document.getElementById('trjstt').value=='A'){
+				document.getElementById('trjstt').value='I';
+				document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/off.png';
+			}else{
+				document.getElementById('trjstt').value='A';
+				document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/on.png';
+			}
+		}</script>";
+		
+$jsMapaModal="<script type='text/javascript'> 
+				function showMapa(uni,lat,lon){
+				console.log(uni);
+				console.log(lat);	
+				console.log(lon);	
+				$('#MapaModal').modal('show');					
+				escribiriframe(uni,lat,lon)
+				}				
+									
+				function escribiriframe(uni,lat,lon){
+				console.log(uni);	
+				var frm='<iframe id=\"idmapfrm\" allowfullscreen=\"\" frameborder=\"0\" src=\"mng_map_reg.phtml?uni='+uni+'&lat='+lat+'&lon='+lon+'\" width=\"100%\" height=\"400\"></iframe>';
+				console.log(frm);
+				document.getElementById('idmapfrm').innerHTML=frm; 
+				} 
+			</script>";
+			  
+
+
+$allJS="";
+$allJS .= isset($_SESSION[$nscript]["message"])?$jsModal1:"";
+$allJS .= $jsActivo;
+$allJS .= $jsPersonModal;
+$allJS .= $jsMapaModal;
+
+getHeader("Tarjetas", $allJS, $conn); 
+
+?>
+
+<div>
+        <div class="container">
+		<form action = "<? echo $form; ?>" method="POST" >
+            <div class="row">
+				<div class="col-md-3"><strong>Status</strong>
+				<select style="width: 100%;" name="status">	
+				<option value="">- Status -</option>
+				<?
+				$arrDat = listSttTrj($usr);
+				foreach($arrDat as $dat)
+				echo "<option value='".$dat["cve_stt"]."' ".($status==$dat["cve_stt"]?"selected":"").">".$dat["des_stt"]."</option>";
+				?>								
+				</select>
+				</div>
+                <div class="col-md-3"><strong>Id Tarjeta</strong><input type="text" style="width: 100%;" maxlength="20" name="trjid" value="<?php echo $trjid; ?>"></div>
+				<?php
+				if(!empty($trjid) && !empty($tarjetas)){				
+					$transaction = "Actualizar";										
+				?>	
+				<div class="col-md-3"><strong>Vigencia</strong><input type="date" style="width: 100%;" id="trjvig" name="trjvig" value="<? echo $trjvig; ?>" ></div>
+                <div class="col-md-3"><strong style="width: 100%;">Activo</strong>
+				<p><img id = "onoff" src='http://cnf.prepay.com.mx/assets/img/<?php echo empty($trjstt)?"inter":($trjstt=="I"?"off":"on"); ?>.png' onclick = "setActivo(this)" /></p>
+				<input id= "trjstt" name= "trjstt" type="hidden" value="<?php echo $trjstt; ?>" />		
+				</div>									
+				<div class="col-md-3"><input class="btn btn-primary" style="background-color: rgb(24,165,88); width: 100%;" name="btn<?php echo $transaction; ?>" type="submit" value="<?php echo $transaction; ?>"></div>
+				<? } else { ?>
+				<div class="col-md-3"></div>
+				<div class="col-md-3"></div>
+				<? } ?>
+				<div class="col-md-3"><button class="btn btn-primary" type="submit" style="background-color: rgb(24,165,88); width: 100%; margin: 5px;">Buscar</button></div>
+				<div class="col-md-3"><button class="btn btn-warning" type="button" style="width: 100%; margin: 5px;" onclick="window.location.href='mng_tarjetas.phtml'">Limpiar</button></div>				
+				</div>			              
+            </div>
+        </div>    
+	</form>
+</div>
+    <div class="container">
+        <div class="col-md-20 search-table-col" style="margin: 10px 0px 0px;">
+            <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Buscar Tarjetas"></div><span class="counter pull-right"></span>
+            <div class="table-responsive table-bordered table table-hover table-bordered results" style="font-size: 10px;">			
+                <table class="table table-bordered table-hover">
+				<? if ($status != "X") { ?>
+                    <thead class="bill-header cs" style="color: rgb(29,42,159);">
+                        <tr style="color: rgb(229,230,242);background-color: rgb(24,165,88);">
+                            <th id="trs-hd" class="col-lg-2">Id Tarjeta</th>
+                            <th id="trs-hd" class="col-lg-2">Tipo</th>
+                            <th id="trs-hd" class="col-lg-2">Personalizacion</th>
+                            <th id="trs-hd" class="col-lg-2">Terminal</th>
+                            <th id="trs-hd" class="col-lg-2">Costo</th>							
+							<th id="trs-hd" class="col-lg-2">Moneda</th>
+							<th id="trs-hd" class="col-lg-2">Compañia</th>
+							<th id="trs-hd" class="col-lg-2">Fecha</th>
+							<th id="trs-hd" class="col-lg-2">Vigencia</th>
+							<th id="trs-hd" class="col-lg-2">Comentarios</th>							
+							<th id="trs-hd" class="col-lg-4"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="warning no-result">
+                            <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No hay Resultados !!!</td>
+                        </tr>
+						<?						
+						$arrDat = listTrjReg($usr,$cia,$status,$trjid,$min,$lim);
+						foreach($arrDat as $dat){				
+						?>
+                        <tr style="font-size: 12px;">
+                            <td><? echo $dat["cve_trj"] ?></td>
+							<td><? echo $dat["des_tip"] ?></td>
+							<? if ($dat["cve_prs"] != 0) {?>
+							<td><a href="#" onClick="showPerson(<? echo $dat["cve_prs"]; ?>)"><? echo $dat["des_prs"];?></a></td>
+							<? } else { ?>
+							<td><? echo $dat["des_prs"] ?></td>
+							<? } ?>
+							<td><? echo $dat["des_ter"] ?></td>
+							<td><? echo $dat["mon_costo"] ?></td>
+							<td><? echo $dat["moneda"] ?></td>
+							<td><? echo $dat["des_cia"] ?></td>
+							<td><? echo $dat["fec_cap"] ?></td>
+							<td><? echo $dat["vigencia"] ?></td>
+							<td><? echo $dat["cmt_trj"] ?></td>
+                            <? echo "<td data-label='...' ><img src='http://cnf.prepay.com.mx/assets/img/".($dat["stt_trj"]=="I"?"off":"on").".png' height='40' />
+							<button class='btn btn-success' style='margin-left: 5px;' type='submit' onclick = \"location.href = 'mng_tarjetas/?u=".$dat["cve_trj"]."';\"'><i class='fa fa-edit' style='font-size: 15px;' ></i></button>							
+							</td>";?>                            
+                        </tr>
+						<? } ?>
+                    </tbody>
+					<? } else { ?>
+					<thead class="bill-header cs" style="color: rgb(29,42,159);">
+                        <tr style="color: rgb(229,230,242);background-color: rgb(24,165,88);">
+                            <th id="trs-hd" class="col-lg-2">Id Tarjeta</th>
+                            <th id="trs-hd" class="col-lg-2">Punto</th>
+							<th id="trs-hd" class="col-lg-2">Tipo</th>
+							<th id="trs-hd" class="col-lg-2">Fecha</th>
+							<th id="trs-hd" class="col-lg-2">Comentarios</th>
+							<th id="trs-hd" class="col-lg-2">Imei</th>
+							<th id="trs-hd" class="col-lg-2">Ubicación</th>							
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="warning no-result">
+                            <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No hay Resultados !!!</td>
+                        </tr>
+						<?						
+						$sqlinv = "select a.cve_trj,a.fec_cap,a.cmt_trj,b.dato,c.des_rel,a.imei,a.latitud,a.longitud
+						from sis_inv_crd a, vw_rel_dis b, cat_tip_rel c
+						where a.cve_rel=b.cve_rel
+						and a.imei=b.imei
+						and a.tip_rel=b.tip_rel
+						and b.tip_rel=c.cve_tip_rel";
+						if (!empty($trjid)){
+							$sqlinv.=" and a.cve_trj='$trjid'";
+						}
+						//echo $sqlinv;
+						$arrInv = getDataFromView($conn,$sqlinv);
+						$cntrec = count($arrInv);
+						foreach($arrInv as $inv){							
+						?>
+                        <tr style="font-size: 12px;">
+                            <td><? echo $inv["cve_trj"]; ?></td>
+							<td><? echo $inv["dato"]; ?></td>
+							<td><? echo $inv["des_rel"]; ?></td>
+							<td><? echo $inv["fec_cap"]; ?></td>
+							<td><? echo $inv["cmt_trj"]; ?></td>
+							<td><? echo $inv["imei"]; ?></td>
+							<? if ($inv["latitud"] == ""){ ?>
+							<td><img src="http://cnf.prepay.com.mx/assets/img/process_stop.png" width="32" height="32"></td>
+							<? } else { ?>							
+							<td><a href="#" onClick="showMapa('<? echo $inv["cve_trj"] ?>',<? echo $inv["latitud"] ?>,<? echo $inv["longitud"] ?>)"><img src="http://cnf.prepay.com.mx/assets/img/maps_64dp.png" width="32" height="32"></a></td>
+							<? } ?>
+                        </tr>
+						<? } ?>
+                    </tbody>
+					<? }				
+					if ($cntrec > $lim){						
+					$pagind = ceil($cntrec / $lim);
+					$ant = $p-1;
+					$sig = $p+1;
+					$dec = 10;
+					$ini = 1;
+					if ($ant <= 1){
+						$ant=1;
+					}
+					if ($sig >= $pagind){
+						$sig=$pagind;
+					}
+					if ($p >= $dec){
+						//echo "p: ".$p." $dec: ".$dec;
+						$ini = $p;
+						$dec = $dec+$p;
+					}
+					?>
+					<tfoot>
+						<tr>
+							<td colspan="2">	
+							<p>Pagina <?  echo $p==""?1:$p ?> de <? echo $pagind; ?></p>
+							</td>
+							<td colspan="14" style="font-size: 12px;">	
+							 <nav>
+                                    <ul class="pagination">									    
+                                        <li class="page-item"><a class="page-link" href="?p=1" aria-label="Principio"><span aria-hidden="true">«</span></a></li>
+										<li class="page-item"><a class="page-link" href="?p=<? echo $ant; ?>" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+										<? for ($i=$ini; $i<=$pagind; $i++) {?>
+                                        <li class="page-item"><a class="page-link" href="?p=<? echo $i; ?>"><? echo $i; ?></a></li>
+										<? 										
+										if ($i >= $dec){
+											$j=$i+9;		
+												if ($j >= $pagind){
+													$j=$pagind;
+										?>
+										<li class="page-item"><a class="page-link" href="?p=<? echo $j; ?>"><? echo $j; ?></a></li>										
+										<? 
+												}
+												$i=$j;
+											}											
+										} 
+										?>
+                                        <li class="page-item"><a class="page-link" href="?p=<? echo $sig; ?>" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+										<li class="page-item"><a class="page-link" href="?p=<? echo $pagind; ?>" aria-label="Fin"><span aria-hidden="true">»</span></a></li>
+                                    </ul>
+                                </nav>							
+							</td>							
+						</tr>
+					</tfoot>
+					<? } ?>
+                </table>
+            </div>
+        </div>
+    </div>
+	
+	<div>
+		<div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4>Gestión de Tarjetas</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+					<div class="modal-body">
+						<p class="text-center text-muted"><?php echo $_SESSION[$nscript]["message"]; ?> </p>
+					</div>
+					<div class="modal-footer"><button class="btn btn-primary" type="button" data-dismiss="modal">Entendido</button></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" role="dialog" tabindex="-1" id="PersonModal">
+            <div class="modal-dialog" role="document" style="max-width:500px;">
+                <div class="modal-content">
+                    <div class="modal-header" style="height: 49px;background-color: #ededed;">
+                        <h4>Personalizacion</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+					</div>
+					<div id="idperfrm"></div>
+				</div>
+			</div>
+	</div>
+	<div class="modal fade" role="dialog" tabindex="-1" id="MapaModal">
+            <div class="modal-dialog" role="document" style="max-width:700px;">
+                <div class="modal-content">
+                    <div class="modal-header" style="height: 49px;background-color: #ededed;">
+                        <h4>Punto Registro <? //echo $dat; ?></h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+					</div>
+					<div id="idmapfrm"></div>
+				</div>
+			</div>
+	</div>
+
+
+<?
+if(isset($_SESSION[$nscript])){
+	unset($_SESSION[$nscript]);
+} 
+getFooter(); 
+} else {
+	header("Location: ./main.phtml");
+}
+}else{
+	header("Location: .");
+}
+?>
+

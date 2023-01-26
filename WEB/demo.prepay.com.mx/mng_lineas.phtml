@@ -1,0 +1,164 @@
+<?php
+session_start();
+if(isset($_SESSION["userinfo"])){
+	$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+	date_default_timezone_set("America/Mexico_City");
+	include "cnx.php";			
+	include "util_list.php";
+	require "$nscript/linea.php";
+	$conn = getConnection();
+	$usr = $_SESSION["userinfo"]["username"];
+	$cia = $_SESSION["userinfo"]["usercia"];
+	$ciades = $_SESSION["userinfo"]["userciades"];
+	$aut=ValPerPag($usr,$nscript);
+	//echo "nscript: ".$nscript." usr: ".$usr." aut: ".$aut;
+	//echo "usr: ".$usr." cia: ".$cia." des: ".$ciades;
+
+if ($aut == 1) {	
+	include "util_header.php";
+	
+	$linea				= isset($_SESSION[$nscript]["linea"])?unserialize($_SESSION[$nscript]["linea"]):null;
+	$idLinea			= !is_null($linea)?$linea->idLinea:"";
+	$nombreLinea		= !is_null($linea)?$linea->nombreLinea:"";
+	$descripcionLinea	= !is_null($linea)?$linea->descripcionLinea:"";
+	//$compania			= !is_null($linea)?$linea->compania:"";
+	$compania			= $cia;
+	$status				= !is_null($linea)?$linea->status:"";
+//}
+$jsModal1 = "
+		<script type='text/javascript'>
+    $(window).on('load',function(){
+        $('#myModal').modal('show');
+    });</script>";
+
+
+$jsActivo = "
+<script type='text/javascript'>function setActivo(o){
+			if(document.getElementById('status').value=='A'){
+				document.getElementById('status').value='I';
+				document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/off.png';
+			}else{
+				document.getElementById('status').value='A';
+				document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/on.png';
+			}
+		}</script>";
+$allJS="";
+$allJS .= isset($_SESSION[$nscript]["message"])?$jsModal1:"";
+$allJS .= $jsActivo;
+
+getHeader("Lineas", $allJS, $conn); 
+
+?>
+<hr>
+<form action = "<?php echo $nscript; ?>/" method="POST" >
+<input type="hidden" name="idLinea" value="<?php echo $idLinea; ?>" />
+	<div class="container">
+            <div class="row">
+                <div class="col-md-3"><strong>Linea</strong><input type="text" style="width: 100%;" name="nombreLinea" value="<?php echo $nombreLinea; ?>" required></div>
+                <div class="col-md-3"><strong>Marca Comercial</strong><input type="text" style="width: 100%;" name="descripcionLinea" value="<?echo $nombreLinea; ?>" ></div>				
+                <div class="col-md-3"><strong>Compañia</strong>
+				<select style="width: 100%;" name="idCompania" readonly >
+				<option value="<? echo $cia; ?>"><? echo $ciades; ?></option>
+				<?php
+					/*$arrCompanies = listActiveCompanies($usr);
+					foreach($arrCompanies as $comp)
+						echo "<option value='".$comp["cve_cia"]."' ".($compania==$comp["cve_cia"]?"selected":"").">".$comp["des_cia"]."</option>";
+					*/
+				?>
+				</select></div>
+                <div
+                    class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-6" style="width: 50%;"><strong style="width: 100%;">Activo</strong>
+							<p><img id = "onoff" src='http://cnf.prepay.com.mx/assets/img/<?php echo empty($status)?"inter":($status=="I"?"off":"on"); ?>.png' onclick = "setActivo(this)" height='40' />
+							<input id= "status" name= "status" type="hidden" value="<?php echo $status; ?>" /></p>
+                        </div>
+                        
+                    </div>
+				</div>
+			</div>
+		</div>
+    <div></div>
+    <div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-6">
+						<?php
+							if(empty($idLinea)){
+								$transaction = "Agregar";
+							}else{
+								$transaction = "Actualizar";
+							}						
+						?>
+							<p class="text-right"><input class="btn btn-success" style="margin: 9px;margin-left: 5px;width: 100%;" name="btn<?php echo $transaction; ?>" type="submit" value="<?php echo $transaction; ?>"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+</form>
+    <div class="container">
+        <div class="col-md-12 search-table-col" style="margin: 10px 0px 0px;">
+            <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Buscar Linea"></div><span class="counter pull-right"></span>
+            <div class="table-responsive table-bordered table table-hover table-bordered results">
+                <table class="table table-bordered table-hover">
+                    <thead class="bill-header cs" style="color: rgb(29,42,159);">
+                        <tr style="color: rgb(229,230,242);background-color: rgb(24,165,88);">
+                            <th id="trs-hd" class="col-lg-1">Id</th>
+                            <th id="trs-hd" class="col-lg-2">Linea</th>
+                            <th id="trs-hd" class="col-lg-3">Marca Comercial</th>
+                            <th id="trs-hd" class="col-lg-2">Compañía</th>
+                            <th id="trs-hd" class="col-lg-2"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="warning no-result">
+                            <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No hay resultados !!</td>
+                        </tr>
+                       <?php
+							$arrLines= listAllLines($usr,$cia);
+							foreach($arrLines as $line ){
+								echo "<tr>";
+								echo "<td data-label='Línea' >"	.	$line["cve_lin"]."</td>";
+								echo "<td data-label='Nombre' >" 	.$line["des_lin"]."</td>";
+								echo "<td data-label='Descri' >" 	.$line["des_lar"]."</td>";
+								echo "<td data-label='Compañ' >" 	.$line["des_cia"]."</td>";
+								echo "<td data-label='...' ><img src='http://cnf.prepay.com.mx/assets/img/".($line["stt_lin"]=="I"?"off":"on").".png' height='40' /><button class='btn btn-success' style='margin-left: 5px;' onclick = \"location.href = '$nscript/?u=".$line["cve_lin"]."'; return false;\"><i class='fa fa-edit' style='font-size: 15px;' ></i></button></td>";
+								echo "</tr>";
+							}
+						
+						?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+	<div>
+		<div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4>Gestión de líneas</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+					<div class="modal-body">
+						<p class="text-center text-muted"><?php echo $_SESSION[$nscript]["message"]; ?> </p>
+					</div>
+					<div class="modal-footer"><button class="btn btn-primary" type="button" data-dismiss="modal">Entendido</button></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<?php
+if(isset($_SESSION[$nscript])){
+	unset($_SESSION[$nscript]);
+} 
+getFooter();
+} else {
+	header("Location: ./main.phtml");
+}
+}else{
+	header("Location: .");
+}
+?>

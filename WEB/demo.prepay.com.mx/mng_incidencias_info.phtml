@@ -1,0 +1,93 @@
+<?
+session_start();
+if(isset($_SESSION["userinfo"])){
+	$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);	
+	$mod = explode("_",$nscript);
+	$modulo = $mod[0]."_".$mod[1];
+	$modfrm = $mod[2];
+	//$form = $modulo."/".$modfrm.".php";
+	$form = $nscript.".phtml";
+	//echo "nscript: ".$nscript." module: ".$modulo." form: ".$form;
+	date_default_timezone_set("America/Mexico_City");
+	include "cnx.php";			
+	include "util_list.php";
+	$conn = getConnection();
+	$usr = $_SESSION["userinfo"]["username"];
+	$cia = $_SESSION["userinfo"]["usercia"];	
+	$aut=ValPerPag($usr,$modulo);
+	$aut=1; //mientras lo añado
+if ($aut == 1) {
+	include "util_frame.php";
+	$increg = !empty($_GET["d1"])?$_GET["d1"]:$_SESSION[$nscript]["increg"];	
+	$incstt = !empty($_GET["d2"])?$_GET["d2"]:$_SESSION[$nscript]["incstt"];
+	$_SESSION[$nscript]["increg"]=$increg;
+	$_SESSION[$nscript]["incstt"]=$incstt;
+		
+	if (isset($_POST["incsol"]) || isset($_POST["incidencia"])){
+		$incsol = $_POST["incsol"];
+		$incstt = $_POST["incidencia"];
+		$insinc = saveInfo($conn,$increg,$incstt,$incsol);
+	} else {
+		$sql= "select info_inc from sis_reg_inc where cve_reg='$increg'";
+		//echo $sql;
+		$result = $conn->query($sql);		
+		$row = $result->fetch_assoc();
+		$incsol = $row["info_inc"];
+	}	
+	
+	if ($incstt=="P") { $incdes="Pendiente"; } else { $incdes="Solucionado"; }
+	
+		
+	
+$allJS="";
+	
+getHeaderFrm("Info Incidencia", $allJS); 
+?>
+<div>
+	<form action = "<? echo $form; ?>" method="POST" >
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-md-3"><strong>Status</strong>
+				<select style="width: 100%;" name="incidencia">	
+				<option value="<? echo $incstt; ?>"><? echo $incdes; ?></option>
+				<option value="P">Pendiente</option>
+				<option value="S">Solucionado</option>
+				</select>
+				</div>
+				<div class="col-md-3"><strong>Solucion</strong><textarea name="incsol" style="width: 100%;"><? echo $incsol; ?></textarea></div>				
+				<div class="col-md-3"></div>
+				<div class="col-md-3"></div>				
+				<div class="col-md-3"><button class="btn btn-primary" type="submit" style="background-color: rgb(24,165,88); width: 100%; margin: 5px;" <? echo $incstt=="S"?"disabled":""; ?>>Guardar</button></div>				
+				<!--<div class="col-md-3"><button class="btn btn-warning" type="button" style="width: 100%; margin: 5px;" onclick="window.location.href='mng_incidencias.phtml'">Limpiar</button></div>!-->
+			</div>			                       
+		</div>
+	</form>
+</div>
+<?
+if(isset($_SESSION[$modfrm])){
+	unset($_SESSION[$modfrm]);
+}
+getFooterFrm(); 
+} else {
+	header("Location: ./main.phtml");
+}
+}else{
+	header("Location: .");
+}
+
+function saveInfo($conn,$id,$stt,$inf){
+	$usr = $_SESSION["userinfo"]["username"];
+	$fec = $currDate = date("Y-m-d H:i:s");
+	$sql = "update sis_reg_inc set stt_inc='$stt',usr_cap='$usr', fec_cap='$fec', info_inc='$inf' where cve_reg='$id'";
+	$stmt = $conn->prepare($sql);			
+	$rc = $stmt->execute();
+	if(false===$rc){
+		$ret = $stmt->error; 
+	}else{
+		$ret = $stmt->affected_rows;				
+	}
+	$stmt->close();
+	$conn->close();
+return $ret;
+}
+?>

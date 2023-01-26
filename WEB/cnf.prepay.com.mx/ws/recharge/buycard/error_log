@@ -1,0 +1,31 @@
+[25-Jan-2021 21:22:51 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:201
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/buycard/index.php(123): insertRecharge(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 201
+[25-Jan-2021 21:41:40 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:201
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/buycard/index.php(123): insertRecharge(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 201
+[25-Jan-2021 21:46:13 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:202
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/buycard/index.php(123): insertRecharge(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 202
+[25-Jan-2021 21:51:05 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:201
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/buycard/index.php(123): insertRecharge(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 201
+[25-Jan-2021 21:57:27 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:202
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/buycard/index.php(123): insertRecharge(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 202
+[12-Feb-2021 09:28:27 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:217) in /home/envdtsme/cnf.prepay.com.mx/ws/recharge/buycard/index.php on line 146
+[12-Feb-2021 09:29:22 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:221) in /home/envdtsme/cnf.prepay.com.mx/ws/recharge/buycard/index.php on line 146
+[12-Feb-2021 09:45:15 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:221) in /home/envdtsme/cnf.prepay.com.mx/ws/recharge/buycard/index.php on line 146
+[12-Feb-2021 10:06:09 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:222) in /home/envdtsme/cnf.prepay.com.mx/ws/recharge/buycard/index.php on line 146
+[12-Feb-2021 10:07:05 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:222) in /home/envdtsme/cnf.prepay.com.mx/ws/recharge/buycard/index.php on line 146
+[12-Feb-2021 10:09:38 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:222) in /home/envdtsme/cnf.prepay.com.mx/ws/recharge/buycard/index.php on line 146

@@ -1,0 +1,19 @@
+[25-Jan-2021 21:26:54 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:610
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(591): getDataFromViewTable(Object(mysqli), 'select * from v...')
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/terminalrecharge/index.php(33): getTerminalRecharge(Object(mysqli), Array)
+#2 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 610
+[25-Jan-2021 21:29:53 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:610
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(591): getDataFromViewTable(Object(mysqli), 'select * from v...')
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/terminalrecharge/index.php(33): getTerminalRecharge(Object(mysqli), Array)
+#2 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 610
+[25-Jan-2021 21:30:02 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:610
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(591): getDataFromViewTable(Object(mysqli), 'select * from v...')
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/terminalrecharge/index.php(33): getTerminalRecharge(Object(mysqli), Array)
+#2 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 610
+[25-Jan-2021 21:37:35 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:607) in /home/envdtsme/cnf.prepay.com.mx/ws/recharge/terminalrecharge/index.php on line 50

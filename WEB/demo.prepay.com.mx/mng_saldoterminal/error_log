@@ -1,0 +1,1 @@
+[10-Feb-2021 21:28:35 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_saldoterminal/DAOSaldoterminal.php:65) in /home/envdtsme/demo.prepay.com.mx/mng_saldoterminal/index.php on line 31

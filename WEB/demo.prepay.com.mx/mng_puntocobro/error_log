@@ -1,0 +1,96 @@
+[06-Feb-2020 15:56:01 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to undefined function getDataFromTable() in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php:16
+Stack trace:
+#0 /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/index.php(8): DAOPuntoCobro->insert(Object(PuntoCobro))
+#1 {main}
+  thrown in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php on line 16
+[06-Feb-2020 15:58:14 America/Mexico_City] PHP Warning:  include(util_list.php): failed to open stream: No such file or directory in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php on line 4
+[06-Feb-2020 15:58:14 America/Mexico_City] PHP Warning:  include(util_list.php): failed to open stream: No such file or directory in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php on line 4
+[06-Feb-2020 15:58:14 America/Mexico_City] PHP Warning:  include(): Failed opening 'util_list.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php on line 4
+[06-Feb-2020 15:58:14 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to undefined function getDataFromTable() in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php:17
+Stack trace:
+#0 /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/index.php(8): DAOPuntoCobro->insert(Object(PuntoCobro))
+#1 {main}
+  thrown in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php on line 17
+[06-Feb-2020 15:59:01 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function close() on null in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php:37
+Stack trace:
+#0 /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/index.php(8): DAOPuntoCobro->insert(Object(PuntoCobro))
+#1 {main}
+  thrown in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php on line 37
+[06-Feb-2020 17:41:41 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/index.php:7) in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/index.php on line 33
+[06-Feb-2020 17:43:14 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/index.php:7) in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/index.php on line 33
+[30-Jul-2020 23:02:49 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php:74) in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/index.php on line 33
+[30-Jul-2020 23:03:17 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php:74) in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/index.php on line 33
+[30-Jul-2020 23:03:23 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php:74) in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/index.php on line 33
+[30-Jul-2020 23:04:05 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php:77
+Stack trace:
+#0 /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/index.php(26): DAOPuntoCobro->searchById('')
+#1 {main}
+  thrown in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php on line 77
+[30-Jul-2020 23:06:29 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php:74) in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/index.php on line 33
+[30-Jul-2020 23:07:18 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php:74) in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/index.php on line 33
+[30-Jul-2020 23:07:48 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php:74) in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/index.php on line 33
+[04-Sep-2020 10:33:09 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php:77
+Stack trace:
+#0 /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/index.php(26): DAOPuntoCobro->searchById('')
+#1 {main}
+  thrown in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php on line 77
+[04-Sep-2020 10:33:19 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php:77
+Stack trace:
+#0 /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/index.php(26): DAOPuntoCobro->searchById('')
+#1 {main}
+  thrown in /home/envdtsme/dev.coproit.com/ocetech/mng_puntocobro/DAOPuntocobro.php on line 77
+[12-Oct-2020 21:38:38 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'and b.tip_rel=1' at line 6 in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php:75
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php(75): mysqli->prepare('select a.cve_un...')
+#1 /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/index.php(26): DAOPuntoCobro->searchById('')
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php on line 75
+[12-Oct-2020 21:38:51 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'and b.tip_rel=1' at line 6 in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php:75
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php(75): mysqli->prepare('select a.cve_un...')
+#1 /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/index.php(26): DAOPuntoCobro->searchById('')
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php on line 75
+[12-Oct-2020 21:40:08 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'and b.tip_rel=1' at line 6 in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php:75
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php(75): mysqli->prepare('select a.cve_un...')
+#1 /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/index.php(26): DAOPuntoCobro->searchById('')
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php on line 75
+[12-Oct-2020 21:41:31 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'and b.tip_rel=1' at line 6 in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php:75
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php(75): mysqli->prepare('select a.cve_un...')
+#1 /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/index.php(26): DAOPuntoCobro->searchById('')
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php on line 75
+[12-Oct-2020 21:50:30 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`envdtsme_dbppy_dev`.`sis_rel_dis`, CONSTRAINT `sis_rel_dis_ibfk_3` FOREIGN KEY (`stt_rel`) REFERENCES `cat_stt` (`cve_stt`)) in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php:55
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php(55): mysqli_stmt->execute()
+#1 /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/index.php(16): DAOPuntoCobro->update(Object(PuntoCobro))
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php on line 55
+[12-Oct-2020 21:53:17 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where cve_rel = 8' at line 1 in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php:55
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php(55): mysqli->prepare('update sis_rel_...')
+#1 /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/index.php(16): DAOPuntoCobro->update(Object(PuntoCobro))
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php on line 55
+[12-Oct-2020 22:07:44 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where cve_rel = 1 and tip_rel='1'' at line 1 in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php:55
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php(55): mysqli->prepare('update sis_rel_...')
+#1 /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/index.php(16): DAOPuntoCobro->update(Object(PuntoCobro))
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php on line 55
+[12-Oct-2020 22:11:22 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php:76) in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/index.php on line 33
+[12-Oct-2020 22:12:44 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'A' in 'field list' in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php:55
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php(55): mysqli->prepare('update sis_rel_...')
+#1 /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/index.php(16): DAOPuntoCobro->update(Object(PuntoCobro))
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php on line 55
+[12-Oct-2020 22:13:54 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php:54) in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/index.php on line 33
+[12-Oct-2020 22:14:16 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php:54) in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/index.php on line 33
+[20-Oct-2020 13:43:46 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php:54) in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/index.php on line 33
+[10-Feb-2021 20:11:18 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php:100) in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/index.php on line 33
+[10-Feb-2021 20:12:32 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php:100) in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/index.php on line 33
+[10-Feb-2021 20:14:22 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/DAOPuntocobro.php:100) in /home/envdtsme/demo.prepay.com.mx/mng_puntocobro/index.php on line 33

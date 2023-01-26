@@ -1,0 +1,83 @@
+[25-Jan-2021 20:45:06 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:209
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/rechargecard/index.php(76): insertRecharge(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 209
+[26-Jan-2021 12:53:52 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:210
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/rechargecard/index.php(76): insertRecharge(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 210
+[26-Jan-2021 12:54:19 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:210
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/rechargecard/index.php(76): insertRecharge(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 210
+[26-Jan-2021 12:54:32 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:210
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/rechargecard/index.php(76): insertRecharge(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 210
+[26-Jan-2021 12:54:44 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:210
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/rechargecard/index.php(76): insertRecharge(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 210
+[29-Jan-2021 17:50:15 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:210
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/rechargecard/index.php(76): insertRecharge(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 210
+[31-Jan-2021 13:23:24 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:210
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/rechargecard/index.php(76): insertRecharge(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 210
+[01-Feb-2021 00:36:06 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:210
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/rechargecard/index.php(76): insertRecharge(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 210
+[01-Feb-2021 01:28:33 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:210
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/rechargecard/index.php(76): insertRecharge(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 210
+[04-Feb-2021 11:59:36 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:210
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/rechargecard/index.php(76): insertRecharge(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 210
+[04-Feb-2021 12:14:10 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:210
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/rechargecard/index.php(76): insertRecharge(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 210
+[10-Feb-2021 10:40:35 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:210
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/rechargecard/index.php(76): insertRecharge(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 210
+[10-Feb-2021 10:42:12 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:210
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/rechargecard/index.php(76): insertRecharge(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 210
+[10-Feb-2021 10:50:45 America/Mexico_City] PHP Warning:  date_format() expects parameter 1 to be DateTimeInterface, string given in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 218
+[10-Feb-2021 17:18:51 America/Mexico_City] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function getDataFromView(), 2 passed in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 783 and exactly 3 expected in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:89
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(783): getDataFromView(Object(mysqli), 'select bal_ter ...')
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(220): returnBalance(Object(mysqli), '356021081495810', 'admin')
+#2 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/rechargecard/index.php(76): insertRecharge(Object(mysqli), Array)
+#3 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 89
+[10-Feb-2021 17:23:13 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:784) in /home/envdtsme/cnf.prepay.com.mx/ws/recharge/rechargecard/index.php on line 97
+[10-Feb-2021 17:30:49 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:784) in /home/envdtsme/cnf.prepay.com.mx/ws/recharge/rechargecard/index.php on line 97
+[10-Feb-2021 17:39:52 America/Mexico_City] PHP Parse error:  syntax error, unexpected '$balter' (T_VARIABLE) in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 784
+[10-Oct-2022 08:34:09 America/Mexico_City] PHP Warning:  mysqli::__construct(): (HY000/1130): Host 'localhost' is not allowed to connect to this MariaDB server in /home/envdtsme/cnf.prepay.com.mx/admin/cnx.php on line 12
+[10-Oct-2022 08:34:09 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:95
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(440): getDataFromQuery(NULL, 'select count(*)...')
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/recharge/rechargecard/index.php(31): validateUserId(NULL, 'prueba01')
+#2 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 95

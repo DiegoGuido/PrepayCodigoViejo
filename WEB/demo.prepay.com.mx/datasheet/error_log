@@ -1,0 +1,122 @@
+[18-Mar-2021 16:57:28 America/Mexico_City] PHP Warning:  include(cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:57:28 America/Mexico_City] PHP Warning:  include(cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:57:28 America/Mexico_City] PHP Warning:  include(): Failed opening 'cnx.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:57:28 America/Mexico_City] PHP Warning:  include(util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:57:28 America/Mexico_City] PHP Warning:  include(util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:57:28 America/Mexico_City] PHP Warning:  include(): Failed opening 'util_list.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:57:28 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 8
+[18-Mar-2021 16:58:13 America/Mexico_City] PHP Warning:  include(cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:13 America/Mexico_City] PHP Warning:  include(cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:13 America/Mexico_City] PHP Warning:  include(): Failed opening 'cnx.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:13 America/Mexico_City] PHP Warning:  include(util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:13 America/Mexico_City] PHP Warning:  include(util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:13 America/Mexico_City] PHP Warning:  include(): Failed opening 'util_list.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:13 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 8
+[18-Mar-2021 16:58:46 America/Mexico_City] PHP Warning:  include(cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:46 America/Mexico_City] PHP Warning:  include(cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:46 America/Mexico_City] PHP Warning:  include(): Failed opening 'cnx.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:46 America/Mexico_City] PHP Warning:  include(util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:46 America/Mexico_City] PHP Warning:  include(util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:46 America/Mexico_City] PHP Warning:  include(): Failed opening 'util_list.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:46 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 8
+[18-Mar-2021 16:58:48 America/Mexico_City] PHP Warning:  include(cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:48 America/Mexico_City] PHP Warning:  include(cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:48 America/Mexico_City] PHP Warning:  include(): Failed opening 'cnx.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:48 America/Mexico_City] PHP Warning:  include(util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:48 America/Mexico_City] PHP Warning:  include(util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:48 America/Mexico_City] PHP Warning:  include(): Failed opening 'util_list.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:48 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 8
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Warning:  include(cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Warning:  include(cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Warning:  include(): Failed opening 'cnx.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Warning:  include(util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Warning:  include(util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Warning:  include(): Failed opening 'util_list.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 8
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Warning:  include(cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Warning:  include(cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Warning:  include(): Failed opening 'cnx.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Warning:  include(util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Warning:  include(util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Warning:  include(): Failed opening 'util_list.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 8
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Warning:  include(cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Warning:  include(cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Warning:  include(): Failed opening 'cnx.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Warning:  include(util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Warning:  include(util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Warning:  include(): Failed opening 'util_list.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:49 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 8
+[18-Mar-2021 16:58:50 America/Mexico_City] PHP Warning:  include(cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:50 America/Mexico_City] PHP Warning:  include(cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:50 America/Mexico_City] PHP Warning:  include(): Failed opening 'cnx.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:58:50 America/Mexico_City] PHP Warning:  include(util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:50 America/Mexico_City] PHP Warning:  include(util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:50 America/Mexico_City] PHP Warning:  include(): Failed opening 'util_list.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:58:50 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 8
+[18-Mar-2021 16:59:59 America/Mexico_City] PHP Warning:  include(./cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:59:59 America/Mexico_City] PHP Warning:  include(./cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:59:59 America/Mexico_City] PHP Warning:  include(): Failed opening './cnx.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 16:59:59 America/Mexico_City] PHP Warning:  include(./util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:59:59 America/Mexico_City] PHP Warning:  include(./util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:59:59 America/Mexico_City] PHP Warning:  include(): Failed opening './util_list.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 16:59:59 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 8
+[18-Mar-2021 17:00:48 America/Mexico_City] PHP Warning:  include(./cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 17:00:48 America/Mexico_City] PHP Warning:  include(./cnx.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 17:00:48 America/Mexico_City] PHP Warning:  include(): Failed opening './cnx.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 6
+[18-Mar-2021 17:00:48 America/Mexico_City] PHP Warning:  include(./util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 17:00:48 America/Mexico_City] PHP Warning:  include(./util_list.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 17:00:48 America/Mexico_City] PHP Warning:  include(): Failed opening './util_list.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 7
+[18-Mar-2021 17:00:48 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 8
+[18-Mar-2021 17:02:17 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:10) in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 13
+[18-Mar-2021 17:02:17 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:10) in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 14
+[18-Mar-2021 17:02:17 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:10) in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 15
+[18-Mar-2021 17:02:17 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:10) in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 16
+[18-Mar-2021 17:02:17 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:10) in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 17
+[18-Mar-2021 17:02:17 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:10) in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 18
+[18-Mar-2021 17:02:17 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:10) in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 19
+[18-Mar-2021 17:02:17 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:10) in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 20
+[18-Mar-2021 17:03:27 America/Mexico_City] PHP Warning:  mysqli::query(): Empty query in /home/envdtsme/demo.prepay.com.mx/util_list.php on line 898
+[05-Sep-2022 16:38:50 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to undefined function getDataFromTable1() in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:49
+Stack trace:
+#0 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 49
+[05-Sep-2022 16:41:05 America/Mexico_City] PHP Warning:  mysqli::query(): Empty query in /home/envdtsme/demo.prepay.com.mx/util_list.php on line 898
+[07-Sep-2022 11:58:35 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to undefined function getDataFromTable1() in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:49
+Stack trace:
+#0 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 49
+[07-Sep-2022 12:01:24 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to undefined function getDataFromTable1() in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php:49
+Stack trace:
+#0 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/datasheet/cobro.php on line 49

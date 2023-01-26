@@ -1,0 +1,135 @@
+<?
+session_start();
+if(isset($_SESSION["userinfo"])){
+	$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);	
+	$mod = explode("_",$nscript);
+	$modulo = $mod[0]."_".$mod[1];
+	$modfrm = $mod[2];
+	$form = $modulo."/".$modfrm.".php";
+	//echo "nscript: ".$nscript." module: ".$modulo." form: ".$form;
+	date_default_timezone_set("America/Mexico_City");
+	include "cnx.php";			
+	include "util_list.php";
+	$conn = getConnection();
+	$usr = $_SESSION["userinfo"]["username"];
+	$rut = $_SESSION["mngrutas"]["idRuta"];
+	//echo "ruta: ".$rut;
+	//$rut = 1;
+	$aut=ValPerPag($usr,$modulo);
+	//$aut=1;
+if ($aut == 1) {
+	include "util_frame.php";
+	
+	$modo 		= isset($_SESSION[$modulo]["modos"])?unserialize($_SESSION[$modulo]["modos"]):null;
+	$idModo 	= !is_null($modo)?$modo["cve_mod"]:"";
+	$desModo 	= !empty($modo)?$modo["des_mod"]:"- Selecciona Modo -";
+	$status 	= !is_null($modo)?$modo["stt_rut_mod"]:"";
+	$idRuta 	= !is_null($modo)?$modo["cve_rut"]:"";			
+	
+	
+$jsActivo = "
+<script type='text/javascript'>function setActivo(o){
+	if(document.getElementById('status').value=='A'){
+		document.getElementById('status').value='I';
+		document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/off.png';
+	}else{
+		document.getElementById('status').value='A';
+		document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/on.png';
+	}
+}</script>";
+
+$allJS="";
+$allJS .= $jsActivo;
+	
+getHeaderFrm("Tipos Tarjeta", $allJS); 
+?>
+<form action = "<? echo $form; ?>" method="POST" >
+<input type="hidden" id="idRuta" name="idRuta" value="<?php echo $idRuta; ?>" />
+	<div class="modal-body">
+		<div class="row">
+			<div class="col"><strong>Modo</strong>							
+				<select style="width: 100%;" id="modo" name="modo" required >
+					<option value="<? echo $idModo; ?>"><? echo $desModo; ?></option>
+					<?
+					$arrDat = getDataFromTable($conn,"select cve_mod,des_mod from cat_mod where cve_mod not in (select cve_mod from cat_rut_mod where cve_rut='$rut')");
+					foreach($arrDat as $dat){
+					?>
+					<option value="<? echo $dat["cve_mod"]; ?>"><? echo $dat["des_mod"]; ?></option>
+					<? } ?>
+				</select>					
+			</div>					
+			<div class="col"><strong>Activa</strong>
+				<p><img id = "onoff" src='http://cnf.prepay.com.mx/assets/img/<?php echo empty($status)?"inter":($status=="I"?"off":"on"); ?>.png' onclick = "setActivo(this)" height='40' /></p>
+				<input id= "status" name= "status" type="hidden" value="<?php echo $status; ?>" />
+			</div>
+		</div>		
+	</div>
+	<p class="text-center" style="background-color: #ff6b00;color: rgb(255,255,255);" id="mensajeacciontipo" ><? echo $_SESSION["tipos"]["message"];?></p>
+	<div class="modal-footer" style="height: 65px;">
+		<?php
+		if(empty($idModo)){
+			$transaction = "Agregar";
+		}else{
+			$transaction = "Actualizar";
+		}						
+		?>
+		<p class="text-right"><input class="btn btn-success" style="margin: 9px;margin-left: 5px;width: 100%;" name="btn<?php echo $transaction; ?>" type="submit" value="<?php echo $transaction; ?>"></p>
+		</div>
+	</div>
+</form>
+<div class="col-md-12 search-table-col" style="margin: 10px 0px 0px;">
+     <div class="table-responsive table-bordered table table-hover table-bordered results">
+         <table class="table table-bordered table-hover">
+             <thead class="bill-header cs" style="color: rgb(29,42,159);">
+                 <tr style="color: rgb(229,230,242);background-color: rgb(24,165,88);">                     
+                     <th id="trs-hd" class="col-lg-2">Ruta</th>                     
+					 <th id="trs-hd" class="col-lg-2">Modo</th>                     
+					 <th id="trs-hd" class="col-lg-3">Fecha</th>					 
+                     <th id="trs-hd" class="col-lg-2">Acciones</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <tr class="warning no-result">
+                     <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No hay Resultados !!!</td>
+                 </tr>
+			<?
+			$sql="select a.cve_rut,a.cve_mod,b.nombre_ruta,c.des_mod,a.fec_cap,a.stt_rut_mod
+				from cat_rut_mod a, cat_rut b, cat_mod c
+				where a.cve_rut=b.cve_rut
+				and a.cve_mod=c.cve_mod				
+				AND a.cve_rut='$rut'";
+			$arrDat = getDataFromTable($conn,$sql);
+			foreach($arrDat as $dat){
+			?>
+                <tr>
+                  <td><? echo $dat["nombre_ruta"] ?></td>
+                  <td><? echo $dat["des_mod"] ?></td>				
+				  <td><? echo $dat["fec_cap"] ?></td>
+				  
+				<? 
+				if ($dat["cve_mod"] == "E"){
+					echo "<td></td>";
+				} else {
+				echo "<td data-label='...' ><img src='http://cnf.prepay.com.mx/assets/img/".($dat["stt_rut_mod"]=="I"?"off":"on").".png' height='40' />
+				<button class='btn btn-success' style='margin-left: 5px;' type='submit' onclick = \"location.href = '$modulo/$modfrm.php?d1=".$dat["cve_rut"]."&d2=".$dat["cve_mod"]."';\"'><i class='fa fa-edit' style='font-size: 15px;' ></i></button>				
+				</td>";
+				}
+				?>                            
+                 </tr>
+			<? } ?>
+             </tbody>
+         </table>
+     </div>
+ </div>
+<?
+if(isset($_SESSION[$modfrm])){
+	unset($_SESSION[$modfrm]);
+}
+getFooterFrm(); 
+} else {
+	header("Location: ./main.phtml");
+}
+}else{
+	header("Location: .");
+}
+?>

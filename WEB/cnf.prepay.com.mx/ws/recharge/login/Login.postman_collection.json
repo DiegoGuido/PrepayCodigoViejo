@@ -1,0 +1,108 @@
+{
+	"info": {
+		"_postman_id": "9ff57fd9-e1df-43f4-b557-44681c2cc534",
+		"name": "Login",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login invalid coordinates",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n \"usuario\":\"admin\",\r\n \"password\":\"admin01*\",\r\n \"imei\" : \"987654321\",\r\n \"location\" : \"..,,SDFSDFDF\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "dev.coproit.com/ocetech/ws/recharge/login/",
+					"host": [
+						"dev",
+						"coproit",
+						"com"
+					],
+					"path": [
+						"ocetech",
+						"ws",
+						"recharge",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login coordinates",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n\"usuario\":\"admin\",\r\n \"password\":\"admin01*\",\r\n \"imei\" : \"987654321\",\r\n \"Location\":\"20.6117696,-105.234357\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "dev.coproit.com/ocetech/ws/recharge/login/",
+					"host": [
+						"dev",
+						"coproit",
+						"com"
+					],
+					"path": [
+						"ocetech",
+						"ws",
+						"recharge",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login no loc",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n \"usuario\":\"admin\",\r\n \"password\":\"admin01*\",\r\n \"imei\" : \"987654321\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "dev.coproit.com/ocetech/ws/recharge/login/",
+					"host": [
+						"dev",
+						"coproit",
+						"com"
+					],
+					"path": [
+						"ocetech",
+						"ws",
+						"recharge",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

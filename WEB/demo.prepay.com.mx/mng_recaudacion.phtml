@@ -1,0 +1,253 @@
+<?php
+session_start();
+if(isset($_SESSION["userinfo"])){
+	$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+	date_default_timezone_set("America/Mexico_City");
+	include "cnx.php";			
+	include "util_list.php";
+	require "$nscript/recaudacion.php";
+	$conn = getConnection();
+	$usr = $_SESSION["userinfo"]["username"];
+	$cia = $_SESSION["userinfo"]["usercia"];
+	$aut=ValPerPag($usr,$nscript);
+	//echo "nscript: ".$nscript." usr: ".$usr." aut: ".$aut;
+
+if ($aut == 1) {
+	include "util_header.php";
+	
+	$recaudacion		= isset($_SESSION[$nscript]["recaudacion"])?unserialize($_SESSION[$nscript]["recaudacion"]):null;
+	$idPuntoVenta	= !is_null($recaudacion)?$recaudacion->idPuntoVenta:"";
+	$desPuntoVenta	= !is_null($recaudacion)?$recaudacion->desPuntoVenta:"- Seleccione Punto -";		
+	$imei			= !is_null($recaudacion)?$recaudacion->imei:"";
+	$usrec			= !empty($recaudacion)?$recaudacion->usuario:"";
+	$nombre			= !empty($recaudacion)?$recaudacion->nombre:"- Seleccione Usuario -";
+	$adeudo			= !empty($recaudacion)?$recaudacion->adeudo:"";
+	$fecrec			= !empty($recaudacion)?$recaudacion->fecrec:"- Seleccione Fecha -";
+	//echo "usrec: ".$usrec;
+	
+$jsModal1 = "
+		<script type='text/javascript'>
+    $(window).on('load',function(){
+        $('#myModal').modal('show');
+    });
+</script>";
+$jsActivo = "
+<script type='text/javascript'>function setActivo(o){
+			if(document.getElementById('status').value=='A'){
+				document.getElementById('status').value='I';
+				document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/off.png';
+			}else{
+				document.getElementById('status').value='A';
+				document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/on.png';
+			}
+		}</script>";
+$jsDev="<script type='text/javascript'>
+	$.ajaxSetup({'beforeSend' : function(xhr) {
+	try{xhr.overrideMimeType('text/html; charset=iso-8859-1');}catch(e){}	}}); 
+				function sync_devices(o){
+					var idptovta = $('#ptovta').val();					
+					$.post('async_adeudos.php',{param_tipo:'dev',param_ptovta:idptovta}).done(function(data){ 
+						$.post('async_adeudos.php',{param_tipo:'fec',param_imei:data}).done(function(data1){ $('#fecrec').html(data1)});
+						$('#imei').val(data), $('#recusr').val('- Seleccione Usuario -'), $('#adeudo').val('0'), $('#monto').val('0');
+						});																				
+				}
+				function sync_user(o){
+					var imei = $('#imei').val();					
+					var fecrec = $('#fecrec').val();
+					$.post('async_adeudos.php',{param_tipo:'usr',param_imei:imei,param_fec:fecrec}).done(function(data){ $('#recusr').html(data)});
+				}
+				function sync_balance(o){
+					var imei = $('#imei').val();
+					var idusr = $('#recusr').val();
+					var fecrec = $('#fecrec').val();
+					$.post('async_adeudos.php',{param_tipo:'bal',param_imei:imei,param_usr:idusr,param_fec:fecrec}).done(function(data){ $('#adeudo').val(data);})
+				}
+		</script>		
+				";
+$jsInfoModal="<script type='text/javascript'> 		
+				function showInfo(d1,d2,d3){
+					//console.log(d1);
+					//console.log(d2);					
+					$('#infoModal').modal('show');					
+					$('#frminfo').attr('src', 'mng_recaudacion_lista.phtml?d1='+d1+'&d2='+d2+'&d3='+d3);
+				}
+			</script>";	
+
+$allJS="";
+$allJS .= isset($_SESSION[$nscript]["message"])?$jsModal1:"";
+$allJS .= $jsActivo;
+$allJS .= $jsDev;
+$allJS .= $jsInfoModal;
+				
+getHeader("Recaudacion", $allJS, $conn); 
+
+?>
+
+<div>
+        <div class="container">
+		<form action = "<?php echo $nscript; ?>/" method="POST" >					
+            <div class="row">                                
+                <div class="col-md-3"><strong>Punto Venta</strong>
+				<select style="width: 100%;" id="ptovta" name="ptovta" onchange="sync_devices(this)" required>
+				<option value="<? echo $idPuntoVenta; ?>" selected=""><? echo $desPuntoVenta; ?></option>
+				<?				
+				$sql="select a.imei,b.cve_rel,b.dato
+				from vw_adeudo_taquilla a, vw_rel_dis b
+				where a.imei=b.imei
+				and b.cve_cia='$cia'
+				and b.tip_rel=2
+				and b.stt_rel='A'
+				group by a.imei";
+				//echo $sql;
+				$arrDat = getDataFromView($conn,$sql);
+				foreach($arrDat as $dat)
+				echo "<option value='".$dat["cve_rel"]."' ".($ptovta==$dat["cve_rel"]?"selected":"").">".$dat["dato"]."</option>";
+				?>								
+				</select>
+				</div>
+				<div class="col-md-3"><strong>IMEI</strong><input type="text" style="width: 100%;" name="imei" id="imei" value="<?php echo $imei; ?>" required readonly></div>
+				<!--<div class="col-md-3"><strong>Fecha</strong><input type="date" style="width: 100%;" name="fecrec" id="fecrec" onchange="sync_user(this)" value="<?//php echo $fecrec; ?>" required></div>!-->
+				<div class="col-md-3"><strong>Fecha</strong>
+				<select style="width: 100%;" id="fecrec" name="fecrec" onchange="sync_user(this)" required>
+					<option value="<? echo $fecrec; ?>"><? echo $fecrec; ?></option>					
+				</select>
+				</div>
+				<div class="col-md-3"><strong>Usuario</strong>
+				<select style="width: 100%;" id="recusr" name="recusr" onchange="sync_balance(this)" required>
+				<option value="<? echo $usrec; ?>" selected=""><? echo $nombre; ?></option>
+				<?
+				/*$sql="select a.usr,b.nombre from sis_usr_cia a, cat_usr b where a.usr=b.usr and a.cve_cia='$cia'";
+				$arrDat = getDataFromTable($conn,$sql);
+				foreach($arrDat as $dat)
+				echo "<option value='".$dat["usr"]."' ".($tipo==$dat["usr"]?"selected":"").">".$dat["nombre"]."</option>";*/
+				?>								
+				</select>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="col-md-3"><strong>Adeudo</strong><input type="numeric" style="width: 100%;" name="adeudo" id="adeudo" value="<?php echo $adeudo; ?>" required readonly></div>
+				<div class="col-md-3"><strong>Monto</strong><input type="numeric" style="width: 100%;" name="monto" id="monto" value="<?php echo $monto; ?>" required></div>
+			</div>
+			</div>
+		</div>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+				<?php				
+					$transaction = "Agregar";		
+				?>
+				<p class="text-right"><input class="btn btn-success" style="margin: 9px;margin-left: 5px;width: 100%;" name="btn<?php echo $transaction; ?>" type="submit" value="<?php echo $transaction; ?>"></p>
+				</div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    </div>
+	</form>
+</div>
+    <div class="container">
+        <div class="col-md-12 search-table-col" style="margin: 10px 0px 0px;">
+            <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Buscar"></div><span class="counter pull-right"></span>
+            <div class="table-responsive table-bordered table table-hover table-bordered results">
+                <table class="table table-bordered table-hover">
+                    <thead class="bill-header cs" style="color: rgb(29,42,159);">
+                        <tr style="color: rgb(229,230,242);background-color: rgb(24,165,88);">
+							<th id="trs-hd" class="col-lg-1">IMEI</th>
+                            <th id="trs-hd" class="col-lg-1">Punto de Venta</th>
+							<th id="trs-hd" class="col-lg-1">Venta</th>
+							<th id="trs-hd" class="col-lg-1">Abono</th>
+							<th id="trs-hd" class="col-lg-1">Adeudo</th>
+							<th id="trs-hd" class="col-lg-1">Fecha</th>
+							<th id="trs-hd" class="col-lg-1">Usuario</th>								
+                            <th id="trs-hd" class="col-lg-1"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="warning no-result">
+                            <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No hay Resultados !!!</td>
+                        </tr>
+						<?						
+						$sql="select a.tarjeta,a.taquilla,a.bal_taq,a.imei,a.usr_cap,b.cve_rel,c.des_ter,d.nombre,a.fecha
+						from vw_adeudo_taquilla a, vw_rel_dis b,cat_ter c,cat_usr d
+						where a.imei=b.imei
+						and b.cve_rel=c.cve_ter
+						and b.tip_rel=2
+						and b.stt_rel='A'
+						and c.stt_ter='A'
+						and a.usr_cap=d.usr
+						and d.stt_usr='A'
+						and b.cve_cia='1'
+						order by a.imei,a.usr_cap";
+						//echo $sql;
+						$arrDat = getDataFromView($conn,$sql);
+						foreach($arrDat as $dat){
+							$dat1=$dat["imei"];
+							$dat2=$dat["usr_cap"];
+							$dat3=$dat["fecha"];
+							//echo $dat1;
+						?>
+                        <tr>
+							<td><? echo $dat["imei"] ?></td>                            
+							<td><? echo $dat["des_ter"] ?></td>
+							<td><? echo $dat["tarjeta"] ?></td>
+							<td><? echo $dat["taquilla"] ?></td>
+							<td><? echo $dat["bal_taq"] ?></td>
+							<td><? echo $dat["fecha"] ?></td>
+							<td><? echo $dat["nombre"] ?></td>						
+                            <? echo "<td><button class='btn btn-success' style='margin-left: 5px;' type='submit' onclick = \"location.href = '$nscript/?usr=".$dat["usr_cap"]."&imei=".$dat["imei"]."&fecrec=".$dat["fecha"]."';\"'><i class='fa fa-edit' style='font-size: 15px;' ></i></button>";?>
+							<? //echo "<button class='btn btn-info' style='margin-left: 5px;' type='submit' onclick='showInfo('".$dat1."','".$dat2."')'><i class='fa fa-file-text-o' style='font-size: 15px;' ></i></button></td>";?>
+							<button class="btn btn-info" style="margin-left: 5px;" type="submit" onclick="showInfo('<? echo $dat1 ?>','<? echo $dat2 ?>','<? echo $dat3 ?>')"><i class="fa fa-file-text-o" style="font-size: 15px;" ></i></button></td>
+                        </tr>
+						<? } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+	
+	<div>
+		<div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4>Gestión Recaudacion</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+					<div class="modal-body">
+						<p class="text-center text-muted"><?php echo $_SESSION[$nscript]["message"]; ?> </p>
+					</div>
+					<div class="modal-footer"><button class="btn btn-primary" type="button" data-dismiss="modal">Entendido</button></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- MODAL INFO  !-->
+	<div class="modal fade" role="dialog" tabindex="-1" id="infoModal">
+		<div class="modal-dialog" role="document" style="max-width:900px;">
+			<div class="modal-content">
+				<div class="modal-header" style="height: 49px;background-color: #ededed;">
+					<h4>Informacion Recaudo</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+					<input type="hidden" id="modalinfo"  />						
+				</div>
+				<div>
+					<iframe src="" width="100%" height="400"  style="border:1px gray;" id="frminfo"></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+<?
+if(isset($_SESSION[$nscript])){
+	unset($_SESSION[$nscript]);
+} 
+getFooter(); 
+} else {
+	header("Location: ./main.phtml");
+}
+}else{
+	header("Location: .");
+}
+?>

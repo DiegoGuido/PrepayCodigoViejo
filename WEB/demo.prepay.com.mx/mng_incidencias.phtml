@@ -1,0 +1,275 @@
+<?php
+session_start();
+if(isset($_SESSION["userinfo"])){
+	$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+	date_default_timezone_set("America/Mexico_City");
+	include "cnx.php";			
+	include "util_list.php";	
+	$conn = getConnection();
+	$usr = $_SESSION["userinfo"]["username"];
+	$cia = $_SESSION["userinfo"]["usercia"];
+	$aut=ValPerPag($usr,$nscript);	
+	$lim = 20;
+	$min = 0;
+
+if ($aut == 1) {
+	include "util_header.php";
+		
+	$form = $nscript.".phtml";
+	$incidencia	= $_POST["incidencia"];
+	$incuni	= $_POST["incuni"];	
+
+    if ($_GET){		
+	$p = $_GET["p"];	
+	$p1 = $p-1;	
+	$min = $p1*$lim;
+	}
+		
+	$sqlbas="select * from vw_sis_reg_inc where cve_cia='$cia'";
+	if(!empty($incidencia)) { $vinc=" and cve_inc='$incidencia'"; };
+	if(!empty($incuni)) { $vuni=" and num_eco='$incuni'"; };
+	$vord = " ORDER BY fec_inc DESC LIMIT $min,$lim";
+	$sqldat=$sqlbas.$vinc.$vuni.$vord;
+	//echo $sqldat;
+	$arrdat = getDataFromView($conn,$sqldat);
+	$sqlcnt=$sqlbas.$vinc.$vuni;
+	$arrcnt = getDataFromView($conn,$sqlcnt);
+	$cntrec = count($arrcnt);
+	//echo "cnt: ".$cntrec;	
+	
+			
+$jsModal1 = "
+		<script type='text/javascript'>
+    $(window).on('load',function(){
+        $('#myModal').modal('show');
+    });
+</script>";
+
+$jsActivo = "
+<script type='text/javascript'>function setActivo(o){
+			if(document.getElementById('incstt').value=='A'){
+				document.getElementById('incstt').value='I';
+				document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/off.png';
+			}else{
+				document.getElementById('incstt').value='A';
+				document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/on.png';
+			}
+		}</script>";
+		
+$jsMapaModal="<script type='text/javascript'> 
+				function showMapa(uni,lat,lon){
+				console.log(uni);
+				console.log(lat);	
+				console.log(lon);	
+				$('#MapaModal').modal('show');					
+				escribiriframe(uni,lat,lon)
+				}				
+									
+				function escribiriframe(uni,lat,lon){
+				console.log(uni);	
+				var frm='<iframe id=\"idmapfrm\" allowfullscreen=\"\" frameborder=\"0\" src=\"mng_map_reg.phtml?uni='+uni+'&lat='+lat+'&lon='+lon+'\" width=\"100%\" height=\"400\"></iframe>';
+				console.log(frm);
+				document.getElementById('idmapfrm').innerHTML=frm; 
+				} 
+			</script>";
+			
+$jsInfoModal="<script type='text/javascript'> 		
+				function showInfo(d1,d2){
+					//console.log(d1);
+					//console.log(d2);
+					$('#infoModal').modal('show');					
+					$('#frminfo').attr('src', 'mng_incidencias_info.phtml?d1='+d1+'&d2='+d2);
+				}
+			</script>";	
+			  
+
+
+$allJS="";
+$allJS .= isset($_SESSION[$nscript]["message"])?$jsModal1:"";
+$allJS .= $jsActivo;
+$allJS .= $jsMapaModal;
+$allJS .= $jsInfoModal;
+
+getHeader("Incidencias", $allJS, $conn); 
+
+?>
+
+<div>
+        <div class="container">
+		<form action = "<? echo $form; ?>" method="POST" >
+            <div class="row">
+				<div class="col-md-3"><strong>Incidencias</strong>
+				<select style="width: 100%;" name="incidencia">	
+				<option value="">- Incidencias -</option>
+				<?
+				$sqlmen="select distinct(a.cve_inc),b.des_inc from sis_reg_inc a, cat_inc b where a.cve_inc=b.cve_inc and a.cve_cia='$cia'";
+				//echo $sqlmen;
+				$arrMen = getDataFromView($conn,$sqlmen);
+				foreach($arrMen as $men){
+				echo "<option value='".$men["cve_inc"]."'>".$men["des_inc"]."</option>";
+				}
+				?>								
+				</select>
+				</div>
+                <div class="col-md-3"><strong>Unidad</strong><input type="text" style="width: 100%;" maxlength="20" name="incuni" value="<?php echo $incuni; ?>"></div>				
+				<div class="col-md-3"></div>
+				<div class="col-md-3"></div>
+				<div class="col-md-3"><button class="btn btn-primary" type="submit" style="background-color: rgb(24,165,88); width: 100%; margin: 5px;">Buscar</button></div>
+				<div class="col-md-3"><button class="btn btn-warning" type="button" style="width: 100%; margin: 5px;" onclick="window.location.href='mng_incidencias.phtml'">Limpiar</button></div>				
+				</div>			              
+            </div>
+        </div>    
+	</form>
+</div>
+    <div class="container">
+        <div class="col-md-20 search-table-col" style="margin: 10px 0px 0px;">
+            <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Buscar incidencias"></div><span class="counter pull-right"></span>
+            <div class="table-responsive table-bordered table table-hover table-bordered results" style="font-size: 10px;">			
+                <table class="table table-bordered table-hover">				
+                    <thead class="bill-header cs" style="color: rgb(29,42,159);">
+                        <tr style="color: rgb(229,230,242);background-color: rgb(24,165,88);">
+                            <th id="trs-hd" class="col-lg-2">Unidad</th>
+                            <th id="trs-hd" class="col-lg-2">Ruta</th>
+                            <th id="trs-hd" class="col-lg-2">Linea</th>
+                            <th id="trs-hd" class="col-lg-2">Incidencia</th>
+                            <th id="trs-hd" class="col-lg-2">Fecha</th>							
+							<th id="trs-hd" class="col-lg-2">Imei</th>							
+							<th id="trs-hd" class="col-lg-4"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="warning no-result">
+                            <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No hay Resultados !!!</td>
+                        </tr>
+						<?						
+						//$sqldat="select * from vw_sis_reg_inc where cve_cia='$cia'";						
+						//$arrDat = getDataFromView($conn,$sqldat);	
+						foreach($arrdat as $dat){
+							$dat1=$dat["cve_reg"];
+							$dat2=$dat["stt_inc"];
+						?>
+                        <tr>
+                            <td><? echo $dat["num_eco"] ?></td>							
+							<td><? echo $dat["nombre_ruta"] ?></td>
+							<td><? echo $dat["des_lin"] ?></td>
+							<td><? echo $dat["des_inc"] ?></td>
+							<td><? echo $dat["fec_inc"] ?></td>
+							<td><? echo $dat["imei"] ?></td>
+                            <? echo "<td data-label='...' ><img src='http://cnf.prepay.com.mx/assets/img/".($dat["stt_inc"]=="P"?"off":"on").".png' height='40' />";?>
+							<a href="#" onClick="showMapa(<? echo $dat["cve_reg"] ?>,<? echo $dat["latitud"] ?>,<? echo $dat["longitud"] ?>)"><img src="http://cnf.prepay.com.mx/assets/img/maps_64dp.png" width="32" height="32"></a>
+							<button class="btn btn-info" style="margin-left: 5px;" type="submit" onclick="showInfo('<? echo $dat1 ?>','<? echo $dat2 ?>')"><i class="fa fa-file-text-o" style="font-size: 15px;" ></i></button>
+							</td>
+                        </tr>
+						<? } ?>
+                    </tbody>
+					<?
+					if ($cntrec > $lim){						
+					$pagind = ceil($cntrec / $lim);
+					$ant = $p-1;
+					$sig = $p+1;
+					$dec = 10;
+					$ini = 1;
+					if ($ant <= 1){
+						$ant=1;
+					}
+					if ($sig >= $pagind){
+						$sig=$pagind;
+					}
+					if ($p >= $dec){
+						//echo "p: ".$p." $dec: ".$dec;
+						$ini = $p;
+						$dec = $dec+$p;
+					}
+					?>
+					<tfoot>
+						<tr>
+							<td colspan="2">	
+							<p>Pagina <?  echo $p==""?1:$p ?> de <? echo $pagind; ?></p>
+							</td>
+							<td colspan="14" style="font-size: 12px;">	
+							 <nav>
+                                    <ul class="pagination">									    
+                                        <li class="page-item"><a class="page-link" href="?p=1" aria-label="Principio"><span aria-hidden="true">«</span></a></li>
+										<li class="page-item"><a class="page-link" href="?p=<? echo $ant; ?>" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+										<? for ($i=$ini; $i<=$pagind; $i++) {?>
+                                        <li class="page-item"><a class="page-link" href="?p=<? echo $i; ?>"><? echo $i; ?></a></li>
+										<? 										
+										if ($i >= $dec){
+											$j=$i+9;		
+												if ($j >= $pagind){
+													$j=$pagind;
+										?>
+										<li class="page-item"><a class="page-link" href="?p=<? echo $j; ?>"><? echo $j; ?></a></li>										
+										<? 
+												}
+												$i=$j;
+											}											
+										} 
+										?>
+                                        <li class="page-item"><a class="page-link" href="?p=<? echo $sig; ?>" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+										<li class="page-item"><a class="page-link" href="?p=<? echo $pagind; ?>" aria-label="Fin"><span aria-hidden="true">»</span></a></li>
+                                    </ul>
+                                </nav>							
+							</td>							
+						</tr>
+					</tfoot>
+					<? } ?>
+                </table>
+            </div>
+        </div>
+    </div>
+	
+	<div>
+		<div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4>Gestión de incidencias</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+					<div class="modal-body">
+						<p class="text-center text-muted"><?php echo $_SESSION[$nscript]["message"]; ?> </p>
+					</div>
+					<div class="modal-footer"><button class="btn btn-primary" type="button" data-dismiss="modal">Entendido</button></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" role="dialog" tabindex="-1" id="infoModal">
+		<div class="modal-dialog" role="document" style="max-width:700px;">
+			<div class="modal-content">
+				<div class="modal-header" style="height: 49px;background-color: #ededed;">
+					<h4>Informacion Incidencias</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+					<input type="hidden" id="modalinfo"  />						
+				</div>
+				<div>
+					<iframe src="" width="100%" height="400"  style="border:1px gray;" id="frminfo"></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" role="dialog" tabindex="-1" id="MapaModal">
+            <div class="modal-dialog" role="document" style="max-width:700px;">
+                <div class="modal-content">
+                    <div class="modal-header" style="height: 49px;background-color: #ededed;">
+                        <h4>Punto Registro <? //echo $dat; ?></h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+					</div>
+					<div id="idmapfrm"></div>
+				</div>
+			</div>
+	</div>
+
+
+<?
+if(isset($_SESSION[$nscript])){
+	unset($_SESSION[$nscript]);
+} 
+getFooter(); 
+} else {
+	header("Location: ./main.phtml");
+}
+}else{
+	header("Location: .");
+}
+?>
+

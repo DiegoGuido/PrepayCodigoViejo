@@ -1,0 +1,128 @@
+<?
+session_start();
+if(isset($_SESSION["userinfo"])){
+	include "/home/envdtsme/cnf.prepay.com.mx/credentials/google/GLOBAL_API_KEY.php";
+	include "cnx.php";	
+	include "util_list.php";
+	$usr = $_SESSION['userinfo']['username'];
+	$cia = $_SESSION['userinfo']['usercia'];
+	$uni = $_SESSION['tracking']['ssnuni'];
+	$fi  = $_SESSION['tracking']['ssnfi'];
+	$ff  = $_SESSION['tracking']['ssnff'];
+	$acc = $_GET["acc"];
+	//echo "acc: ".$acc;
+	$googleKeys = new GoogleConstantsKeys();
+	$apiKey = $googleKeys::GEOLOCATION_API_KEY;
+	//echo "uni: ".$uni;
+	//echo "apikey: ".$apikey;
+	//$eco="1000";
+	/*$content = "<div id='content".$eco."'>
+							<div id='siteNotice'>
+							</div>
+							<h1 id='firstHeading' class='firstHeading'>$eco</h1>
+							<div id='bodyContent'>
+							<p>prueba de contenido</p>
+							</div>
+							</div>";
+	echo "cont: ".$content;*/
+
+if ($acc == "res"){
+$arrRec = listTrackingRes($usr,$cia,$uni,$fi,$ff);
+}
+if ($acc == "det"){
+$arrRec = listTrackingDet($usr,$cia,$uni,$fi,$ff);
+}
+/*
+foreach($arrRec as $rec){
+$eco = $rec['num_eco'];
+$lat = $rec['latitud'];
+$lon = $rec['longitud'];
+$vel = round($rec['velocidad'],2,PHP_ROUND_HALF_UP);
+echo "vel: ".$vel."</br>";
+}
+*/
+
+?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rastreo</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo $apiKey; ?>&callback=initMap" async defer></script>
+    <style type="text/css">
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+
+      /* Optional: Makes the sample page fill the window. */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script>
+      "use strict";
+
+      // This example displays a marker at the center of Australia.
+      // When the user clicks the marker, an info window opens.
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 9,
+          center: {lat: 19.4675655, lng: -99.1036529}		  
+        }); 
+		var image = {          
+		  url: 'http://cnf.prepay.com.mx/assets/img/bus_24.png',          
+		  size: new google.maps.Size(24, 24),                    
+          origin: new google.maps.Point(0, 0),          
+		  anchor: new google.maps.Point(0, 24)          
+        };
+		var shape = {
+          coords: [1, 1, 1, 20, 18, 20, 18, 1],
+          type: 'poly'
+        };		
+		
+	  <? 
+	  //$arrRec = listTracking2($usr,$cia,$uni,$fi,$ff);												
+				foreach($arrRec as $rec){
+				$eco = $rec['num_eco'];
+				$lat = $rec['latitud'];
+				$lon = $rec['longitud'];
+				$vel = round($rec['velocidad'],2,PHP_ROUND_HALF_UP);
+			    $pto = $rec['des_crd'];
+				$content = "<div id='content".$eco."'><div id='siteNotice'></div><h1 id='firstHeading' class='firstHeading'>$eco</h1><div id='bodyContent'><p>Velocidad: ".$vel." km/hr </br> Punto: ".$pto."</p></div></div>";
+	  ?>
+	  //console.log(<? echo $eco; ?>);		
+        var contentString = <? echo "\"".$content."\""; ?>;					        
+        var marker = new google.maps.Marker({
+		  position: {lat: <? echo $lat; ?>, lng: <? echo $lon; ?>},
+		  //position: {lat: 19.4675655, lng: -99.1036529},
+          map: map,
+          icon: image,
+          shape: shape,
+          title: <? echo "'".$eco."'"; ?>,
+          zIndex: 0
+        });
+        attachSecretMessage(marker, contentString);        
+	 <? } ?>
+	}
+	function attachSecretMessage(marker, secretMessage) {
+	  const infowindow = new google.maps.InfoWindow({
+		content: secretMessage
+	  });
+	  marker.addListener("click", () => {
+		infowindow.open(marker.get("map"), marker);
+	  });
+	}
+    </script>
+  </head>
+  <body>
+    <div id="map"></div>
+  </body>
+</html>
+<?
+}
+?>

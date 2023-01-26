@@ -1,0 +1,32 @@
+[31-Jul-2020 17:07:29 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/mng_puntoventa/DAOPuntoventa.php:90) in /home/envdtsme/dev.coproit.com/ocetech/mng_puntoventa/index.php on line 33
+[31-Jul-2020 17:17:42 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/mng_puntoventa/DAOPuntoventa.php:90) in /home/envdtsme/dev.coproit.com/ocetech/mng_puntoventa/index.php on line 33
+[31-Jul-2020 18:22:39 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function execute() on boolean in /home/envdtsme/dev.coproit.com/ocetech/mng_puntoventa/DAOPuntoventa.php:93
+Stack trace:
+#0 /home/envdtsme/dev.coproit.com/ocetech/mng_puntoventa/index.php(26): DAOPuntoVenta->searchById('')
+#1 {main}
+  thrown in /home/envdtsme/dev.coproit.com/ocetech/mng_puntoventa/DAOPuntoventa.php on line 93
+[26-Jan-2021 22:18:51 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`envdtsme_dbppy_dev`.`cat_ter`, CONSTRAINT `cat_ter_ibfk_5` FOREIGN KEY (`tip_ter`) REFERENCES `cat_tip_ter` (`cve_tip_ter`)) in /home/envdtsme/demo.prepay.com.mx/mng_puntoventa/DAOPuntoventa.php:63
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_puntoventa/DAOPuntoventa.php(63): mysqli_stmt->execute()
+#1 /home/envdtsme/demo.prepay.com.mx/mng_puntoventa/index.php(16): DAOPuntoVenta->update(Object(PuntoVenta))
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_puntoventa/DAOPuntoventa.php on line 63
+[26-Jan-2021 22:20:36 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`envdtsme_dbppy_dev`.`cat_ter`, CONSTRAINT `cat_ter_ibfk_5` FOREIGN KEY (`tip_ter`) REFERENCES `cat_tip_ter` (`cve_tip_ter`)) in /home/envdtsme/demo.prepay.com.mx/mng_puntoventa/DAOPuntoventa.php:64
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_puntoventa/DAOPuntoventa.php(64): mysqli_stmt->execute()
+#1 /home/envdtsme/demo.prepay.com.mx/mng_puntoventa/index.php(16): DAOPuntoVenta->update(Object(PuntoVenta))
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_puntoventa/DAOPuntoventa.php on line 64
+[26-Jan-2021 22:22:48 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`envdtsme_dbppy_dev`.`cat_ter`, CONSTRAINT `cat_ter_ibfk_5` FOREIGN KEY (`tip_ter`) REFERENCES `cat_tip_ter` (`cve_tip_ter`)) in /home/envdtsme/demo.prepay.com.mx/mng_puntoventa/DAOPuntoventa.php:65
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_puntoventa/DAOPuntoventa.php(65): mysqli_stmt->execute()
+#1 /home/envdtsme/demo.prepay.com.mx/mng_puntoventa/index.php(16): DAOPuntoVenta->update(Object(PuntoVenta))
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_puntoventa/DAOPuntoventa.php on line 65
+[26-Jan-2021 22:22:51 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`envdtsme_dbppy_dev`.`cat_ter`, CONSTRAINT `cat_ter_ibfk_5` FOREIGN KEY (`tip_ter`) REFERENCES `cat_tip_ter` (`cve_tip_ter`)) in /home/envdtsme/demo.prepay.com.mx/mng_puntoventa/DAOPuntoventa.php:65
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_puntoventa/DAOPuntoventa.php(65): mysqli_stmt->execute()
+#1 /home/envdtsme/demo.prepay.com.mx/mng_puntoventa/index.php(16): DAOPuntoVenta->update(Object(PuntoVenta))
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_puntoventa/DAOPuntoventa.php on line 65
+[26-Jan-2021 22:23:39 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_puntoventa/DAOPuntoventa.php:63) in /home/envdtsme/demo.prepay.com.mx/mng_puntoventa/index.php on line 33

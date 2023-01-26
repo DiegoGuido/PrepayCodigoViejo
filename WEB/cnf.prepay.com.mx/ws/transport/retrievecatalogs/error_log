@@ -1,0 +1,24 @@
+[23-Dec-2020 17:32:36 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:46) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/retrievecatalogs/index.php on line 42
+[23-Dec-2020 17:33:06 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:47) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/retrievecatalogs/index.php on line 42
+[23-Dec-2020 17:33:43 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:51) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/retrievecatalogs/index.php on line 42
+[25-Jan-2021 21:25:42 America/Mexico_City] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 105
+[25-Jan-2021 21:25:42 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function close() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:108
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(58): getDataFromView(Object(mysqli), 'vw_ter_bal', ' where imei = '...')
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/transport/retrievecatalogs/index.php(27): retrieveConfiguration(Object(mysqli), Array)
+#2 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 108
+[25-Jan-2021 21:25:45 America/Mexico_City] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 105
+[25-Jan-2021 21:25:45 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function close() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:108
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(58): getDataFromView(Object(mysqli), 'vw_ter_bal', ' where imei = '...')
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/transport/retrievecatalogs/index.php(27): retrieveConfiguration(Object(mysqli), Array)
+#2 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 108
+[25-Jan-2021 21:25:50 America/Mexico_City] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 105
+[25-Jan-2021 21:25:50 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function close() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:108
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(58): getDataFromView(Object(mysqli), 'vw_ter_bal', ' where imei = '...')
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/transport/retrievecatalogs/index.php(27): retrieveConfiguration(Object(mysqli), Array)
+#2 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 108

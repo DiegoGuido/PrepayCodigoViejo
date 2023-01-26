@@ -1,0 +1,350 @@
+<?php
+session_start();
+if(isset($_SESSION["userinfo"])){
+	
+	
+		
+		$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+		date_default_timezone_set("America/Mexico_City");
+		include "cnx.php";			
+		include "util_list.php";
+		require "$nscript/usuario.php";
+		$conn = getConnection();
+		$usr = $_SESSION["userinfo"]["username"];
+		$aut=1; //ValPerPag($usr,$nscript);
+		//echo "nscript: ".$nscript." usr: ".$usr." aut: ".$aut;
+
+		if ($aut == 1) {
+			include "util_header.php";
+			
+			$usuario		= isset($_SESSION[$nscript]["usuario"])?unserialize($_SESSION[$nscript]["usuario"]):null;
+			//var_dump($usuario);
+			$idUsuario		= !is_null($usuario)?$usuario->idUsuario:"";
+			$nombre			= !is_null($usuario)?$usuario->nombre:"";
+			$username		= !is_null($usuario)?$usuario->usuario:"";
+			$contrasenia	= !is_null($usuario)?$usuario->contrasenia:"";
+			$fechaIngreso	= !is_null($usuario)?$usuario->fechaIngreso:"";
+			$correo			= !is_null($usuario)?$usuario->correo:"";
+			$status			= !is_null($usuario)?$usuario->status:"";
+
+
+			$jsModal1 = "
+					<script type='text/javascript'>
+				$(window).on('load',function(){
+					$('#messageModal').modal('show');
+				});
+			</script>";
+			$jsActivo = "
+			<script type='text/javascript'>
+			$.ajaxSetup({'beforeSend' : function(xhr) {try{xhr.overrideMimeType('text/html; charset=iso-8859-1');}catch(e){}	}});
+			function launchCompaniesMod(){
+				var title = 'Compañia';
+				$('#modalTitle').html(title+'s');		
+				$('#txtElement').html(title);		
+				$('#columnName').html(title);		
+				$('#cat_type').val('COMPANY');		
+				var idu='$username';
+				if(idu==''){
+					$('#bodyList').html('<tr><td colspan=3><div style=\'color:red;font.weight:bold;text_align:center;width:100%\'>⚠️<br />🏢 Para administrar compañias selecciona un usuario</div></td></tr>');
+				}else{
+					
+					$.post('async_userpermissions.php',{param_idusuario:idu, param_key:'COMPANY'}).done(
+						function(data){ 
+							var txtOptions = '<option>- selecciona -</option>';
+							if(data != ''){
+								console.log(data);
+								var arrData = JSON.parse(atob(data));
+								var arrDataAva = arrData.available;
+								for(i=0;i<arrDataAva.length;i++){
+									txtOptions += \"<option value='\"+arrDataAva[i].cve_elem+\"'>\"+arrDataAva[i].des_elem+\"</option>\";
+								}
+								var arrDataUsed = arrData.used;
+								var txtRows = '';
+								for(i=0;i<arrDataUsed.length;i++){
+									txtRows += \"<tr><td data-label ='Folio'>\"+arrDataUsed[i].cve_elem+\"</td><td data-label ='\"+title+\"'>\"+arrDataUsed[i].des_elem+\"</td><td data-label='...'><img id='COMPANY-\"+arrDataUsed[i].cve_reg+\"' src='http://cnf.prepay.com.mx/assets/img/\"+(arrDataUsed[i].stt_elem=='I'?'off':'on')+\".png' onclick='statusElem(this)' height='40'></td></option>\";
+								}
+							}
+							$('#idCatalog').html(txtOptions);
+							$('#bodyList').html(txtRows);
+						});
+				}
+				
+				$('#myModal').modal('show');
+			}
+			function launchPagesMod(){
+				var title = 'Página';
+				$('#modalTitle').html(title+'s');		
+				$('#txtElement').html(title);		
+				$('#columnName').html(title);
+				$('#cat_type').val('PAGE');			
+				var idu='$username';
+				if(idu==''){
+					$('#bodyList').html('<tr><td colspan=3><div style=\'color:red;font.weight:bold;text_align:center;width:100%\'>⚠️<br />🌎 Para administrar páginas selecciona un usuario</div></td></tr>');
+				}else{
+					$.post('async_userpermissions.php',{param_idusuario:idu, param_key:'PAGE'}).done(
+						function(data){ 
+							var txtOptions = '<option>- selecciona -</option>';
+							if(data != ''){
+								console.log(data);
+								var arrData = JSON.parse(atob(data));
+								var arrDataAva = arrData.available;
+								for(i=0;i<arrDataAva.length;i++){
+									txtOptions += \"<option value='\"+arrDataAva[i].cve_elem+\"'>\"+arrDataAva[i].des_elem+\"</option>\";
+								}
+								var arrDataUsed = arrData.used;
+								var txtRows = '';
+								for(i=0;i<arrDataUsed.length;i++){
+									txtRows += \"<tr><td data-label ='Folio'>\"+arrDataUsed[i].cve_elem+\"</td><td data-label ='\"+title+\"'>\"+arrDataUsed[i].des_elem+\"</td><td data-label ='...'><img id='PAGE-\"+arrDataUsed[i].cve_reg+\"' src='http://cnf.prepay.com.mx/assets/img/\"+(arrDataUsed[i].stt_elem=='i'?'off':'on')+\".png' onclick='statusElem(this)' height='40'></td></option>\";
+								}
+							}
+							$('#idCatalog').html(txtOptions);
+							$('#bodyList').html(txtRows);
+						});
+				}
+				
+				$('#myModal').modal('show');
+			}
+			function launchAplicativosMod(){
+				var title = 'Aplicativo';
+				$('#modalTitle').html(title+'s');		
+				$('#txtElement').html(title);		
+				$('#columnName').html(title);	
+				$('#cat_type').val('APPLICATION');		
+				var idu='$username';
+				if(idu==''){
+					$('#bodyList').html('<tr><td colspan=3><div style=\'color:red;font.weight:bold;text_align:center;width:100%\'>⚠ <br />👮 Para administrar aplicativos selecciona un usuario</div></td></tr>');
+				}else{
+					$.post('async_userpermissions.php',{param_idusuario:idu, param_key:'APPLICATION'}).done(
+						function(data){ 
+							var txtOptions = '<option>- selecciona -</option>';
+							if(data != ''){
+								console.log(data);
+								var arrData = JSON.parse(atob(data));
+								var arrDataAva = arrData.available;
+								for(i=0;i<arrDataAva.length;i++){
+									txtOptions += \"<option value='\"+arrDataAva[i].cve_elem+\"'>\"+arrDataAva[i].des_elem+\"</option>\";
+								}
+								var arrDataUsed = arrData.used;
+								var txtRows = '';
+								for(i=0;i<arrDataUsed.length;i++){
+									txtRows += \"<tr><td data-label ='Folio'>\"+arrDataUsed[i].cve_elem+\"</td><td data-label ='\"+title+\"'>\"+arrDataUsed[i].des_elem+\"</td><td data-label ='...' ><img id='APPLICATION-\"+arrDataUsed[i].cve_reg+\"' src='http://cnf.prepay.com.mx/assets/img/\"+(arrDataUsed[i].stt_elem=='i'?'off':'on')+\".png' onclick='statusElem(this)' height='40'></td></option>\";
+								}
+							}
+							$('#idCatalog').html(txtOptions);
+							$('#bodyList').html(txtRows);
+						});
+				}
+				
+				$('#myModal').modal('show');
+			}
+			function setActivo(o){
+						if(document.getElementById('status').value=='A'){
+							document.getElementById('status').value='I';
+							document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/off.png';
+						}else{
+							document.getElementById('status').value='A';
+							document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/on.png';
+						}
+					}
+			function statusElem(o){
+				$.post('async_userpermissions.php',{param_idelement:o.id}).done(
+					function(data){ 
+						if(data==1){
+							o.src = o.getAttribute('src')=='http://cnf.prepay.com.mx/assets/img/off.png'?'http://cnf.prepay.com.mx/assets/img/on.png':'http://cnf.prepay.com.mx/assets/img/off.png';
+						}
+					});
+				}
+			function addRow(){
+				var cat_type = $('#cat_type').val();
+				var ide = $('#idCatalog').val();
+				
+					var params = cat_type+'-'+ide+'-$username';
+					$.post('async_userpermissions.php',{param_relation:params}).done(
+					function(data){ 
+						if(data>0){
+							var txtSel = $( '#idCatalog option:selected' ).text();
+							var txtTBody = $('#bodyList').html();
+							txtTBody += '<tr><td>'+data+'</td><td>'+txtSel+'</td>';
+							txtTBody += '<td><img id = \"'+(cat_type+'-'+data+'-$username')+'\"src=\"http://cnf.prepay.com.mx/assets/img/on.png\" onclick=\"statusElem(this)\" height=\"40\"></tr>';
+							$('#bodyList').html(txtTBody);
+							$('#idCatalog').find('option:selected').remove();
+						}
+					});
+				
+			}
+			function validateuser(){
+				var idusuario = $('#idUsuario').val();
+				var username = $('#usuario').val();
+				if(idusuario == ''){
+					$('#userStatus').html('validando...');
+					if(username != ''){
+						
+						$.post('mng_usuarios/',{param_idusuario:username}).done(
+						function(data){ 
+							
+							$('#userStatus').html(data);
+							
+						});
+					}else{
+						$('#userStatus').html('Ingresa un nombre de usuario.');
+					}
+				}
+			}
+					</script>";
+			$allJS="";
+			$allJS .= isset($_SESSION[$nscript]["message"])?$jsModal1:"";
+			$allJS .= $jsActivo;
+
+			getHeader("Usuarios", $allJS); 
+
+?>
+    <hr>
+	<form action = "<?php echo $nscript; ?>/" method="POST" >
+		<input type="hidden" id="idUsuario" name="idUsuario" value="<?php echo $idUsuario; ?>" />
+		<div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6"><strong style="width: 100%;">Nombre</strong><input type="text" name="nombre" style="width: 100%;" value="<?php echo $nombre; ?>" required /></div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6"><strong style="width: 100%;">Usuario <span id="userStatus" style="font-size:10px;color:red;" ></span></strong><input type="text" id="usuario" name="usuario" style="width: 100%;" value="<?php echo $username; ?>" onblur="validateuser()" required /></div>
+                        <div class="col-md-6"><strong style="width: 100%;">Contraseña</strong><input type="password" name="contrasenia" style="width: 100%;" readonly onclick="this.readOnly = false"  required /></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4"><strong style="font-size: 14px;">Fecha ingreso</strong><input type="date" name="fechaingreso" style="width: 100%;" value="<?php echo $fechaIngreso; ?>" required /></div>
+                <div class="col-md-4"><strong style="width: 100%;">Correo</strong><input type="mail" name="correo" style="width: 100%;" value="<?php echo $correo; ?>" required /></div>
+                <div class="col-md-4">
+                    <strong style="width: 100%;">Activo</strong>
+					<p><img id = "onoff" src='http://cnf.prepay.com.mx/assets/img/<?php echo empty($status)?"inter":($status=="I"?"off":"on"); ?>.png' onclick = "setActivo(this)" height='40' />
+					<input id= "status" name= "status" type="hidden" value="<?php echo $status; ?>" /></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <div>
+        <div class="container">
+            <div class="row">
+				<?php
+					if(empty($idUsuario)){
+						$transaction = "Agregar";
+					}else{
+						$transaction = "Actualizar";
+					}						
+				?>
+                <div class="col-md-3 align-self-center"><input class="btn btn-success" style="margin: 9px;margin-left: 5px;width: 100%;" name="btn<?php echo $transaction; ?>" type="submit" value="<?php echo $transaction; ?>"></div>
+                <?php
+				$class = $transaction == "Actualizar"?"primary":"secondary";
+
+						
+				?>
+				<div class="col-md-3 align-self-center"><button class="btn btn-<?php echo $class; ?>" type="button" style="margin: 7px;margin-left: 5px;width: 100%;" onclick="launchCompaniesMod()"	>Compañías</button></div>
+                <div class="col-md-3 align-self-center"><button class="btn btn-<?php echo $class; ?>" type="button" style="margin: 7px;margin-left: 5px;width: 100%;" onclick="launchPagesMod()">	Paginas</button></div>
+                <div class="col-md-3 align-self-center"><button class="btn btn-<?php echo $class; ?>" type="button" style="margin: 7px;margin-left: 5px;width: 100%;" onclick="launchAplicativosMod()"	>Aplicativos</button></div>
+
+            </div>
+        </div>
+    </div>
+	</form>
+    <div class="container">
+        <div class="col-md-12 search-table-col" style="margin: 10px 0px 0px;">
+            <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Buscar usuario..."></div><span class="counter pull-right"></span>
+            <div class="table-responsive table-bordered table table-hover table-bordered results">
+                <table class="table table-bordered table-hover">
+                    <thead class="bill-header cs" style="color: rgb(29,42,159);">
+                        <tr style="color: rgb(229,230,242);background-color: rgb(24,165,88);">
+                            <th id="trs-hd" class="col-lg-1">Folio</th>
+                            <th id="trs-hd" class="col-lg-2">Nombre</th>
+                            <th id="trs-hd" class="col-lg-3"><strong>Usuario</strong></th>
+                            <th id="trs-hd" class="col-lg-2">Correo</th>
+                            <th id="trs-hd" class="col-lg-2"><strong>Fecha Ingreso</strong></th>
+                            <th id="trs-hd" class="col-lg-2"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="warning no-result">
+                            <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No hay resultados !!!</td>
+                        </tr>
+						<?php
+							$arrUsers= listAllUsers($conn);
+							foreach($arrUsers as $user ){
+								echo "<tr>";
+								echo "<td data-label='Folio' >"	.$user["cve_usr"]."</td>";
+								echo "<td data-label='Nombre' >"	.$user["nombre"]."</td>";
+								echo "<td data-label='Usuario' >"	.$user["usr"]."</td>";
+								echo "<td data-label='Correo' >"	.$user["mail"]."</td>";
+								echo "<td data-label='Fec Ing' >"	.explode(" ",$user["fec_ing"])[0]."</td>";
+								echo "<td data-label='...' ><img src='http://cnf.prepay.com.mx/assets/img/".($user["stt_usr"]=="I"?"off":"on").".png' height='40' /><button class='btn btn-success' style='margin-left: 5px;' type='button' onclick = \"location.href = '$nscript/?u=".$user["cve_usr"]."';\"'><i class='fa fa-edit' style='font-size: 15px;' ></i></button></td>";
+								echo "</tr>";
+							}
+						
+						?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+	<div>
+		<div class="modal fade" role="dialog" tabindex="-1" id="myModal" > 
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 ><span id="modalTitle"></span></h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+					</div>
+						
+					<div class="modal-body" id="modalBody">
+						<div class="row">
+							<div class="col-md-6">
+								<strong style="font-size: 14px;" id="txtElement"></strong>
+								<select id="idCatalog" style="width:100%"></select>
+							</div>
+							<div class="col-md-6">
+								<input type="hidden" id="cat_type" />
+								<button class="btn btn-success" style="margin: 9px;margin-left: 5px;width: 100%;" type="button" onclick="addRow()">Agregar</button>
+							</div>
+							<table><thead><th>id</th><th id="columnName"></th><th>...</th></thead><tbody id="bodyList"></tbody></table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<p class="text-center text-muted" id="modalMessage">  </p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" role="dialog" tabindex="-1" id="messageModal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4>Gestión de usuarios	</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+					<div class="modal-body">
+						<p class="text-center text-muted"><?php echo $_SESSION[$nscript]["message"]; ?> </p>
+					</div>
+					<div class="modal-footer"><button class="btn btn-primary" type="button" data-dismiss="modal">Entendido</button></div>
+				</div>
+			</div>
+		</div>
+	</div>
+<?php
+			if(isset($_SESSION[$nscript])){
+				unset($_SESSION[$nscript]);
+			} 
+			getFooter(); 
+		}else {
+			header("Location: ./main.phtml");
+		}
+	
+}else{
+	header("Location: .");
+}
+?>

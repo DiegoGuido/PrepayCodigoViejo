@@ -1,0 +1,133 @@
+<?
+session_start();
+if(isset($_SESSION["userinfo"])){
+	$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);	
+	$mod = explode("_",$nscript);
+	$modulo = $mod[0]."_".$mod[1];
+	$modfrm = $mod[2];
+	$form = $modulo."/".$modfrm.".php";
+	//echo "nscript: ".$nscript." module: ".$modulo." form: ".$form;
+	date_default_timezone_set("America/Mexico_City");
+	include "cnx.php";			
+	include "util_list.php";
+	$conn = getConnection();
+	$usr = $_SESSION["userinfo"]["username"];
+	$cia = $_SESSION["userinfo"]["usercia"];	
+	$aut=ValPerPag($usr,$modulo);
+	$aut=1; //mientras lo añado
+if ($aut == 1) {
+	include "util_frame.php";
+	$imei = !empty($_GET["d1"])?$_GET["d1"]:$_SESSION[$nscript]["imei"];
+	$recusr = !empty($_GET["d2"])?$_GET["d2"]:$_SESSION[$nscript]["recusr"];
+	$fecrec = !empty($_GET["d3"])?$_GET["d3"]:$_SESSION[$nscript]["fecrec"];
+	$_SESSION[$nscript]["imei"]=$imei;
+	$_SESSION[$nscript]["recusr"]=$recusr;	
+	$_SESSION[$nscript]["fecrec"]=$fecrec;
+	$recid = base64_decode($_GET["d4"]);
+	//echo "sesimei: ".$_SESSION[$nscript]["imei"]." recusr: ".$_SESSION[$nscript]["recusr"]." fecrec: ".$_SESSION[$nscript]["fecrec"]." recid: ".$recid."..";
+	if (!empty($recid)){
+		//echo "sesimei: ".$_SESSION[$nscript]["imei"]." recusr: ".$_SESSION[$nscript]["recusr"]." fecrec: ".$_SESSION[$nscript]["fecrec"]." recid: ".$recid."..";
+		$imei = $_SESSION[$nscript]["imei"];
+		$recusr = $_SESSION[$nscript]["recusr"];
+		$fecrec = $_SESSION[$nscript]["fecrec"];
+		$delrec = deleteTerminalRecharge($conn,$recid);
+	}
+		
+	
+$allJS="";
+	
+getHeaderFrm("Lista Recaudacion", $allJS); 
+?>
+<div class="col-md-12 search-table-col" style="margin: 10px 0px 0px;">
+     <div class="table-responsive table-bordered table table-hover table-bordered results">
+         <table class="table table-bordered table-hover">
+             <thead class="bill-header cs" style="color: rgb(29,42,159);">
+                 <tr style="color: rgb(229,230,242);background-color: rgb(24,165,88);">                     
+                     <th id="trs-hd" class="col-lg-1">Punto Venta</th>                     
+					 <th id="trs-hd" class="col-lg-1">IMEI</th>                     
+					 <th id="trs-hd" class="col-lg-1">Usuario</th>					 
+                     <th id="trs-hd" class="col-lg-1">Monto</th>
+					 <th id="trs-hd" class="col-lg-1">Fecha Transaccion</th>
+					 <th id="trs-hd" class="col-lg-1">Fecha Captura</th>
+					 <th id="trs-hd" class="col-lg-1">...</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <tr class="warning no-result">
+                     <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No hay Resultados !!!</td>
+                 </tr>
+			<?
+			$sql="select a.cve_reg,a.mon_rec,a.cve_ter,a.imei,a.usr_rec,a.fec_trx,a.fec_cap,b.dato,c.nombre
+			from sis_rec_taq a, vw_rel_dis b, cat_usr c
+			where a.cve_ter=b.cve_rel
+			and b.tip_rel=2
+			and b.stt_rel='A'
+			and a.usr_rec=c.usr
+			and c.stt_usr='A'
+			and a.stt_rec='A'			
+			and b.cve_cia='$cia'
+			and a.imei='$imei'
+			and a.usr_rec='$recusr'
+			and a.fec_trx='$fecrec'
+			order by a.fec_cap DESC";
+			//echo $sql;
+			$arrDat = getDataFromView($conn,$sql);
+			foreach($arrDat as $dat){
+				$d1=$dat["imei"];
+				$d2=$dat["usr_rec"];
+				$d3=$dat["fec_trx"];
+				$d4=base64_encode($dat["cve_reg"]);
+				$d5=$dat["fec_cap"];
+				//$sql2="select * from sis_rec_trj where imei = '$d1' and usr_cap = '$d2' and fec_cap >= '$d4' and tip_ter in ('C','H')";
+				//echo $sql2;
+				//$result = $conn->query($sql2);				
+			?>
+                <tr style="font-size: 12px;">
+                  <td><? echo $dat["dato"] ?></td>
+                  <td><? echo $dat["imei"] ?></td>				
+				  <td><? echo $dat["nombre"] ?></td>
+				  <td><? echo $dat["mon_rec"] ?></td>
+				  <td><? echo $dat["fec_trx"] ?></td>
+				  <td><? echo $dat["fec_cap"] ?></td>
+				  <? 
+				  $dat["stt_act"]=1;
+				  if ($dat["stt_act"] == 1) {
+				  ?>
+					<td><button class="btn btn-gray" style="margin-left: 5px;" type="button" ><i class="fa fa-trash" style="font-size: 15px;"></i></button></td>
+				  <? } else { ?>				  
+					<td><button class="btn btn-danger" style="margin-left: 5px;" type="button" onclick="location.href='mng_recaudacion_lista.phtml?d4=<? echo $d4 ?>'"><i class="fa fa-trash" style="font-size: 15px;"></i></button></td>
+				  <? } ?>
+				</tr>
+			<? } ?>
+             </tbody>
+         </table>
+     </div>
+ </div>
+<?
+if(isset($_SESSION[$modfrm])){
+	unset($_SESSION[$modfrm]);
+}
+getFooterFrm(); 
+} else {
+	header("Location: ./main.phtml");
+}
+}else{
+	header("Location: .");
+}
+
+function deleteTerminalRecharge($conn,$id){
+	$usr = $_SESSION["userinfo"]["username"];
+	$fec = $currDate = date("Y-m-d H:i:s");
+	$sql = "update sis_rec_taq set stt_rec='I',usr_cap='$usr', fec_cap='$fec' where cve_reg='$id'";
+	$stmt = $conn->prepare($sql);			
+	$rc = $stmt->execute();
+	if(false===$rc){
+		$ret = $stmt->error; 
+	}else{
+		$ret = $stmt->affected_rows;				
+	}
+	$stmt->close();
+	//$conn->close();
+return $ret;
+}
+?>

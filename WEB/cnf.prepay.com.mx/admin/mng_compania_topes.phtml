@@ -1,0 +1,115 @@
+<?
+session_start();
+if(isset($_SESSION["userinfo"])){
+	$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);	
+	$mod = explode("_",$nscript);
+	$modulo = $mod[0]."_".$mod[1];
+	$modfrm = $mod[2];
+	$form = $modulo."/".$modfrm.".php";
+	//echo "nscript: ".$nscript." module: ".$modulo." form: ".$form;
+	date_default_timezone_set("America/Mexico_City");
+	include "cnx.php";			
+	include "util_list.php";
+	$conn = getConnection();
+	$usr = $_SESSION["userinfo"]["username"];
+	$cia = $_SESSION["compania"]["idCompania"];
+	$aut=ValPerPag($usr,$modulo);
+	//$aut=1;
+if ($aut == 1) {
+	include "util_frame.php";
+	
+	$tope 		= isset($_SESSION[$modulo]["topes"])?unserialize($_SESSION[$modulo]["topes"]):null;
+	$idTope 	= !is_null($tope)?$tope["cve_top"]:"";	
+	$monto 		= !is_null($tope)?$tope["mon_top"]:"";
+	$fecefe 	= !empty($tope)?date("Y-m-d",strtotime($tope["fec_efe"])):"";	
+	$status 	= !is_null($tope)?$tope["stt_top"]:"";
+	//$fecefe		= date("Y-m-d",strtotime($fecefe));
+	//echo "topes: ".print_r($tope)." monto: ".$monto." fe: ".$fecefe;
+	//echo "topes: ".print_r($tope)." tope: ".$monto;
+
+	
+
+$jsActivo = "
+<script type='text/javascript'>function setActivo(o){
+	if(document.getElementById('status').value=='A'){
+		document.getElementById('status').value='I';
+		document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/off.png';
+	}else{
+		document.getElementById('status').value='A';
+		document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/on.png';
+	}
+}</script>";
+
+$allJS="";
+$allJS .= $jsActivo;
+	
+getHeaderFrm("Topes Tarjeta", $allJS); 
+?>
+<form action = "<? echo $form; ?>" method="POST" >
+<input type="hidden" name="idTope" value="<?php echo $idTope; ?>" />
+	<div class="modal-body">
+	<div class="row">
+		<div class="col"><strong>Monto</strong><input type="text" style="width: 100%;" id="monto" name="monto" value="<? echo $monto; ?>" required></div>
+		<div class="col"><strong>Fecha Efectiva</strong><input type="date" style="width: 100%;" id="fecefe" name="fecefe" value="<? echo $fecefe; ?>" required></div>                            
+		<div class="col"><strong>Activa</strong>
+		<p><img id = "onoff" src='http://cnf.prepay.com.mx/assets/img/<?php echo empty($status)?"inter":($status=="I"?"off":"on"); ?>.png' onclick = "setActivo(this)" height='40' /></p>
+		<input id= "status" name= "status" type="hidden" value="<?php echo $status; ?>" />
+		</div>
+	</div>
+	<hr>
+	</div>
+	<p class="text-center" style="background-color: #ff6b00;color: rgb(255,255,255);" ><? echo $_SESSION["topes"]["message"];?></p>
+	<div class="modal-footer" style="height: 65px;">
+		<?php
+		if(empty($idTope)){
+			$transaction = "Agregar";
+		}else{
+			$transaction = "Actualizar";
+		}						
+		?>
+		<p class="text-right"><input class="btn btn-success" style="margin: 9px;margin-left: 5px;width: 100%;" name="btn<?php echo $transaction; ?>" type="submit" value="<?php echo $transaction; ?>"></p>
+		</div>
+	</div>
+</form>
+<div class="col-md-12 search-table-col" style="margin: 10px 0px 0px;">
+     <div class="table-responsive table-bordered table table-hover table-bordered results">
+         <table class="table table-bordered table-hover">
+             <thead class="bill-header cs" style="color: rgb(29,42,159);">
+                 <tr style="color: rgb(229,230,242);background-color: rgb(24,165,88);">                     
+                     <th id="trs-hd" class="col-lg-2">Monto</th>
+                     <th id="trs-hd" class="col-lg-3">Fecha Efectiva</th>				
+                     <th id="trs-hd" class="col-lg-2">Acciones</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <tr class="warning no-result">
+                     <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No hay Resultados !!!</td>
+                 </tr>
+			<?
+			$arrDat = getDataFromTable($conn,"select * from cat_top where cve_cia='$cia'");
+			foreach($arrDat as $dat){
+			?>
+                <tr>
+                  <td><? echo $dat["mon_top"] ?></td>
+                  <td><? echo $dat["fec_efe"] ?></td>				
+				<? echo "<td data-label='...' ><img src='http://cnf.prepay.com.mx/assets/img/".($dat["stt_top"]=="I"?"off":"on").".png' height='40' />
+				<button class='btn btn-success' style='margin-left: 5px;' type='submit' onclick = \"location.href = '$modulo/$modfrm.php?u=".$dat["cve_top"]."';\"'><i class='fa fa-edit' style='font-size: 15px;' ></i></button>				
+				</td>";?>                            
+                 </tr>
+			<? } ?>
+             </tbody>
+         </table>
+     </div>
+ </div>
+<?
+if(isset($_SESSION[$modfrm])){
+	unset($_SESSION[$modfrm]);
+}
+getFooterFrm(); 
+} else {
+	header("Location: ./main.phtml");
+}
+}else{
+	header("Location: .");
+}
+?>

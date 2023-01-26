@@ -1,0 +1,16 @@
+[13-Feb-2021 16:10:27 America/Mexico_City] PHP Warning:  require(DAOSaldoterminal.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/mng_recaudacion/index.php on line 4
+[13-Feb-2021 16:10:27 America/Mexico_City] PHP Warning:  require(DAOSaldoterminal.php): failed to open stream: No such file or directory in /home/envdtsme/demo.prepay.com.mx/mng_recaudacion/index.php on line 4
+[13-Feb-2021 16:10:27 America/Mexico_City] PHP Fatal error:  require(): Failed opening required 'DAOSaldoterminal.php' (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/demo.prepay.com.mx/mng_recaudacion/index.php on line 4
+[13-Feb-2021 20:27:25 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'a.bal_ter' in 'field list' in /home/envdtsme/demo.prepay.com.mx/mng_recaudacion/DAORecaudacion.php:47
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_recaudacion/DAORecaudacion.php(47): mysqli->query('select a.imei,a...')
+#1 /home/envdtsme/demo.prepay.com.mx/mng_recaudacion/index.php(22): DAORecaudacion->searchById('admin', '865709041056870', '2021-02-12')
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_recaudacion/DAORecaudacion.php on line 47
+[13-Feb-2021 20:28:18 America/Mexico_City] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'a.bal_ter' in 'field list' in /home/envdtsme/demo.prepay.com.mx/mng_recaudacion/DAORecaudacion.php:47
+Stack trace:
+#0 /home/envdtsme/demo.prepay.com.mx/mng_recaudacion/DAORecaudacion.php(47): mysqli->query('select a.imei,a...')
+#1 /home/envdtsme/demo.prepay.com.mx/mng_recaudacion/index.php(22): DAORecaudacion->searchById('admin', '865709041056870', '2021-02-12')
+#2 {main}
+  thrown in /home/envdtsme/demo.prepay.com.mx/mng_recaudacion/DAORecaudacion.php on line 47
+[13-Feb-2021 20:35:42 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/demo.prepay.com.mx/mng_recaudacion/DAORecaudacion.php:20) in /home/envdtsme/demo.prepay.com.mx/mng_recaudacion/index.php on line 28

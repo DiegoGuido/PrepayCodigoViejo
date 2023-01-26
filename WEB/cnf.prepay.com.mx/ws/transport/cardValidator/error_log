@@ -1,0 +1,74 @@
+[13-Aug-2020 21:52:50 America/Mexico_City] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php on line 417
+[13-Aug-2020 21:52:50 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function close() on boolean in /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php:425
+Stack trace:
+#0 /home/envdtsme/dev.coproit.com/ocetech/ws/transport/cardValidator/index.php(24): getValidCard(Object(mysqli), Array)
+#1 {main}
+  thrown in /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php on line 425
+[17-Sep-2020 18:33:15 America/Mexico_City] PHP Warning:  Packets out of order. Expected 0 received 1. Packet size=68 in /home/envdtsme/cnf.prepay.com.mx/cnx.php on line 11
+[17-Sep-2020 18:33:15 America/Mexico_City] PHP Warning:  mysqli::__construct(): MySQL server has gone away in /home/envdtsme/cnf.prepay.com.mx/cnx.php on line 11
+[17-Sep-2020 18:33:15 America/Mexico_City] PHP Warning:  mysqli::__construct(): Error while reading greeting packet. PID=44611 in /home/envdtsme/cnf.prepay.com.mx/cnx.php on line 11
+[17-Sep-2020 18:33:15 America/Mexico_City] PHP Warning:  mysqli::__construct(): (HY000/2006): MySQL server has gone away in /home/envdtsme/cnf.prepay.com.mx/cnx.php on line 11
+[17-Sep-2020 18:33:15 America/Mexico_City] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 418
+[17-Sep-2020 18:33:15 America/Mexico_City] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 419
+[17-Sep-2020 18:33:15 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:435
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(425): insertInvalidCard(NULL, Array)
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/transport/cardValidator/index.php(24): getValidCard(NULL, Array)
+#2 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 435
+[18-Sep-2020 22:12:24 America/Mexico_City] PHP Warning:  include(../../.././admin1/cnx.php): failed to open stream: No such file or directory in /home/envdtsme/cnf.prepay.com.mx/ws/transport/cardValidator/index.php on line 16
+[18-Sep-2020 22:12:24 America/Mexico_City] PHP Warning:  include(../../.././admin1/cnx.php): failed to open stream: No such file or directory in /home/envdtsme/cnf.prepay.com.mx/ws/transport/cardValidator/index.php on line 16
+[18-Sep-2020 22:12:24 America/Mexico_City] PHP Warning:  include(): Failed opening '../../.././admin1/cnx.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/cnf.prepay.com.mx/ws/transport/cardValidator/index.php on line 16
+[18-Sep-2020 22:12:24 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in /home/envdtsme/cnf.prepay.com.mx/ws/transport/cardValidator/index.php:23
+Stack trace:
+#0 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/transport/cardValidator/index.php on line 23
+[27-Oct-2020 21:46:29 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:441
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(424): insertInvalidCard(Object(mysqli), Array, 'Tarjeta No Regi...')
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/transport/cardValidator/index.php(36): getValidCard(Object(mysqli), Array)
+#2 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 441
+[27-Oct-2020 21:46:45 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:441
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(424): insertInvalidCard(Object(mysqli), Array, 'Tarjeta No Regi...')
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/transport/cardValidator/index.php(36): getValidCard(Object(mysqli), Array)
+#2 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 441
+[27-Oct-2020 21:47:44 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:441
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(424): insertInvalidCard(Object(mysqli), Array, 'Tarjeta No Regi...')
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/transport/cardValidator/index.php(36): getValidCard(Object(mysqli), Array)
+#2 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 441
+[27-Oct-2020 21:47:45 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:441
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(424): insertInvalidCard(Object(mysqli), Array, 'Tarjeta No Regi...')
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/transport/cardValidator/index.php(36): getValidCard(Object(mysqli), Array)
+#2 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 441
+[27-Oct-2020 21:47:46 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:441
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(424): insertInvalidCard(Object(mysqli), Array, 'Tarjeta No Regi...')
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/transport/cardValidator/index.php(36): getValidCard(Object(mysqli), Array)
+#2 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 441
+[27-Oct-2020 21:47:47 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:441
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(424): insertInvalidCard(Object(mysqli), Array, 'Tarjeta No Regi...')
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/transport/cardValidator/index.php(36): getValidCard(Object(mysqli), Array)
+#2 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 441
+[27-Oct-2020 21:47:47 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:441
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(424): insertInvalidCard(Object(mysqli), Array, 'Tarjeta No Regi...')
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/transport/cardValidator/index.php(36): getValidCard(Object(mysqli), Array)
+#2 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 441
+[27-Oct-2020 21:48:43 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on boolean in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:441
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(424): insertInvalidCard(Object(mysqli), Array, 'Tarjeta No Regi...')
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/transport/cardValidator/index.php(36): getValidCard(Object(mysqli), Array)
+#2 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 441
+[02-Dec-2020 16:36:06 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539

@@ -1,0 +1,214 @@
+<?php
+session_start();
+if(isset($_SESSION["userinfo"])){
+	$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+	date_default_timezone_set("America/Mexico_City");
+	include "cnx.php";			
+	include "util_list.php";
+	require "$nscript/unidad.php";
+	$conn = getConnection();
+	$usr = $_SESSION["userinfo"]["username"];
+	$cia = $_SESSION["userinfo"]["usercia"];
+	$aut=ValPerPag($usr,$nscript);
+	//echo "nscript: ".$nscript." usr: ".$usr." aut: ".$aut;
+
+if ($aut == 1) {	
+	include "util_header.php";
+	
+	$unidad = isset($_SESSION[$nscript]["unidad"])?unserialize($_SESSION[$nscript]["unidad"]):null;
+	$idUnidad = !is_null($unidad)?$unidad->idUnidad:"";
+	$linea = !is_null($unidad)?$unidad->idLinea:"";
+	$economico = !is_null($unidad)?$unidad->economico:"";
+	$marca = !is_null($unidad)?$unidad->marca:"";
+	$modelo = !is_null($unidad)?$unidad->modelo:"";
+	$pax = !is_null($unidad)?$unidad->pax:"";
+	$motor = !is_null($unidad)?$unidad->motor:"";
+	$placa = !is_null($unidad)?$unidad->placa:"";
+	$conductor = !is_null($unidad)?$unidad->idConductor:"";
+	$nomcnd	= !is_null($unidad)?$unidad->NomConductor:"- Conductor -";
+	$status = !is_null($unidad)?$unidad->status:"";	
+	$ruta  = !is_null($unidad)?$unidad->idRuta:"";
+//}
+$jsModal1 = "
+		<script type='text/javascript'>
+    $(window).on('load',function(){
+        $('#myModal').modal('show');
+    });
+</script>";
+$jsActivo = "
+<script type='text/javascript'>function setActivo(o){
+			if(document.getElementById('status').value=='A'){
+				document.getElementById('status').value='I';
+				document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/off.png';
+			}else{
+				document.getElementById('status').value='A';
+				document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/on.png';
+			}
+		}</script>";
+$jsCond="<script type='text/javascript'>
+	$.ajaxSetup({'beforeSend' : function(xhr) {
+	try{xhr.overrideMimeType('text/html; charset=iso-8859-1');}catch(e){}	}}); 
+				function sync_conductores(o){
+					var idlinea = $('#idLinea').val();
+					$.post('async_conductores.php',{param_idlinea:idlinea}).done(function(data){ $('#idConductor').html(data);})
+				}
+		</script>		
+				";
+
+$allJS="";
+$allJS .= isset($_SESSION[$nscript]["message"])?$jsModal1:"";
+$allJS .= $jsActivo;
+$allJS .= $jsCond;
+getHeader("Unidades", $allJS, $conn); 
+
+?>
+    <hr>
+	<form action = "<?php echo $nscript; ?>/" method="POST" >
+	<input type="hidden" name="idUnidad" value="<?php echo $idUnidad; ?>" />
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3"><strong>Placa</strong><input type="text" style="width: 100%;" name="placa"  value="<?php echo $placa; ?>" required></div>
+				<div class="col-md-3"><strong>Económico</strong><input type="text" style="width: 100%;" name="economico" value="<?php echo $economico; ?>" required></div>
+				<div class="col-md-3"><strong>Marca</strong><input type="text" style="width: 100%;" name="marca"  value="<?php echo $marca; ?>" required></div>
+				<div class="col-md-3"><strong>SubMarca</strong><input type="text" style="width: 100%;" name="modelo" value="<?php echo $modelo; ?>" required></div>
+			</div>
+		</div>
+	
+	
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3"><strong>PAX</strong><select style="width: 100%;" name="pax" required ><option value="" >- # PAX -</option>
+				<?php
+					for($i=1;$i<=50;$i++)
+					echo "<option value='$i' ".($pax==$i?"selected":"").">$i</option>";
+				
+				?>
+				</select></div>
+				<div class="col-md-3"><strong>Numero de Serie</strong><input type="text" style="width: 100%;" name="motor" value="<?php echo $motor; ?>" required></div>
+				<div class="col-md-3"><strong>Línea</strong>
+					<select style="width: 100%;" id="idLinea" name="idLinea" onchange="sync_conductores(this)" required>
+						<option value="" >- Línea -</option>	
+						<?php
+							$arrLines = listActiveLines($usr,$cia);
+							foreach($arrLines as $line)
+								echo "<option value='".$line["cve_lin"]."' ".($linea==$line["cve_lin"]?"selected":"").">".$line["des_lin"]."</option>";
+						?>
+					</select>
+				</div>
+				<div class="col-md-3"><strong>Conductor<br></strong>
+				<select style="width: 100%;" id="idConductor" name="idConductor" required >
+				
+					<option value="<? echo $conductor; ?>" ><? echo $nomcnd; ?></option>
+					<?php
+						/* Viene de JS
+						$arrDrivers = listActiveDrivers($linea);
+						foreach($arrDrivers as $driver)
+						echo "<option value='".$driver["cve_cnd"]."' ".($conductor==$driver["cve_cnd"]?"selected":"").">".$driver["nombre"]."</option>";*/
+					?>
+				</select></div>
+			</div>
+		</div>
+		
+		<div class="container">
+        <div class="row">                        
+			<div class="col-md-3"><strong>Ruta</strong>
+					<select style="width: 100%;" id="idRuta" name="idRuta"  required>
+						<option value="" >- Ruta -</option>	
+						<?php
+							$arrRoutes = listActiveRoutes($usr,$cia);
+							foreach($arrRoutes as $route)
+								echo "<option value='".$route["cve_rut"]."' ".($ruta==$route["cve_rut"]?"selected":"").">".$route["nombre_ruta"]."</option>";
+						?>
+					</select>
+				</div>
+			<div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-4"><strong>Activo</strong>
+                        <p><img id = "onoff" src='http://cnf.prepay.com.mx/assets/img/<?php echo empty($status)?"inter":($status=="I"?"off":"on"); ?>.png' onclick = "setActivo(this)" height='40' />
+						<input id= "status" name= "status" type="hidden" value="<?php echo $status; ?>" /></p>
+                    </div>
+                </div>				
+            </div>
+			<div class="col-md-3">               
+				<?php
+					if(empty($linea)){
+						$transaction = "Agregar";
+					}else{
+						$transaction = "Actualizar";
+					}						
+				?>
+				<p class="text-right"><input class="btn btn-success" style="margin: 9px;margin-left: 5px;width: 100%;" name="btn<?php echo $transaction; ?>" type="submit" value="<?php echo $transaction; ?>"></p>
+            </div>
+        </div>
+    </div>
+	</form>
+    <div class="container">
+        <div class="col-md-12 search-table-col" style="margin: 10px 0px 0px;">
+            <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Buscar unidad..."></div><span class="counter pull-right"></span>
+            <div class="table-responsive table-bordered table table-hover table-bordered results">
+                <table class="table table-bordered table-hover">
+                    <thead class="bill-header cs" style="color: rgb(29,42,159);">
+                        <tr style="color: rgb(229,230,242);background-color: rgb(24,165,88);">
+                            <th id="trs-hd" class="col-lg-1">Unidad</th>                            
+                            <th id="trs-hd" class="col-lg-3">Economico</th>
+                            <th id="trs-hd" class="col-lg-2">placa</th>
+                            <th id="trs-hd" class="col-lg-2">Conductor</th>
+							<th id="trs-hd" class="col-lg-2">Linea</th>
+							<th id="trs-hd" class="col-lg-2">Ruta</th>
+                            <th id="trs-hd" class="col-lg-2"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="warning no-result">
+                            <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No hay resultados !!!</td>
+                        </tr>
+						<?php
+							$arrBuses= listAllBuses($usr,$cia);
+							foreach($arrBuses as $bus ){
+								echo "<tr>";
+								echo "<td data-label='Unidad' >".$bus["cve_uni"]."</td>";								
+								echo "<td data-label='# Eco' >".$bus["num_eco"]."</td>";
+								echo "<td data-label='placa' >".$bus["placa"]."</td>";
+								echo "<td data-label='Conductor' >".$bus["nombre"]."</td>";
+								echo "<td data-label='Linea' >".$bus["des_lin"]."</td>";
+								echo "<td data-label='Linea' >".$bus["nombre_ruta"]."</td>";
+								echo "<td data-label='...' ><img src='http://cnf.prepay.com.mx/assets/img/".($bus["stt_uni"]=="I"?"off":"on").".png' height='40' />
+								<button class='btn btn-success' style='margin-left: 5px;' type='submit'><i class='fa fa-edit' style='font-size: 15px;' onclick = \"location.href = '$nscript/?u=".$bus["cve_uni"]."';\"'></i></button></td>";
+								echo "</tr>";
+							}
+						
+						?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+	<div>
+		<div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4>Gestión de unidades</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+					<div class="modal-body">
+						<p class="text-center text-muted"><?php echo $_SESSION[$nscript]["message"]; ?> </p>
+					</div>
+					<div class="modal-footer"><button class="btn btn-primary" type="button" data-dismiss="modal">Entendido</button></div>
+				</div>
+			</div>
+		</div>
+	</div>
+<? 
+if(isset($_SESSION[$nscript])){
+	unset($_SESSION[$nscript]);
+}
+
+
+getFooter(); 
+} else {
+	header("Location: ./main.phtml");
+}
+}else{
+	header("Location: .");
+}
+?>

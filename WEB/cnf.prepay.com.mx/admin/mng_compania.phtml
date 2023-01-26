@@ -1,0 +1,267 @@
+<?php
+session_start();
+if(isset($_SESSION["userinfo"])){
+	$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+	date_default_timezone_set("America/Mexico_City");
+	include "cnx.php";			
+	include "util_list.php";
+	require "$nscript/compania.php";
+	$conn = getConnection();
+	$usr = $_SESSION["userinfo"]["username"];
+	$aut=ValPerPag($usr,$nscript);
+
+if ($aut == 1) {
+	include "util_header.php";	
+	
+	$compania		= isset($_SESSION[$nscript]["compania"])?unserialize($_SESSION[$nscript]["compania"]):null;
+	//echo "nscript: ".$nscript." compania: ".$compania; 
+	$idCompania		= !is_null($compania)?$compania->idCompania:"";
+	$nomCompania	= !is_null($compania)?$compania->nomCompania:"";
+	$moneda			= !is_null($compania)?$compania->moneda:"";
+	$urlCompania	= !is_null($compania)?$compania->urlCompania:"";
+	$status			= !is_null($compania)?$compania->status:"";
+	$_SESSION["compania"]["idCompania"]=$idCompania;
+	
+	//echo "idcomp:".$idCompania;
+
+//}
+$jsModal1 = "
+		<script type='text/javascript'>
+    $(window).on('load',function(){
+        $('#myModal').modal('show');
+    });
+</script>";
+$jsActivo = "
+<script type='text/javascript'>function setActivo(o){
+			if(document.getElementById('status').value=='A'){
+				document.getElementById('status').value='I';
+				document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/off.png';
+			}else{
+				document.getElementById('status').value='A';
+				document.getElementById('onoff').src='http://cnf.prepay.com.mx/assets/img/on.png';
+			}
+		}</script>";
+$jsCostosModal="<script type='text/javascript'> 
+		$.ajaxSetup({'beforeSend' : function(xhr) {try{xhr.overrideMimeType('text/html; charset=iso-8859-1');}catch(e){}	}});
+		function showCostos(idc){
+			$('#costosModal').modal('show');
+			$.post('async_costos.php',{param_idcompania:idc}).done(
+				function(data){ 
+					$('#listaCostos').html(data.split('|')[1]);
+				});
+		}
+</script>";		
+
+$jsTiposModal="<script type='text/javascript'> 
+		$.ajaxSetup({'beforeSend' : function(xhr) {try{xhr.overrideMimeType('text/html; charset=iso-8859-1');}catch(e){}	}});
+		function showTipos(idc){
+			$('#tiposModal').modal('show');
+			$.post('async_tipos.php',{param_idcompania:idc}).done(
+				function(data){ 
+					$('#listaTipos').html(data.split('|')[1]);
+				});
+		}
+</script>";	
+
+$jsTopesModal="<script type='text/javascript'> 		
+		function showTopes(idc){
+			$('#topesModal').modal('show');			
+		}
+</script>";
+
+$jsRelacionModal="<script type='text/javascript'> 		
+		function showRelacion(idc){
+			$('#relacionModal').modal('show');			
+		}
+</script>";
+
+$allJS="";
+$allJS .= isset($_SESSION[$nscript]["message"])?$jsModal1:"";
+$allJS .= $jsActivo;
+$allJS .= $jsCostosModal;
+$allJS .= $jsTiposModal;
+$allJS .= $jsTopesModal;
+$allJS .= $jsRelacionModal;
+
+getHeader("Companias", $allJS); 
+
+?>
+
+<div>
+        <div class="container">
+		<form action = "<?php echo $nscript; ?>/" method="POST" >
+		<input type="hidden" name="idCompania" value="<?php echo $idCompania; ?>" />
+            <div class="row">
+                <div class="col-md-3"><strong>Nombre Compañia</strong><input type="text" style="width: 100%;" name="nomCompania" value="<?php echo $nomCompania; ?>" required /></div>
+                <div class="col-md-3"><strong>Moneda</strong>
+				<select style="width: 100%;" name="moneda" required />
+				<?
+				$arrDat = getDataFromTable($conn,"select * from cat_tip_mon");
+				foreach($arrDat as $dat){
+				?>
+				<option value="<? echo $dat["moneda"]; ?>"><? echo $dat["des_tip_mon"]; ?></option>
+				<? } ?>
+				</select>
+				</div>
+				<div class="col-md-3"><strong>URL</strong><input type="text" style="width: 100%;" name="urlCompania" value="<?php echo $urlCompania; ?>" required /></div>
+                <div class="col-md-3"><strong>Activo</strong>
+				<p><img id = "onoff" src='http://cnf.prepay.com.mx/assets/img/<?php echo empty($status)?"inter":($status=="I"?"off":"on"); ?>.png' onclick = "setActivo(this)" height='40' /></p>
+				<input id= "status" name= "status" type="hidden" value="<?php echo $status; ?>" />	
+				</div>
+        </div>
+    </div>    
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+				<?php
+				if(empty($idCompania)){
+					$transaction = "Agregar";
+				}else{
+					$transaction = "Actualizar";
+				}						
+				?>
+				<p class="text-right"><input class="btn btn-success" style="margin: 9px;margin-left: 5px;width: 100%;" name="btn<?php echo $transaction; ?>" type="submit" value="<?php echo $transaction; ?>"></p>
+				</div>
+                <div class="col-md-2"><button class="btn btn-success" type="button" id="btnCostos" style="margin: 5px;background-color: <?php echo empty($idCompania)?"rgb(173,173,173)":"rgb(255, 102, 0)"; ?>;width: 100%;" onclick="showCostos(<?php echo $idCompania; ?>)" <?php echo empty($idCompania)?"disabled":""; ?>>Costo Tarjeta</button></div>
+                <div class="col-md-2"><button class="btn btn-success" type="button" id="btnTipos" style="margin: 5px;background-color: <?php echo empty($idCompania)?"rgb(173,173,173)":"rgb(255, 102, 0)"; ?>;width: 100%;" onclick="showTipos(<?php echo $idCompania; ?>)" <?php echo empty($idCompania)?"disabled":""; ?>>Tipo Tarjeta</button></div>
+                <div class="col-md-2"><button class="btn btn-success" type="button" id="btnTopeTarjeta" style="margin: 5px;background-color: <?php echo empty($idCompania)?"rgb(173,173,173)":"rgb(255, 102, 0)"; ?>;width: 100%;" onclick="showTopes(<?php echo $idCompania; ?>)" <?php echo empty($idCompania)?"disabled":""; ?>>Tope Tarjeta</button></div>
+				<div class="col-md-2"><button class="btn btn-success" type="button" id="btnRelacion" style="margin: 5px;background-color: <?php echo empty($idCompania)?"rgb(173,173,173)":"rgb(255, 102, 0)"; ?>;width: 100%;" onclick="showRelacion(<?php echo $idCompania; ?>)" <?php echo empty($idCompania)?"disabled":""; ?>>Relacion Compania</button></div>				
+            </div>
+        </div>
+    </div>
+	<!-- INICIAN MODALS  !-->
+	<!-- MODAL COSTOS  !-->
+	<div class="modal fade" role="dialog" tabindex="-1" id="costosModal">
+            <div class="modal-dialog" role="document" style="max-width:700px;">
+                <div class="modal-content">
+                    <div class="modal-header" style="height: 49px;background-color: #ededed;">
+                        <h4>Administrar Costos Tarjeta</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+						<input type="hidden" id="modalcostos"  />
+						<input type="hidden" id="costotarjeta" value="<?php echo $idCompania; ?>" />
+					</div>
+                    <div>
+						<iframe src="mng_compania_costos.phtml" width="100%" height="400"  style="border:1px gray;"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+		<!-- MODAL TIPOS  !-->
+	<div class="modal fade" role="dialog" tabindex="-1" id="tiposModal">
+            <div class="modal-dialog" role="document" style="max-width:700px;">
+                <div class="modal-content">
+                    <div class="modal-header" style="height: 49px;background-color: #ededed;">
+                        <h4>Administrar Tipos Tarjeta <? //echo "cia:".$idCompania; ?></h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+						<input type="hidden" id="modaltipos"  />
+						<input type="hidden" id="tipotarjeta" value="<?php echo $idCompania; ?>" />
+					</div>
+					<div>
+						<iframe src="mng_compania_tipos.phtml" width="100%" height="400"  style="border:1px gray;"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	<!-- MODAL TOPES  !-->
+	<div class="modal fade" role="dialog" tabindex="-1" id="topesModal">
+            <div class="modal-dialog" role="document" style="max-width:700px;">
+                <div class="modal-content">
+                    <div class="modal-header" style="height: 49px;background-color: #ededed;">
+                        <h4>Administrar Topes Tarjeta <? //echo "cia:".$idCompania; ?></h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+						<input type="hidden" id="modaltopes"  />						
+					</div>
+					<div>
+						<iframe src="mng_compania_topes.phtml" width="100%" height="400"  style="border:1px gray;"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- MODAL RELACION  !-->
+	<div class="modal fade" role="dialog" tabindex="-1" id="relacionModal">
+            <div class="modal-dialog" role="document" style="max-width:700px;">
+                <div class="modal-content">
+                    <div class="modal-header" style="height: 49px;background-color: #ededed;">
+                        <h4>Administrar Relaciones Compañia <? //echo "cia:".$idCompania; ?></h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+						<input type="hidden" id="modalrelaciones"  />						
+					</div>
+					<div>
+						<iframe src="mng_compania_relaciones.phtml" width="100%" height="400"  style="border:1px gray;"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- TERMINAN MODALS  !-->
+	</form>
+</div>
+
+<div class="container">
+        <div class="col-md-12 search-table-col" style="margin: 10px 0px 0px;">
+            <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Buscar Companias"></div><span class="counter pull-right"></span>
+            <div class="table-responsive table-bordered table table-hover table-bordered results">
+                <table class="table table-bordered table-hover">
+                    <thead class="bill-header cs" style="color: rgb(29,42,159);">
+                        <tr style="color: rgb(229,230,242);background-color: rgb(24,165,88);">
+                            <th id="trs-hd" class="col-lg-1">Id Compania</th>
+                            <th id="trs-hd" class="col-lg-2">Nombre</th>
+                            <th id="trs-hd" class="col-lg-3">Moneda</th>   
+							<th id="trs-hd" class="col-lg-3">URL</th> 
+                            <th id="trs-hd" class="col-lg-2">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="warning no-result">
+                            <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No hay Resultados !!!</td>
+                        </tr>
+						<?
+						$arrDat = getDataFromTable($conn,"select * from cat_cia");
+						foreach($arrDat as $dat){
+						?>
+                        <tr>
+                            <td><? echo $dat["cve_cia"] ?></td>
+                            <td><? echo $dat["des_cia"] ?></td>
+							<td><? echo $dat["moneda"] ?></td>
+							<td><a href="http://<? echo $dat["url_cia"] ?>" target="_blank"><? echo $dat["url_cia"] ?></a></td>
+							<? echo "<td data-label='...' ><img src='http://cnf.prepay.com.mx/assets/img/".($dat["stt_cia"]=="I"?"off":"on").".png' height='40' />
+							<button class='btn btn-success' style='margin-left: 5px;' type='submit' onclick = \"location.href = '$nscript/?u=".$dat["cve_cia"]."';\"'><i class='fa fa-edit' style='font-size: 15px;' ></i></button>
+							<button class='btn btn-danger' style='margin-left: 5px;' type='submit'><i class='fa fa-trash' style='font-size: 15px;'></i></button>
+							</td>";?>                            
+                        </tr>
+						<? } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+	<div>
+		<div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4>Gestión de Companias</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+					<div class="modal-body">
+						<p class="text-center text-muted"><?php echo $_SESSION[$nscript]["message"]; ?> </p>
+					</div>
+					<div class="modal-footer"><button class="btn btn-primary" type="button" data-dismiss="modal">Entendido</button></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<?php
+if(isset($_SESSION[$nscript])){
+	unset($_SESSION[$nscript]);
+} 
+getFooter(); 
+} else {
+	header("Location: ./main.phtml");
+}
+}else{
+	header("Location: .");
+}
+?>

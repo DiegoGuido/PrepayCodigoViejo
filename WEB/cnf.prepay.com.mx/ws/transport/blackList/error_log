@@ -1,0 +1,402 @@
+[24-Aug-2020 21:00:24 America/Mexico_City] PHP Fatal error:  Cannot redeclare getValidCard() (previously declared in /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php:397) in /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php on line 478
+[24-Aug-2020 21:01:02 America/Mexico_City] PHP Fatal error:  Cannot redeclare getValidCard() (previously declared in /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php:397) in /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php on line 478
+[24-Aug-2020 21:01:06 America/Mexico_City] PHP Fatal error:  Cannot redeclare getValidCard() (previously declared in /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php:397) in /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php on line 478
+[24-Aug-2020 21:14:26 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php:461) in /home/envdtsme/dev.coproit.com/ocetech/ws/transport/blackList/index.php on line 39
+[24-Aug-2020 21:26:50 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php:477) in /home/envdtsme/dev.coproit.com/ocetech/ws/transport/blackList/index.php on line 39
+[24-Aug-2020 21:30:38 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php:477) in /home/envdtsme/dev.coproit.com/ocetech/ws/transport/blackList/index.php on line 39
+[24-Aug-2020 21:37:44 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php:479) in /home/envdtsme/dev.coproit.com/ocetech/ws/transport/blackList/index.php on line 39
+[24-Aug-2020 21:38:42 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php:481) in /home/envdtsme/dev.coproit.com/ocetech/ws/transport/blackList/index.php on line 39
+[24-Aug-2020 21:40:30 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php:481) in /home/envdtsme/dev.coproit.com/ocetech/ws/transport/blackList/index.php on line 39
+[24-Aug-2020 21:41:47 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php:477) in /home/envdtsme/dev.coproit.com/ocetech/ws/transport/blackList/index.php on line 39
+[24-Aug-2020 21:43:05 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php:477) in /home/envdtsme/dev.coproit.com/ocetech/ws/transport/blackList/index.php on line 39
+[24-Aug-2020 21:43:46 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php:477) in /home/envdtsme/dev.coproit.com/ocetech/ws/transport/blackList/index.php on line 39
+[24-Aug-2020 21:48:16 America/Mexico_City] PHP Parse error:  syntax error, unexpected '}' in /home/envdtsme/dev.coproit.com/ocetech/ws/transport/blackList/index.php on line 34
+[24-Aug-2020 21:48:17 America/Mexico_City] PHP Parse error:  syntax error, unexpected '}' in /home/envdtsme/dev.coproit.com/ocetech/ws/transport/blackList/index.php on line 34
+[25-Aug-2020 09:22:30 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/ws/transport/blackList/index.php:25) in /home/envdtsme/dev.coproit.com/ocetech/ws/transport/blackList/index.php on line 40
+[25-Aug-2020 09:36:55 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php:481) in /home/envdtsme/dev.coproit.com/ocetech/ws/transport/blackList/index.php on line 40
+[25-Aug-2020 09:46:13 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/ws/transport/blackList/index.php:26) in /home/envdtsme/dev.coproit.com/ocetech/ws/transport/blackList/index.php on line 40
+[25-Aug-2020 10:21:05 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/dev.coproit.com/ocetech/ws/_OT_DAO.php:481) in /home/envdtsme/dev.coproit.com/ocetech/ws/transport/blackList/index.php on line 40
+[02-Sep-2020 20:30:39 America/Mexico_City] PHP Warning:  include(../../../cnx.php): failed to open stream: No such file or directory in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 16
+[02-Sep-2020 20:30:39 America/Mexico_City] PHP Warning:  include(../../../cnx.php): failed to open stream: No such file or directory in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 16
+[02-Sep-2020 20:30:39 America/Mexico_City] PHP Warning:  include(): Failed opening '../../../cnx.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 16
+[02-Sep-2020 20:30:39 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php:24
+Stack trace:
+#0 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 24
+[02-Sep-2020 20:30:54 America/Mexico_City] PHP Warning:  include(../../../cnx.php): failed to open stream: No such file or directory in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 16
+[02-Sep-2020 20:30:54 America/Mexico_City] PHP Warning:  include(../../../cnx.php): failed to open stream: No such file or directory in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 16
+[02-Sep-2020 20:30:54 America/Mexico_City] PHP Warning:  include(): Failed opening '../../../cnx.php' for inclusion (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 16
+[02-Sep-2020 20:30:54 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to undefined function getConnection() in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php:24
+Stack trace:
+#0 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 24
+[02-Dec-2020 02:50:59 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 09:05:10 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 09:10:22 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 09:10:22 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 09:10:22 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 09:10:22 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 09:10:23 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 09:21:30 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 09:36:33 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 09:51:34 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 10:41:15 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 10:41:15 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 10:41:15 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 10:41:15 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 10:41:15 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 10:56:49 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 10:56:49 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 10:56:49 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 10:56:49 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 10:56:50 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 11:11:55 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 11:11:55 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 11:11:55 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 11:11:55 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 11:11:55 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 11:26:56 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 11:27:04 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 11:27:04 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 11:27:04 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 11:27:04 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 11:41:56 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 11:42:04 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 11:42:09 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 11:42:09 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 11:42:09 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 12:46:35 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 12:46:35 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 12:46:35 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 12:46:35 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 12:46:35 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 15:25:47 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 15:25:47 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 15:25:47 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 15:25:47 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 15:25:47 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 15:40:48 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 15:40:48 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 15:40:52 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 15:40:52 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 15:40:52 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 15:55:48 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 15:55:53 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 15:55:53 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 15:55:53 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 15:55:53 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:10:49 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:10:54 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:10:54 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:10:54 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:10:54 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:25:50 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:25:54 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:25:59 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:26:00 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:26:00 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:35:13 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:35:13 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:35:13 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:35:13 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:40:51 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:40:55 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:41:00 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:41:05 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:41:05 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:55:51 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:55:55 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:56:00 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:56:05 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 16:56:10 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 17:10:57 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 17:10:57 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 17:11:00 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 17:11:06 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 17:11:11 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 17:25:57 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 17:25:58 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 17:26:01 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 17:26:06 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 17:26:11 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 17:41:01 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 17:41:01 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 17:41:01 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 17:41:06 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 17:41:12 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 21:27:49 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 21:50:21 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 22:05:24 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 22:20:27 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[02-Dec-2020 22:35:31 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 01:54:13 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 01:54:13 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 01:54:13 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 01:54:13 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 01:54:14 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:09:19 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:09:19 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:09:20 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:09:20 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:09:20 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:24:20 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:24:25 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:24:25 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:24:25 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:24:25 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:39:40 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:39:40 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:39:40 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:39:40 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:39:41 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:54:46 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:54:46 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:54:46 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:54:46 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 02:54:46 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 03:09:46 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 03:09:47 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 03:09:51 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 03:09:51 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 03:09:52 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 03:36:21 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 10:31:27 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 10:31:37 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 10:31:37 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 10:31:37 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 10:31:37 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 10:31:37 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 10:46:43 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 10:46:43 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 10:46:44 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 10:46:44 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 10:46:44 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 10:47:34 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:01:44 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:01:48 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:01:49 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:01:49 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:01:49 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:16:50 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:16:50 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:16:50 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:16:50 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:16:52 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:31:51 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:31:51 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:31:51 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:31:51 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:31:52 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:46:54 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:46:55 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:46:55 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:46:55 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 11:46:55 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:01:55 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:01:57 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:01:57 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:01:57 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:01:57 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:16:56 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:17:01 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:17:01 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:17:01 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:17:01 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:31:56 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:32:01 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:32:06 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:32:06 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:32:06 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:47:00 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:47:02 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:47:07 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:47:08 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 12:47:08 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 13:02:01 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 13:02:06 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 13:02:07 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 13:02:12 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 13:02:13 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:05:23 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:05:23 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:05:23 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:05:23 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:05:23 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:20:24 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:20:24 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:20:24 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:20:26 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:20:26 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:35:26 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:35:26 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:35:26 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:35:28 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:35:28 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:50:28 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:50:29 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:50:29 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:50:29 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 15:50:29 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:05:28 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:05:30 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:05:31 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:05:31 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:05:31 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:20:29 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:20:32 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:20:33 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:20:33 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:20:33 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:35:29 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:35:34 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:35:34 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:35:34 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:35:34 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:50:30 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:50:35 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:50:35 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:50:35 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 16:50:35 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:05:31 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:05:36 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:05:36 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:05:36 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:05:36 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:20:31 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:20:36 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:20:38 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:20:39 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:20:39 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:35:35 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:35:36 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:35:40 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:35:40 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:35:40 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:50:41 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:50:41 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:50:41 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:50:41 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 17:50:41 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 18:05:43 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 18:05:43 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 18:05:43 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 18:05:43 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 18:05:43 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 21:06:30 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 21:55:43 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 22:10:46 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 22:26:19 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 22:42:22 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 22:58:35 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 23:13:38 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[03-Dec-2020 23:29:09 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 05:02:53 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 09:27:01 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 09:42:05 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 09:57:08 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:00:53 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:00:53 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:00:53 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:00:53 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:00:53 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:15:59 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:15:59 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:15:59 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:15:59 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:16:00 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:31:31 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:31:35 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:31:35 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:31:35 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:31:35 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:46:34 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:46:35 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:46:40 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:46:40 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 11:46:40 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:01:35 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:01:40 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:01:41 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:01:41 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:01:41 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:17:39 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:17:39 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:17:39 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:17:39 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:17:39 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:32:43 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:32:43 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:32:43 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:32:43 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:32:43 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:47:44 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:47:48 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:47:49 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:47:49 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 12:47:49 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 13:02:44 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 13:02:49 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 13:02:49 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 13:02:49 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 13:02:54 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 13:17:48 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 13:17:49 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 13:17:54 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 13:17:54 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 13:17:59 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 14:28:16 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 14:28:16 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 14:28:16 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 14:28:16 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 14:28:20 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 14:28:20 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 14:28:20 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 14:28:21 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 14:28:21 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 14:28:21 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 14:35:11 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 539
+[04-Dec-2020 16:42:58 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:73) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[04-Dec-2020 16:43:03 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:73) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[04-Dec-2020 16:43:12 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:73) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[04-Dec-2020 16:43:17 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:73) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[04-Dec-2020 16:43:17 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:73) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[04-Dec-2020 16:57:59 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:73) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[04-Dec-2020 16:58:04 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:73) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[04-Dec-2020 16:58:12 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:73) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[04-Dec-2020 16:58:18 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:73) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[04-Dec-2020 16:58:23 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:73) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[04-Dec-2020 17:43:24 America/Mexico_City] PHP Parse error:  syntax error, unexpected end of file, expecting ']' in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 184
+[04-Feb-2021 03:32:14 America/Mexico_City] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home/envdtsme/cnf.prepay.com.mx/admin/cnx.php on line 12
+[04-Feb-2021 03:32:14 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:80
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(513): getDataFromQuery(NULL, 'select x.cve_tr...')
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php(27): getBlackList(NULL, Array)
+#2 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 80
+[04-Feb-2021 03:32:14 America/Mexico_City] PHP Warning:  mysqli::__construct(): (HY000/2002): Connection refused in /home/envdtsme/cnf.prepay.com.mx/admin/cnx.php on line 12
+[04-Feb-2021 03:32:14 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:80
+Stack trace:
+#0 /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php(513): getDataFromQuery(NULL, 'select x.cve_tr...')
+#1 /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php(27): getBlackList(NULL, Array)
+#2 {main}
+  thrown in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 80
+[18-Feb-2021 11:03:11 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:510) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[18-Feb-2021 11:03:49 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:510) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[18-Feb-2021 11:03:49 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:510) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[18-Feb-2021 11:03:50 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:510) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[25-Feb-2021 21:56:18 America/Mexico_City] PHP Parse error:  syntax error, unexpected '}' in /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php on line 753
+[18-Mar-2021 14:32:50 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:593) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[18-Mar-2021 14:38:24 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:593) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[18-Mar-2021 14:39:49 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:593) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[18-Mar-2021 14:41:58 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:593) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[18-Mar-2021 14:44:35 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:593) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[18-Mar-2021 14:44:35 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:593) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[18-Mar-2021 14:44:46 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:593) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[18-Mar-2021 14:46:52 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:593) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[18-Mar-2021 14:53:25 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:593) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[18-Mar-2021 14:54:51 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:593) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[18-Mar-2021 14:56:58 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:593) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[18-Mar-2021 14:59:36 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:593) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[18-Mar-2021 14:59:36 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:593) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[18-Mar-2021 14:59:46 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:593) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44
+[18-Mar-2021 15:01:52 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/envdtsme/cnf.prepay.com.mx/ws/_OT_DAO.php:593) in /home/envdtsme/cnf.prepay.com.mx/ws/transport/blackList/index.php on line 44

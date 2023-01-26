@@ -1,0 +1,311 @@
+<?php
+session_start();
+if(isset($_SESSION["userinfo"])){
+	include "util_list.php";
+	include "cnx.php";				
+	$conn = getConnection();	
+	$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);	
+	$usr = $_SESSION["userinfo"]["username"];
+	$cia = $_SESSION["userinfo"]["usercia"];
+	$aut=ValPerPag($usr,$nscript);
+	//echo "nscript: ".$nscript." usr: ".$usr." aut: ".$aut;
+	$lim = 100;
+	$min = 0;
+if ($aut == 1) {	
+	date_default_timezone_set("America/Mexico_City");
+	include "util_header.php";
+	require "$nscript/cobros.php";	
+	$fecact = date("Y-m-d");
+	$compania		= isset($_SESSION[$nscript]["compania"])?unserialize($_SESSION[$nscript]["compania"]):null;	
+	
+	if ($_POST){
+	/*$_SESSION["admcob"]["unicob"] = $_POST['unidad'];
+	$_SESSION["admcob"]["ficob"] = $_POST['fecini'];
+	$_SESSION["admcob"]["ffcob"] = $_POST['fecfin'];*/
+	$fecini = $_POST['fecini'];
+	$fecfin = $_POST['fecfin'];
+	}
+	
+    if ($_GET){
+	$p = $_GET["p"];	
+	$p1 = $p-1;
+	$min = $p1*$lim;
+	}
+		
+	/*$unidad = $_SESSION["admcob"]["unicob"];
+	$fecini = $_SESSION["admcob"]["ficob"];
+	$fecfin = $_SESSION["admcob"]["ffcob"];*/
+	//echo "ptovta: ".$puntoventa. " fi: ".$fecini." ff: ".$fecfin;
+	//echo "p: ".$p."</br>";
+		
+	
+
+$jsMapaModal="<script type='text/javascript'> 
+				function showMapa(uni,lat,lon){
+				$('#MapaModal').modal('show');					
+				escribiriframe(uni,lat,lon)
+				}				
+									
+				function escribiriframe(uni,lat,lon){
+				console.log(uni);	
+				var frm='<iframe id=\"idmapfrm\" allowfullscreen=\"\" frameborder=\"0\" src=\"mng_map_reg.phtml?uni='+uni+'&lat='+lat+'&lon='+lon+'\" width=\"100%\" height=\"400\"></iframe>';
+				console.log(frm);
+				document.getElementById('idmapfrm').innerHTML=frm; 
+				} 
+			</script>";
+			  
+$allJS="";
+$allJS .= $jsMapaModal;
+
+getHeader("Cobros", $allJS, $conn); 
+
+?>
+	<div>
+        <div class="container">
+		<form action = "mng_cobros.phtml" method="POST" >
+            <div class="row">
+                <!--<div class="col-md-3"><strong>Unidad</strong>
+				<select style="width: 100%;" name="unidad">
+				<option value="" selected="">- Unidad -</option>
+				<?
+				/*$arrTer = listActivePayPoints($usr);
+				foreach($arrTer as $ter)
+				echo "<option value='".$ter["cve_rel"]."' ".($unidad==$ter["cve_rel"]?"selected":"").">".$ter["dato"]."</option>";				
+				*/?>								
+				</select>
+				</div>!-->
+                <div class="col-md-3"><strong>Fecha Inicio</strong><input type="date" id="fecini" name="fecini" style="width: 100%;" value="<? echo $fecini==""?$fecact:$fecini?>" required ></div>
+				<div class="col-md-3"><strong>Fecha Fin</strong><input type="date" id="fecfin" name="fecfin" style="width: 100%;" value="<? echo $fecfin==""?$fecact:$fecfin?>" required ></div>
+				<div class="col-md-3"></div>
+			</div>		
+            <div class="row">
+                <div class="col-md-3"><button class="btn btn-primary" type="submit" style="background-color: rgb(24,165,88);width: 100%;margin: 5px;">Buscar</button></div>                
+				<div class="col-md-3"><a href="<? echo $nscript.'.phtml'; ?>" class="btn btn-warning" style="margin: 5px;width: 100%;">Limpiar</a></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3"></div>
+            </div>
+		</form>
+        </div>
+    </div>
+    <div class="container">
+		<div>
+		  <ul class="nav nav-tabs" role="tablist">
+			  <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-toggle="tab" href="#resumen">Resumen</a></li>
+			  <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-toggle="tab" href="#detalle">Detalle</a></li>		  
+		  </ul>	  
+		  <div class="tab-content">
+			  <!-- CONTENIDO PANEL RESUMEN !-->
+			  <div class="tab-pane active" role="tabpanel" id="resumen">
+			  </br>
+				  <div class="table-responsive table-bordered table table-hover table-bordered results" style="font-size: 10px;">
+						<table class="table table-bordered table-hover">
+							<thead class="bill-header cs" style="color: rgb(29,42,159);">
+								<tr style="color: rgb(229,230,242);background-color: rgb(24,165,88);">									
+									<th id="trs-hd" class="col-lg-2">UNIDAD</th>
+									<th id="trs-hd" class="col-lg-2">LINEA</th>
+									<th id="trs-hd" class="col-lg-2">RUTA</th>									
+									<th id="trs-hd" class="col-lg-2">MOVIMIENTO</th>
+									<th id="trs-hd" class="col-lg-2">TIPO</th>
+									<th id="trs-hd" class="col-lg-2">TOTAL</th>
+									<th id="trs-hd" class="col-lg-2">IMEI</th>
+									<th id="trs-hd" class="col-lg-2">FECHA</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="warning no-result">
+									<td colspan="16"><i class="fa fa-warning"></i>&nbsp; No hay Resultados !!!</td>
+								</tr>
+								<?
+								$sqlres = "select a.cve_uni, a.num_eco, a.cve_lin, a.des_lin, a.cve_rut, a.ruta, a.cve_mov, a.des_mov, a.cve_tip, a.des_tip, sum(a.monto) as total, a.imei, DATE_FORMAT(a.fec_cob,'%Y-%m-%d') as fecha
+										from vw_cobro a
+										where a.fec_cob >= '$fecini 00:00:00' 
+										and a.fec_cob <= '$fecfin 23:59:59' 
+										and a.cve_lin in (select cve_lin from vw_usr_cia where usr='$usr' and cve_cia='$cia')
+										and a.cve_cia = '$cia'
+										GROUP BY a.cve_uni,a.cve_lin,a.cve_rut,a.cve_mov,a.cve_tip,a.monto,DATE_FORMAT(a.fec_cob,'%Y-%m-%d')
+										order by DATE_FORMAT(a.fec_cob,'%Y-%m-%d') DESC,a.cve_lin,a.cve_uni,a.cve_rut,a.cve_mov,a.cve_tip";
+								//echo $sqlres."</br>";
+								$arrRes = getDataFromView($conn,$sqlres);
+								//$arrRes = listAllPayment($usr,$unidad,$fecini,$fecfin,$min,$lim);
+								$gtot=0;
+								foreach($arrRes as $res){									
+									$gtot = $gtot + $res["total"];
+								?>
+								<tr style="font-size: 12px;">
+									<td><? echo $res["num_eco"]; ?></td>
+									<td><? echo $res["des_lin"]; ?></td>
+									<td><? echo $res["ruta"]; ?></td>
+									<td><? echo $res["des_mov"]; ?></td>
+									<td><? echo $res["des_tip"]; ?></td>
+									<td>$<? echo $res["total"]; ?></td>
+									<td><? echo $res["imei"]; ?></td>
+									<td><? echo $res["fecha"]; ?></td>
+								</tr>
+								<? } ?>
+							</tbody>
+							<tfoot>
+								<tr style="font-size: 12px;">
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td>Total:</td>
+									<td>$<? echo number_format($gtot, 2, '.', '');?></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+			  </div>
+			  <!-- CONTENIDO PANEL DETALLE !-->
+			  <div class="tab-pane" role="tabpanel" id="detalle">
+				<div class="col-md-16 search-table-col" style="margin: 10px 0px 0px;">
+					<div class="row">
+						<div class="col-md-3"><a href="datasheet/cobro.php" target="_blank" class="btn btn-primary" style="margin: 5px;background-color: rgb(173,173,173);width: 100%;">Exportar Excel</a></div>
+						<div class="col-md-3"></div>
+						<div class="col-md-3"><span class="counter pull-right"></span></div>
+						<div class="col-md-3"><input type="text" class="search form-control" placeholder="Buscar Cobro"></div>
+					</div>					
+					<div class="table-responsive table-bordered table table-hover table-bordered results" style="font-size: 10px;">
+						<table class="table table-bordered table-hover">
+							<thead class="bill-header cs" style="color: rgb(29,42,159);">
+								<tr style="color: rgb(229,230,242);background-color: rgb(24,165,88);">
+									<th id="trs-hd" class="col-lg-1" style="width: 50px;">FOLIO</th>
+									<th id="trs-hd" class="col-lg-2">UNIDAD</th>
+									<th id="trs-hd" class="col-lg-2">LINEA</th>							
+									<th id="trs-hd" class="col-lg-2">RUTA</th>
+									<th id="trs-hd" class="col-lg-3" style="width: 60px;">MONTO</th>
+									<th id="trs-hd" class="col-lg-2" style="width: 50px;">MON.</th>
+									<th id="trs-hd" class="col-lg-2" style="width: 60px;">TIPO MOV.</th>
+									<th id="trs-hd" class="col-lg-2" style="width: 110px;">CLAVE TARJETA</th>
+									<th id="trs-hd" class="col-lg-2">TIPO TARJETA</th>
+									<th id="trs-hd" class="col-lg-2" style="width: 70px;">SALDO ANT.</th>
+									<th id="trs-hd" class="col-lg-2">FECHA COBRO</th>                            
+									<th id="trs-hd" class="col-lg-2" style="width: 160px;">IMEI</th>
+									<th id="trs-hd" class="col-lg-2" style="width: 60px;">Ubic.</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="warning no-result">
+									<td colspan="16"><i class="fa fa-warning"></i>&nbsp; No hay Resultados !!!</td>
+								</tr>
+								<?						
+								//$_SESSION['userinfo']['sqlRec'] = $sqlRec;						
+								$arrRec1 = listAllPayment($usr,$cia,$unidad,$fecini,$fecfin,"","");
+								$cntrec = count($arrRec1);
+								$arrRec2 = listAllPayment($usr,$cia,$unidad,$fecini,$fecfin,$min,$lim);
+								foreach($arrRec2 as $rec){
+									$uni = $rec["num_eco"];
+									$lat = $rec["latitud"];
+									$lon = $rec["longitud"];														
+								?>
+								<tr style="font-size: 12px;">
+									<td><? echo $rec["cve_reg"] ?></td>
+									<td><? echo $rec["num_eco"] ?></td>
+									<td><? echo $rec["des_lin"] ?></td>
+									<td><? echo $rec["ruta"] ?></td>
+									<td>$<? echo $rec["monto"] ?></td>
+									<td><? echo $rec["moneda"] ?></td>
+									<td><? echo $rec["des_mov"] ?></td>
+									<td><? echo $rec["cve_trj"] ?></td>
+									<td><? echo $rec["des_tip"] ?></td>
+									<td>$<? echo $rec["saldo"] ?></td>
+									<td><? echo $rec["fec_cob"] ?></td>							
+									<td><? echo $rec["imei"] ?></td>
+									<? if ($rec["latitud"] == ""){ ?>
+									<td><img src="http://cnf.prepay.com.mx/assets/img/process_stop.png" width="32" height="32"></td>
+									<? } else { ?>
+									<!--<td><a href="#" onClick="window.open('http://maps.google.com/maps?q=<? //echo $rec["latitud"] ?>,<? //echo $rec["longitud"] ?>&zoom=1', 'Ubicacion', 'width=600, height=400')" ><img src="http://cnf.prepay.com.mx/assets/img/maps_64dp.png" width="32" height="32"></a></td>!-->
+									<!--<td><a href="#" onClick="window.open('mng_map_reg.phtml?uni=<? //echo $rec["num_eco"] ?>&lat=<? //echo $rec["latitud"] ?>&lon=<? //echo $rec["longitud"] ?>&zoom=1', 'Ubicacion', 'width=600, height=400')" ><img src="http://cnf.prepay.com.mx/assets/img/maps_64dp.png" width="32" height="32"></a></td>!-->
+									<td><a href="#" onClick="showMapa(<? echo $rec["num_eco"] ?>,<? echo $rec["latitud"] ?>,<? echo $rec["longitud"] ?>)"><img src="http://cnf.prepay.com.mx/assets/img/maps_64dp.png" width="32" height="32"></a></td>
+									<? } ?>
+								</tr>
+								<? } ?>
+							</tbody>
+							<? if ($cntrec > $lim){						
+							$pagind = ceil($cntrec / $lim);
+							$ant = $p-1;
+							$sig = $p+1;
+							$dec = 10;
+							$ini = 1;
+							if ($ant <= 1){
+								$ant=1;
+							}
+							if ($sig >= $pagind){
+								$sig=$pagind;
+							}
+							if ($p >= $dec){
+								//echo "p: ".$p." $dec: ".$dec;
+								$ini = $p;
+								$dec = $dec+$p;
+							}
+							?>
+							<tfoot>
+								<tr>
+									<td colspan="2">	
+									<p>Pagina <?  echo $p==""?1:$p ?> de <? echo $pagind; ?></p>
+									</td>
+									<td colspan="14" style="font-size: 12px;">	
+									 <nav>
+											<ul class="pagination">									    
+												<li class="page-item"><a class="page-link" href="?p=1" aria-label="Principio"><span aria-hidden="true">«</span></a></li>
+												<li class="page-item"><a class="page-link" href="?p=<? echo $ant; ?>" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+												<? for ($i=$ini; $i<=$pagind; $i++) {?>
+												<li class="page-item"><a class="page-link" href="?p=<? echo $i; ?>"><? echo $i; ?></a></li>
+												<? 										
+												if ($i >= $dec){
+													$j=$i+9;		
+														if ($j >= $pagind){
+															$j=$pagind;
+												?>
+												<li class="page-item"><a class="page-link" href="?p=<? echo $j; ?>"><? echo $j; ?></a></li>										
+												<? 
+														}
+														$i=$j;
+													}											
+												} 
+												?>
+												<li class="page-item"><a class="page-link" href="?p=<? echo $sig; ?>" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+												<li class="page-item"><a class="page-link" href="?p=<? echo $pagind; ?>" aria-label="Fin"><span aria-hidden="true">»</span></a></li>
+											</ul>
+										</nav>							
+									</td>							
+								</tr>
+							</tfoot>
+							<? } ?>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    </div>
+	<div class="modal fade" role="dialog" tabindex="-1" id="MapaModal">
+            <div class="modal-dialog" role="document" style="max-width:700px;">
+                <div class="modal-content">
+                    <div class="modal-header" style="height: 49px;background-color: #ededed;">
+                        <h4>Punto de cobro <? echo "unidad: ".$uni; ?></h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+					</div>
+					<div id="idmapfrm"></div>
+				</div>
+			</div>
+	</div>
+
+<?php
+
+getFooter(); 
+
+} else {
+	header("Location: ./main.phtml");
+}
+}else{
+	header("Location: .");
+}
+?>
+
+
+
+
+

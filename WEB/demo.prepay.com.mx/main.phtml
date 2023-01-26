@@ -1,0 +1,169 @@
+<?php
+session_start();
+if(isset($_SESSION["userinfo"])){
+	$nscript = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+	date_default_timezone_set("America/Mexico_City");
+	include "cnx.php";			
+	include "util_list.php";
+	$conn = getConnection();	
+	$usr = $_SESSION["userinfo"]["username"];
+	$cia = $_SESSION["userinfo"]["usercia"];
+	$aut=ValPerPag($usr,$nscript);
+
+if ($aut == 1) {	
+	include "util_header.php";
+	$fecact = date("Y-m-d");
+	$anio = date("Y");
+	//$fecact = "2020-10-06";
+	
+$allJS="";
+//getHeader("DashBoard<br><p style='font-size: 20px;'>$fecact</p>", $allJS, $conn); 
+getHeader("main", $allJS, $conn); 
+
+//Datos Graficas
+	//Unidades
+	$sqluni="select count(distinct(a.cve_uni)) as unihoy, count(distinct(b.dato)) as unireg
+			from vw_cobro a ,vw_rel_dis b
+			where a.cve_lin in (select cve_lin from vw_usr_cia where usr='$usr' and cve_cia='$cia')
+			and a.fec_cob >= '$fecact 00:00:00' and a.fec_cob <= '$fecact 23:59:59'
+			and b.cve_lin in (select cve_lin from vw_usr_cia where usr='$usr' and cve_cia='$cia')
+			and b.tip_rel='1'
+			and b.stt_rel='A'";
+	//echo $sqluni;
+	$arrUni = getDataFromView($conn,$sqluni);
+	$unihoy=0;
+	$unireg=0;
+	$unidet=0;
+	foreach($arrUni as $uni){									
+		$unihoy = $uni["unihoy"];
+		$unireg = $uni["unireg"];
+	}
+	$unidet=$unireg-$unihoy;
+	//RECARGAS
+	$sqlrec="select sum(monto) as total,des_ter
+			from vw_recarga
+			where cve_lin in (select cve_lin from vw_usr_cia where usr='$usr' and cve_cia='$cia')
+			and fec_rec >= '$fecact 00:00:00' and fec_rec <= '$fecact 23:59:59'			
+			GROUP BY des_ter
+			UNION
+			select 0 as total,dato as des_ter
+			from vw_rel_dis
+			where stt_rel='A'
+			and tip_rel=2
+			and cve_lin in (select cve_lin from vw_usr_cia where usr='$usr' and cve_cia='$cia')
+			and cve_rel not in (select cve_ter
+			from vw_recarga
+			where cve_lin in (select cve_lin from vw_usr_cia where usr='$usr' and cve_cia='$cia')
+			and fec_rec >= '$fecact 00:00:00' and fec_rec <= '$fecact 23:59:59')
+			ORDER BY total";			
+			//echo $sqlrec;
+			$arrRec = getDataFromView($conn,$sqlrec);	
+			$ter="";
+			$tot="";
+			foreach($arrRec as $rec){
+				$ter .="&quot;".$rec["des_ter"]."&quot;,";
+				$tot .="&quot;".$rec["total"]."&quot;,";
+			}
+			$recchart ="{&quot;type&quot;:&quot;bar&quot;,&quot;data&quot;:															
+					 {&quot;labels&quot;:[".$ter."&quot;&quot;],
+					 &quot;datasets&quot;:[{&quot;label&quot;:&quot;Total&quot;,&quot;backgroundColor&quot;:&quot;#18a558&quot;,&quot;borderColor&quot;:&quot;#18a558&quot;,
+					 &quot;data&quot;:[".$tot."&quot;&quot;]}]},
+					 &quot;options&quot;:{&quot;maintainAspectRatio&quot;:true,&quot;legend&quot;:{&quot;display&quot;:false},&quot;title&quot;:{}}}";
+			//echo $recchart;		
+	//COBROS
+	$sqlcob="select sum(monto) as total, num_eco
+			from vw_cobro
+			where cve_lin in (select cve_lin from vw_usr_cia where usr='$usr' and cve_cia='$cia')
+			and fec_cob >= '$fecact 00:00:00' and fec_cob <= '$fecact 23:59:59'			
+			GROUP BY num_eco
+			UNION
+			select 0 as total,dato as num_eco
+			from vw_rel_dis
+			where stt_rel='A'
+			and tip_rel=1
+			and cve_lin in (select cve_lin from vw_usr_cia where usr='$usr' and cve_cia='$cia')
+			and cve_rel not in (select cve_uni
+			from vw_cobro
+			where cve_lin in (select cve_lin from vw_usr_cia where usr='$usr' and cve_cia='$cia')
+			and fec_cob >= '$fecact 00:00:00' and fec_cob <= '$fecact 23:59:59')
+			ORDER BY total";			
+			//echo $sqlcob;
+			$arrCob = getDataFromView($conn,$sqlcob);	
+			$unicob="";
+			$totcob="";
+			foreach($arrCob as $cob){
+				$unicob .=",&quot;".$cob["num_eco"]."&quot;";
+				$totcob .=",&quot;".$cob["total"]."&quot;";
+			}
+			$cobchart ="{&quot;type&quot;:&quot;horizontalBar&quot;,&quot;data&quot;:															
+					 {&quot;labels&quot;:[&quot;&quot;".$unicob."],
+					 &quot;datasets&quot;:[{&quot;label&quot;:&quot;Total&quot;,&quot;backgroundColor&quot;:&quot;#18a558&quot;,&quot;borderColor&quot;:&quot;#18a558&quot;,
+					 &quot;data&quot;:[&quot;&quot;".$totcob."]}]},
+					 &quot;options&quot;:{&quot;maintainAspectRatio&quot;:true,&quot;legend&quot;:{&quot;display&quot;:false},&quot;title&quot;:{}}}";
+			//echo $cobchart;
+	//INGRESOS MENSUALES
+	$sqlmx = "SET lc_time_names = 'es_MX'";
+	$sqling= "select sum(monto) as total, monthname(fec_rec) as mes 
+			from vw_recarga
+			where fec_rec >= '$anio-01-01 00:00:00'
+			and fec_rec <= '$anio-12-31 23:59:59'
+			and cve_lin in (select cve_lin from vw_usr_cia where usr='$usr' and cve_cia='$cia')
+			and cve_cia='$cia'
+			group by mes";
+			//echo $sqling."<br>";
+			$resmx = $conn->query($sqlmx);
+			$arrIng = getDataFromView($conn,$sqling);				
+			foreach($arrIng as $ing){
+				$toting .="&quot;".$ing["total"]."&quot;,";
+				$mesing .="&quot;".ucwords($ing["mes"])."&quot;,";
+			}
+			//echo "tot: ".$toting." mes: ".$mesing;
+			$ingchart="{&quot;type&quot;:&quot;radar&quot;,&quot;data&quot;:
+					{&quot;labels&quot;:[".$mesing."&quot;&quot;],
+					&quot;datasets&quot;:[{&quot;label&quot;:&quot;Total&quot;,&quot;backgroundColor&quot;:&quot;#18a558&quot;,&quot;borderColor&quot;:&quot;#18a558&quot;,
+					&quot;data&quot;:[".$toting."&quot;&quot;]}]},
+					&quot;options&quot;:{&quot;maintainAspectRatio&quot;:true,&quot;legend&quot;:{&quot;display&quot;:false},&quot;title&quot;:{}}}";						
+		
+	
+?>
+
+<div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 style="font-size: 20px;">Recargas</h1>
+                    <div><canvas data-bs-chart="<? echo $recchart ?>"></canvas></div>
+                </div>
+                <div class="col-md-6">
+                    <h1 style="font-size: 20px;">Ingresos Mensuales</h1>
+                    <div><canvas data-bs-chart="<? echo $ingchart ?>"></canvas></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 style="font-size: 20px;">Cobros</h1>
+                    <div><canvas data-bs-chart="<? echo $cobchart ?>"></canvas></div>
+                </div>
+                <div class="col-md-6">
+                    <h1 style="font-size: 20px;">Unidades</h1>
+                    <div><canvas data-bs-chart="{&quot;type&quot;:&quot;pie&quot;,&quot;data&quot;:
+							{&quot;labels&quot;:[&quot;Unidades Trabajando&quot;,&quot;Unidades Detenidas&quot;],
+							&quot;datasets&quot;:[{&quot;label&quot;:&quot;Graf4&quot;,&quot;backgroundColor&quot;:[&quot;#18a558&quot;,&quot;#FFFF00&quot;],&quot;borderColor&quot;:[&quot;#18a558&quot;,&quot;#FFFF00&quot;],
+							&quot;data&quot;:[&quot;<? echo $unihoy; ?>&quot;,&quot;<? echo $unidet; ?>&quot;]}]},
+							&quot;options&quot;:{&quot;maintainAspectRatio&quot;:true,&quot;legend&quot;:{&quot;display&quot;:false},&quot;title&quot;:{}}}">
+					</canvas></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<? 
+getFooter(); 
+}}else{
+	header("Location: .");
+}
+?>
